@@ -1,125 +1,156 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check-in Hóspedes | AP-96</title>
+<title>AP96 - Sua estadia perfeita</title>
 
 <style>
 
-body{
-font-family:Arial, Helvetica, sans-serif;
-background:#0f172a;
+*{
 margin:0;
 padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
 }
 
+body{
+color:white;
+}
+
+/* VIDEO FUNDO */
+
+.video-bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+overflow:hidden;
+}
+
+.video-bg video{
+width:100%;
+height:100%;
+object-fit:cover;
+filter:brightness(0.5);
+}
+
+/* CONTEÚDO PRINCIPAL */
+
 .container{
-max-width:520px;
-margin:auto;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+text-align:center;
 padding:20px;
 }
 
-.logo{
-text-align:center;
-margin-bottom:20px;
-}
-
-.logo img{
-width:140px;
-}
-
-.card{
-background:#e2e8f0;
-padding:25px;
-border-radius:14px;
-box-shadow:0 15px 40px rgba(0,0,0,0.30);
-}
+/* TEXTO */
 
 h1{
-text-align:center;
-font-size:20px;
+font-size:36px;
 margin-bottom:10px;
-color:#1e293b;
 }
 
 p{
-font-size:14px;
-text-align:center;
-color:#334155;
-margin-bottom:20px;
+font-size:18px;
+max-width:500px;
 }
 
-.section{
-margin-top:20px;
-}
+/* BOTÃO */
 
-.section h2{
-font-size:16px;
-border-bottom:1px solid #94a3b8;
-padding-bottom:6px;
-margin-bottom:15px;
-color:#1e293b;
-}
-
-.hospede{
-margin-bottom:15px;
-padding-bottom:10px;
-border-bottom:1px dashed #94a3b8;
-}
-
-.row{
-display:flex;
-gap:8px;
-}
-
-.row input{
-flex:1;
-}
-
-input{
-width:100%;
-padding:11px;
-margin-bottom:8px;
-border-radius:6px;
-border:1px solid #94a3b8;
-font-size:14px;
-}
-
-button{
-width:100%;
-padding:14px;
-margin-top:15px;
-border:none;
-border-radius:10px;
+.btn{
+display:inline-block;
+padding:16px 32px;
 background:#22c55e;
-font-size:16px;
+border-radius:30px;
+text-decoration:none;
 color:white;
-cursor:pointer;
-transition:0.2s;
+font-weight:bold;
+transition:0.3s;
+margin-top:40px; /* 🔥 aqui desce o botão */
 }
 
-button:hover{
+.btn:hover{
 background:#16a34a;
 }
 
-.add{
-background:#3b82f6;
-margin-top:5px;
+/* SEÇÕES */
+
+.section{
+background:white;
+color:#1e293b;
+padding:50px 20px;
+text-align:center;
 }
 
-.add:hover{
-background:#2563eb;
+.section h2{
+margin-bottom:20px;
 }
+
+/* CARDS */
+
+.cards{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+.card{
+background:#f1f5f9;
+padding:20px;
+border-radius:12px;
+width:260px;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* RODAPÉ */
 
 .footer{
-font-size:12px;
-margin-top:20px;
+background:#0f172a;
+color:#94a3b8;
 text-align:center;
-color:#475569;
+padding:20px;
+font-size:14px;
+}
+
+.footer strong{
+color:white;
+}
+
+/* 🔥 RESPONSIVO MOBILE */
+
+@media (max-width:600px){
+
+h1{
+font-size:28px;
+}
+
+p{
+font-size:16px;
+}
+
+.btn{
+width:100%;
+max-width:280px;
+font-size:16px;
+}
+
+.card{
+width:100%;
+max-width:320px;
+}
+
+.section{
+padding:40px 15px;
+}
+
 }
 
 </style>
@@ -128,227 +159,79 @@ color:#475569;
 
 <body>
 
+<div class="video-bg">
+<video autoplay muted loop playsinline>
+<source src="praia.mp4" type="video/mp4">
+</video>
+</div>
+
 <div class="container">
 
-<div class="logo">
-<img src="logo.png">
+<h1>Bem-vindo ao AP96</h1>
+
+<p>Sua experiência perfeita na Praia Grande começa aqui 🌊</p>
+
+<a class="btn"
+href="https://www.airbnb.com.br/rooms/1145134548647828331?guests=1&adults=1&s=67&unique_share_id=0be977d9-6107-4de5-8830-d6bcc5b5b520"
+target="_blank"
+rel="noopener noreferrer">
+Reservar Agora
+</a>
+
+</div>
+
+<div class="section">
+
+<h2>Por que escolher o AP96?</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>📍 Localização</h3>
+<p>Próximo à praia, mercados e restaurantes.</p>
 </div>
 
 <div class="card">
+<h3>🏖️ Conforto</h3>
+<p>Ambiente moderno, limpo e preparado para você.</p>
+</div>
 
-<h1>Cadastro de Hóspedes</h1>
+<div class="card">
+<h3>🔐 Segurança</h3>
+<p>Check-in organizado e controle de hóspedes.</p>
+</div>
 
-<p>
-Para garantir uma entrada tranquila, precisamos do nome e documento de cada hóspede.<br>
-Crianças abaixo de 8 anos somente nome e idade.
-</p>
-
-<div class="section">
-
-<h2>Hóspedes</h2>
-
-<div id="hospedes"></div>
-
-<button class="add" onclick="addHospede()">+ Adicionar acompanhante</button>
+</div>
 
 </div>
 
 <div class="section">
 
-<h2>Carro</h2>
+<h2>Curiosidades da Praia Grande</h2>
 
-<input id="modelo" placeholder="Modelo do carro">
+<div class="cards">
 
-<div class="row">
-<input id="cor" placeholder="Cor">
-<input id="placa" placeholder="ABC-1234" maxlength="8">
+<div class="card">
+<p>Uma das cidades mais visitadas do litoral paulista.</p>
+</div>
+
+<div class="card">
+<p>Mais de 20km de praias incríveis.</p>
+</div>
+
+<div class="card">
+<p>Infraestrutura completa para turismo.</p>
 </div>
 
 </div>
 
-<button id="botaoEnviar" onclick="enviar()">Enviar Cadastro</button>
+</div>
 
 <div class="footer">
-As informações devem ser iguais às informadas no Airbnb.<br>
-Não é permitido receber visitas no apartamento.
-</div>
+
+Criado por <strong>Fabio Costa</strong>
 
 </div>
-
-</div>
-
-<script>
-
-const SCRIPT_URL="https://script.google.com/macros/s/AKfycbxTj02KeSr75Ogisjz60gWlt_vNtQR1sTJpe3-sUriNCxEEBUWK6RAHZsqSAVQyEGTH/exec"
-
-let totalHospedes=0
-
-function gerarID(){
-
-let hoje=new Date()
-
-let data=
-hoje.getFullYear()+
-("0"+(hoje.getMonth()+1)).slice(-2)+
-("0"+hoje.getDate()).slice(-2)
-
-let random=Math.floor(Math.random()*9000)+1000
-
-return "AP96-"+data+"-"+random
-
-}
-
-function addHospede(){
-
-if(totalHospedes>=6){
-alert("Máximo de 6 hóspedes")
-return
-}
-
-totalHospedes++
-
-let div=document.createElement("div")
-
-div.className="hospede"
-
-div.innerHTML=`
-
-<input placeholder="${totalHospedes}º Nome" id="nome${totalHospedes}">
-
-<div class="row">
-
-<input placeholder="000.000.000-00" id="cpf${totalHospedes}" maxlength="14" oninput="mascaraCPF(this)">
-<input placeholder="00.000.000-0" id="rg${totalHospedes}" maxlength="12" oninput="mascaraRG(this)">
-
-</div>
-
-`
-
-document.getElementById("hospedes").appendChild(div)
-
-}
-
-function mascaraCPF(campo){
-
-campo.value=campo.value
-.replace(/\D/g,'')
-.replace(/(\d{3})(\d)/,'$1.$2')
-.replace(/(\d{3})(\d)/,'$1.$2')
-.replace(/(\d{3})(\d{1,2})$/,'$1-$2')
-
-}
-
-function mascaraRG(campo){
-
-campo.value=campo.value
-.replace(/\D/g,'')
-.replace(/(\d{2})(\d)/,'$1.$2')
-.replace(/(\d{3})(\d)/,'$1.$2')
-.replace(/(\d{3})(\d{1})$/,'$1-$2')
-
-}
-
-function mascaraPlaca(campo){
-
-campo.value=campo.value
-.toUpperCase()
-.replace(/[^A-Z0-9]/g,'')
-.replace(/([A-Z]{3})(\d)/,'$1-$2')
-
-}
-
-document.getElementById("placa").addEventListener("input",function(){
-mascaraPlaca(this)
-})
-
-function enviar(){
-
-if(totalHospedes==0){
-alert("Adicione pelo menos um hóspede")
-return
-}
-
-let botao=document.getElementById("botaoEnviar")
-
-botao.innerText="Enviando..."
-botao.disabled=true
-
-let idReserva=gerarID()
-
-let hospedes=[]
-
-for(let i=1;i<=totalHospedes;i++){
-
-let nome=document.getElementById("nome"+i)?.value||""
-let cpf=document.getElementById("cpf"+i)?.value||""
-let rg=document.getElementById("rg"+i)?.value||""
-
-if(nome!=""){
-
-hospedes.push({
-nome:nome,
-cpf:cpf,
-rg:rg
-})
-
-}
-
-}
-
-let dados={
-
-id:idReserva,
-hospedes:hospedes,
-modelo:document.getElementById("modelo").value,
-cor:document.getElementById("cor").value,
-placa:document.getElementById("placa").value
-
-}
-
-fetch(SCRIPT_URL,{
-method:"POST",
-body:JSON.stringify(dados)
-})
-.then(res=>res.json())
-.then(()=>{
-
-alert("Cadastro enviado com sucesso!")
-
-resetForm()
-
-botao.innerText="Enviar Cadastro"
-botao.disabled=false
-
-})
-.catch(()=>{
-
-alert("Erro ao enviar cadastro")
-
-botao.innerText="Enviar Cadastro"
-botao.disabled=false
-
-})
-
-}
-
-function resetForm(){
-
-document.getElementById("hospedes").innerHTML=""
-
-document.getElementById("modelo").value=""
-document.getElementById("cor").value=""
-document.getElementById("placa").value=""
-
-totalHospedes=0
-
-addHospede()
-
-}
-
-addHospede()
-
-</script>
 
 </body>
-
 </html>

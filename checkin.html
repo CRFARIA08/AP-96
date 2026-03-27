@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Check-in Hóspedes | AP-96</title>
+
+<style>
+
+body{
+font-family:Arial, Helvetica, sans-serif;
+background:#0f172a;
+margin:0;
+padding:0;
+}
+
+.container{
+max-width:520px;
+margin:auto;
+padding:20px;
+}
+
+.logo{
+text-align:center;
+margin-bottom:20px;
+}
+
+.logo img{
+width:140px;
+}
+
+.card{
+background:#e2e8f0;
+padding:25px;
+border-radius:14px;
+box-shadow:0 15px 40px rgba(0,0,0,0.30);
+}
+
+h1{
+text-align:center;
+font-size:20px;
+margin-bottom:10px;
+color:#1e293b;
+}
+
+p{
+font-size:14px;
+text-align:center;
+color:#334155;
+margin-bottom:20px;
+}
+
+.section{
+margin-top:20px;
+}
+
+.section h2{
+font-size:16px;
+border-bottom:1px solid #94a3b8;
+padding-bottom:6px;
+margin-bottom:15px;
+color:#1e293b;
+}
+
+.hospede{
+margin-bottom:15px;
+padding-bottom:10px;
+border-bottom:1px dashed #94a3b8;
+}
+
+.row{
+display:flex;
+gap:8px;
+align-items:flex-start;
+}
+
+.col{
+flex:1;
+display:flex;
+flex-direction:column;
+}
+
+input{
+width:100%;
+padding:11px;
+margin-bottom:8px;
+border-radius:6px;
+border:1px solid #94a3b8;
+font-size:14px;
+box-sizing:border-box;
+}
+
+.erroCPF{
+color:red;
+font-size:12px;
+margin-top:-4px;
+margin-bottom:8px;
+}
+
+button{
+width:100%;
+padding:14px;
+margin-top:15px;
+border:none;
+border-radius:10px;
+background:#22c55e;
+font-size:16px;
+color:white;
+cursor:pointer;
+transition:0.2s;
+}
+
+button:hover{
+background:#16a34a;
+}
+
+.add{
+background:#3b82f6;
+margin-top:5px;
+}
+
+.add:hover{
+background:#2563eb;
+}
+
+.footer{
+font-size:12px;
+margin-top:20px;
+text-align:center;
+color:#475569;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+<img src="logo.png">
+</div>
+
+<div class="card">
+
+<h1>Cadastro de Hóspedes</h1>
+
+<p>
+Para garantir uma entrada tranquila, precisamos do nome e documento de cada hóspede.<br>
+Crianças abaixo de 8 anos somente nome e idade.
+</p>
+
+<div class="section">
+
+<h2>Hóspedes</h2>
+
+<div id="hospedes"></div>
+
+<button class="add" onclick="addHospede()">+ Adicionar acompanhante</button>
+
+</div>
+
+<div class="section">
+
+<h2>Carro</h2>
+
+<input id="modelo" placeholder="Modelo do carro">
+
+<div class="row">
+<input id="cor" placeholder="Cor">
+<input id="placa" placeholder="ABC-1234" maxlength="8">
+</div>
+
+</div>
+
+<button id="botaoEnviar" onclick="enviar()">Enviar Cadastro</button>
+
+<div class="footer">
+As informações devem ser iguais às informadas no Airbnb.<br>
+Não é permitido receber visitas no apartamento.
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbxTj02KeSr75Ogisjz60gWlt_vNtQR1sTJpe3-sUriNCxEEBUWK6RAHZsqSAVQyEGTH/exec"
+
+let totalHospedes=0
+
+function gerarID(){
+
+let hoje=new Date()
+
+let data=
+hoje.getFullYear()+
+("0"+(hoje.getMonth()+1)).slice(-2)+
+("0"+hoje.getDate()).slice(-2)
+
+let random=Math.floor(Math.random()*9000)+1000
+
+return "AP96-"+data+"-"+random
+
+}
+
+function addHospede(){
+
+if(totalHospedes>=6){
+alert("Máximo de 6 hóspedes")
+return
+}
+
+totalHospedes++
+
+let div=document.createElement("div")
+div.className="hospede"
+
+div.innerHTML=`
+
+<input placeholder="${totalHospedes}º Nome" id="nome${totalHospedes}">
+
+<div class="row">
+
+<div class="col">
+<input
+placeholder="000.000.000-00"
+id="cpf${totalHospedes}"
+maxlength="14"
+oninput="mascaraCPF(this)"
+onblur="verificarCPF(this)"
+>
+<div class="erroCPF" id="erroCpf${totalHospedes}"></div>
+</div>
+
+<div class="col">
+<input
+placeholder="00.000.000-0"
+id="rg${totalHospedes}"
+maxlength="12"
+oninput="mascaraRG(this)"
+>
+</div>
+
+</div>
+
+`
+
+document.getElementById("hospedes").appendChild(div)
+
+}
+
+function mascaraCPF(campo){
+
+campo.value=campo.value
+.replace(/\D/g,'')
+.replace(/(\d{3})(\d)/,'$1.$2')
+.replace(/(\d{3})(\d)/,'$1.$2')
+.replace(/(\d{3})(\d{1,2})$/,'$1-$2')
+
+}
+
+function validarCPF(cpf){
+
+cpf=cpf.replace(/[^\d]+/g,'')
+
+if(cpf.length!==11||/^(\d)\1+$/.test(cpf)) return false
+
+let soma=0
+let resto
+
+for(let i=1;i<=9;i++){
+soma+=parseInt(cpf.substring(i-1,i))*(11-i)
+}
+
+resto=(soma*10)%11
+
+if(resto===10||resto===11) resto=0
+if(resto!==parseInt(cpf.substring(9,10))) return false
+
+soma=0
+
+for(let i=1;i<=10;i++){
+soma+=parseInt(cpf.substring(i-1,i))*(12-i)
+}
+
+resto=(soma*10)%11
+
+if(resto===10||resto===11) resto=0
+if(resto!==parseInt(cpf.substring(10,11))) return false
+
+return true
+
+}
+
+function verificarCPF(campo){
+
+let numero=campo.id.replace("cpf","")
+let erro=document.getElementById("erroCpf"+numero)
+
+if(campo.value.trim()===""){
+erro.innerText=""
+campo.style.border="1px solid #94a3b8"
+return
+}
+
+if(!validarCPF(campo.value)){
+erro.innerText="CPF inválido"
+campo.style.border="1px solid red"
+}else{
+erro.innerText=""
+campo.style.border="1px solid green"
+}
+
+}
+
+function mascaraRG(campo){
+
+campo.value=campo.value
+.replace(/\D/g,'')
+.replace(/(\d{2})(\d)/,'$1.$2')
+.replace(/(\d{3})(\d)/,'$1.$2')
+.replace(/(\d{3})(\d{1})$/,'$1-$2')
+
+}
+
+function mascaraPlaca(campo){
+
+campo.value=campo.value
+.toUpperCase()
+.replace(/[^A-Z0-9]/g,'')
+.replace(/([A-Z]{3})(\d)/,'$1-$2')
+
+}
+
+document.getElementById("placa").addEventListener("input",function(){
+mascaraPlaca(this)
+})
+
+function enviar(){
+
+if(totalHospedes==0){
+alert("Adicione pelo menos um hóspede")
+return
+}
+
+let botao=document.getElementById("botaoEnviar")
+
+botao.innerText="Enviando..."
+botao.disabled=true
+
+let idReserva=gerarID()
+
+let hospedes=[]
+
+for(let i=1;i<=totalHospedes;i++){
+
+let nome=document.getElementById("nome"+i)?.value.trim()||""
+let cpf=document.getElementById("cpf"+i)?.value.trim()||""
+let rg=document.getElementById("rg"+i)?.value.trim()||""
+
+if(nome!==""){
+
+if(cpf!=="" && !validarCPF(cpf)){
+alert("CPF inválido no hóspede "+i)
+document.getElementById("cpf"+i).focus()
+botao.innerText="Enviar Cadastro"
+botao.disabled=false
+return
+}
+
+hospedes.push({
+nome:nome,
+cpf:cpf,
+rg:rg
+})
+
+}
+
+}
+
+let dados={
+id:idReserva,
+hospedes:hospedes,
+modelo:document.getElementById("modelo").value,
+cor:document.getElementById("cor").value,
+placa:document.getElementById("placa").value
+}
+
+fetch(SCRIPT_URL,{
+method:"POST",
+body:JSON.stringify(dados)
+})
+.then(res=>res.json())
+.then(()=>{
+
+alert("Cadastro enviado com sucesso!")
+
+resetForm()
+
+botao.innerText="Enviar Cadastro"
+botao.disabled=false
+
+})
+.catch(()=>{
+
+alert("Erro ao enviar cadastro")
+
+botao.innerText="Enviar Cadastro"
+botao.disabled=false
+
+})
+
+}
+
+function resetForm(){
+
+document.getElementById("hospedes").innerHTML=""
+document.getElementById("modelo").value=""
+document.getElementById("cor").value=""
+document.getElementById("placa").value=""
+
+totalHospedes=0
+
+addHospede()
+
+}
+
+addHospede()
+
+</script>
+
+</body>
+
+</html>
