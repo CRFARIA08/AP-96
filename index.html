@@ -2,39 +2,21 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+<title>AP96 - Sua estadia perfeita</title>
 
 <style>
-
-    .destaque-frase{
-display:inline-block;
-padding:10px 16px;
-border-radius:14px;
-border:2px solid rgba(255,255,255,0.6);
-background:rgba(255,255,255,0.12);
-backdrop-filter:blur(6px);
--webkit-backdrop-filter:blur(6px);
-font-weight:500;
-line-height:1.5;
-}
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
-}
-
-html, body{
-width:100%;
-overflow-x:hidden;
+font-family:Arial, Helvetica, sans-serif; 
 }
 
 body{
 color:white;
-background:#000;
 }
 
 /* VIDEO FUNDO */
@@ -47,68 +29,71 @@ width:100%;
 height:100%;
 z-index:-1;
 overflow:hidden;
-background:#000;
 }
 
 .video-bg video{
 width:100%;
 height:100%;
 object-fit:cover;
-filter:brightness(0.90);
+filter:brightness(0.95);
 }
 
-/* HERO PRINCIPAL */
+/* CONTEÚDO PRINCIPAL */
 
 .container{
-min-height:100svh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+min-height:100vh;
 text-align:center;
-padding:32px 18px;
-gap:18px;
+padding:20px;
 }
+
+/* TEXTO */
 
 h1{
-font-size:32px;
-line-height:1.2;
+font-size:36px;
+margin-bottom:10px;
+color:white;
+text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000,
+     0px  2px 4px rgba(0,0,0,0.8);
 }
-
-.destaque{
-display:inline-block;
-font-weight:700;
-padding:8px 16px;
-border-radius:12px;
-border:2px solid rgba(255,255,255,0.65);
-background:rgba(255,255,255,0.14);
-backdrop-filter:blur(6px);
--webkit-backdrop-filter:blur(6px);
 }
 
 p{
-font-size:17px;
-line-height:1.5;
-max-width:340px;
-margin:0 auto;
+font-size:18px;
+max-width:500px;
+}
+
+.texto-destaque{
+    font-size:18px;
+    max-width:500px;
+    color:white;
+    text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000,
+         0px  2px 4px rgba(0,0,0,0.8);
 }
 
 /* BOTÃO */
 
 .btn{
 display:inline-block;
-width:100%;
-max-width:300px;
-padding:16px 24px;
-margin-top:22px;
+padding:16px 32px;
 background:#22c55e;
-border-radius:999px;
+border-radius:30px;
 text-decoration:none;
 color:white;
 font-weight:bold;
-font-size:16px;
 transition:0.3s;
-box-shadow:0 10px 25px rgba(0,0,0,0.25);
+margin-top:40px; /* 🔥 aqui desce o botão */
 }
 
 .btn:hover{
@@ -120,45 +105,29 @@ background:#16a34a;
 .section{
 background:white;
 color:#1e293b;
-padding:42px 16px;
+padding:50px 20px;
 text-align:center;
 }
 
 .section h2{
-font-size:24px;
-margin-bottom:22px;
-line-height:1.3;
+margin-bottom:20px;
 }
 
 /* CARDS */
 
 .cards{
 display:flex;
-flex-direction:column;
-align-items:center;
-gap:16px;
-width:100%;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
 }
 
 .card{
 background:#f1f5f9;
-padding:20px 18px;
-border-radius:14px;
-width:100%;
-max-width:340px;
-box-shadow:0 10px 20px rgba(0,0,0,0.08);
-}
-
-.card h3{
-margin-bottom:10px;
-font-size:18px;
-}
-
-.card p{
-font-size:15px;
-line-height:1.5;
-max-width:none;
-color:#334155;
+padding:20px;
+border-radius:12px;
+width:260px;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
 }
 
 /* RODAPÉ */
@@ -167,75 +136,39 @@ color:#334155;
 background:#0f172a;
 color:#94a3b8;
 text-align:center;
-padding:20px 16px;
+padding:20px;
 font-size:14px;
-line-height:1.5;
 }
 
 .footer strong{
 color:white;
 }
 
-/* TABLET */
+/* 🔥 RESPONSIVO MOBILE */
 
-@media (min-width:768px){
-
-.container{
-padding:48px 24px;
-gap:22px;
-}
+@media (max-width:600px){
 
 h1{
-font-size:44px;
+font-size:28px;
 }
 
 p{
-font-size:20px;
-max-width:620px;
+font-size:16px;
 }
 
 .btn{
-max-width:320px;
-font-size:17px;
-margin-top:30px;
-}
-
-.section{
-padding:60px 24px;
-}
-
-.section h2{
-font-size:30px;
-}
-
-.cards{
-flex-direction:row;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
+width:100%;
+max-width:280px;
+font-size:16px;
 }
 
 .card{
-width:300px;
-max-width:300px;
+width:100%;
+max-width:320px;
 }
 
-}
-
-/* DESKTOP */
-
-@media (min-width:1024px){
-
-.container{
-padding:60px 32px;
-}
-
-h1{
-font-size:52px;
-}
-
-p{
-font-size:22px;
+.section{
+padding:40px 15px;
 }
 
 }
@@ -254,9 +187,11 @@ font-size:22px;
 
 <div class="container">
 
-<h1><span class="destaque">Bem-vindo</span> </h1>
+<h1>Bem-vindo</h1>
 
-<p><span class="destaque-frase">Sua experiência perfeita na Praia Grande começa aqui 🌊</span></p>
+<p class="texto-destaque">
+Sua experiência perfeita na Praia Grande começa aqui 🌊
+</p>
 
 <a class="btn"
 href="https://www.airbnb.com.br/rooms/1145134548647828331?guests=1&adults=1&s=67&unique_share_id=0be977d9-6107-4de5-8830-d6bcc5b5b520"
@@ -277,8 +212,6 @@ Reservar Agora
 <h3>📍 Localização</h3>
 <p>Próximo à praia, mercados e restaurantes.</p>
 </div>
-
-
 
 <div class="card">
 <h3>🏖️ Conforto</h3>
@@ -317,7 +250,9 @@ Reservar Agora
 </div>
 
 <div class="footer">
-By <strong>Fabio Costa</strong>
+
+Criado por <strong>Fabio Costa</strong>
+
 </div>
 
 </body>
