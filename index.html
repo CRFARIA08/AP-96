@@ -3,257 +3,545 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>AP96 - Sua estadia perfeita</title>
-
 <style>
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif; 
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+:root{
+  --bg-dark:#5e6a86;
+  --bg-card:rgba(15, 23, 42, 0.078);
+  --bg-card-light:#ffffff;
+  --text-light:#ffffff;
+  --text-dark:#1e293b;
+  --muted:#cbd5e1;
+  --accent:#22c55e;
+  --accent-hover:#16a34a;
+  --tab-bg:rgba(2,6,23,0.72);
+  --border:rgba(255,255,255,0.12);
+  --shadow:0 12px 28px rgba(0,0,0,0.18);
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
-color:white;
+  color:var(--text-light);
+  background:#000;
+  line-height:1.6;
 }
 
-/* VIDEO FUNDO */
-
 .video-bg{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-1;
-overflow:hidden;
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  overflow:hidden;
+  background:#000;
 }
 
 .video-bg video{
-width:100%;
-height:100%;
-object-fit:cover;
-filter:brightness(0.95);
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(1.20);
 }
 
-/* CONTEÚDO PRINCIPAL */
-
-.container{
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-text-align:center;
-padding:20px;
+.video-overlay{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.40), rgba(15,23,42,0.70));
 }
 
-/* TEXTO */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  width:100%;
+  backdrop-filter:blur(10px);
+  background:var(--tab-bg);
+  border-bottom:1px solid var(--border);
+}
 
-h1{
-font-size:36px;
-margin-bottom:10px;
-color:white;
-text-shadow:
+.nav{
+  max-width:1200px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:12px 16px;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:0.4px;
+  text-shadow:
     -1px -1px 0 #000,
      1px -1px 0 #000,
     -1px  1px 0 #000,
      1px  1px 0 #000,
      0px  2px 4px rgba(0,0,0,0.8);
 }
+
+.menu{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
 }
 
-p{
-font-size:18px;
-max-width:500px;
+.menu a{
+  color:#fff;
+  text-decoration:none;
+  padding:10px 14px;
+  border:1px solid transparent;
+  border-radius:999px;
+  font-size:14px;
+  transition:0.25s ease;
 }
 
-.texto-destaque{
-    font-size:18px;
-    max-width:500px;
-    color:white;
-    text-shadow:
-        -1px -1px 0 #000,
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000,
-         0px  2px 4px rgba(0,0,0,0.8);
+.menu a:hover{
+  background:rgba(255,255,255,0.08);
+  border-color:rgba(255,255,255,0.12);
 }
 
-/* BOTÃO */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:110px 20px 48px;
+}
+
+.hero-card{
+  width:min(100%, 860px);
+  text-align:center;
+  background:rgba(2,6,23,0.46);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:28px;
+  padding:40px 24px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(6px);
+}
+
+.hero h1,
+.section-title,
+.card h3,
+.info-card h3{
+  text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000,
+     0px  2px 4px rgba(0,0,0,0.8);
+}
+
+.hero h1{
+  font-size:clamp(34px, 6vw, 56px);
+  margin-bottom:14px;
+}
+
+.hero p{
+  font-size:clamp(18px, 2.6vw, 22px);
+  max-width:680px;
+  margin:0 auto;
+  color:#fff;
+}
+
+.actions{
+  margin-top:34px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  justify-content:center;
+}
+
+.btn,
+.btn-outline{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:52px;
+  padding:14px 26px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:700;
+  transition:0.25s ease;
+}
 
 .btn{
-display:inline-block;
-padding:16px 32px;
-background:#22c55e;
-border-radius:30px;
-text-decoration:none;
-color:white;
-font-weight:bold;
-transition:0.3s;
-margin-top:40px; /* 🔥 aqui desce o botão */
+  background:var(--accent);
+  color:#fff;
 }
 
 .btn:hover{
-background:#16a34a;
+  background:var(--accent-hover);
+  transform:translateY(-1px);
 }
 
-/* SEÇÕES */
-
-.section{
-background:white;
-color:#1e293b;
-padding:50px 20px;
-text-align:center;
+.btn-outline{
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.30);
+  background:rgba(255,255,255,0.06);
 }
 
-.section h2{
-margin-bottom:20px;
+.btn-outline:hover{
+  background:rgba(255,255,255,0.12);
 }
 
-/* CARDS */
-
-.cards{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
+.main{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 16px 60px;
 }
 
-.card{
-background:#f1f5f9;
-padding:20px;
-border-radius:12px;
-width:260px;
-box-shadow:0 10px 20px rgba(0,0,0,0.1);
+.panel{
+  background:rgba(255,255,255,0.94);
+  color:var(--text-dark);
+  border-radius:28px;
+  padding:34px 22px;
+  box-shadow:var(--shadow);
+  margin-bottom:22px;
 }
 
-/* RODAPÉ */
+.section-title{
+  color:var(--text-dark);
+  text-shadow:none;
+  text-align:center;
+  font-size:clamp(28px, 4vw, 38px);
+  margin-bottom:10px;
+}
+
+.section-subtitle{
+  text-align:center;
+  color:#475569;
+  max-width:860px;
+  margin:0 auto 28px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:18px;
+}
+
+.card,
+.info-card{
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-radius:22px;
+  padding:22px;
+  box-shadow:0 8px 20px rgba(15,23,42,0.07);
+}
+
+.card h3,
+.info-card h3{
+  color:#0f172a;
+  text-shadow:none;
+  margin-bottom:12px;
+  font-size:20px;
+}
+
+.card p,
+.info-card p,
+.info-card ul{
+  color:#334155;
+}
+
+.map-link{
+  display:inline-block;
+  margin-top:14px;
+  color:#0f766e;
+  font-weight:700;
+  text-decoration:none;
+}
+
+.map-link:hover{
+  text-decoration:underline;
+}
+
+.gallery-placeholder{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:14px;
+  margin-top:16px;
+}
+
+.photo-box{
+  min-height:180px;
+  border-radius:20px;
+  border:2px dashed #cbd5e1;
+  background:linear-gradient(135deg, #f8fafc, #e2e8f0);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:18px;
+  color:#475569;
+  font-weight:700;
+}
+
+.highlight-quote{
+  margin-top:18px;
+  padding:18px;
+  border-left:5px solid #0ea5e9;
+  background:#eff6ff1a;
+  border-radius:16px;
+  font-weight:700;
+  color:#0f172a;
+}
+
+.list{
+  padding-left:20px;
+}
+
+.list li + li{
+  margin-top:10px;
+}
 
 .footer{
-background:#0f172a;
-color:#94a3b8;
-text-align:center;
-padding:20px;
-font-size:14px;
+  text-align:center;
+  color:#cbd5e1;
+  padding:8px 16px 34px;
 }
 
 .footer strong{
-color:white;
+  color:#fff;
 }
 
-/* 🔥 RESPONSIVO MOBILE */
-
-@media (max-width:600px){
-
-h1{
-font-size:28px;
+@media (max-width:900px){
+  .grid,
+  .gallery-placeholder{
+    grid-template-columns:1fr 1fr;
+  }
 }
 
-p{
-font-size:16px;
-}
+@media (max-width:700px){
+  .nav{
+    flex-direction:column;
+    align-items:stretch;
+  }
 
-.btn{
-width:100%;
-max-width:280px;
-font-size:16px;
-}
+  .logo{
+    text-align:center;
+  }
 
-.card{
-width:100%;
-max-width:320px;
-}
+  .menu{
+    justify-content:center;
+  }
 
-.section{
-padding:40px 15px;
-}
+  .menu a{
+    font-size:13px;
+    padding:9px 12px;
+  }
 
-}
+  .hero{
+    padding-top:130px;
+  }
 
+  .hero-card{
+    padding:32px 18px;
+    border-radius:22px;
+  }
+
+  .actions{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .btn,
+  .btn-outline{
+    width:100%;
+    max-width:320px;
+  }
+
+  .grid,
+  .gallery-placeholder{
+    grid-template-columns:1fr;
+  }
+
+  .panel{
+    padding:26px 16px;
+    border-radius:22px;
+  }
+
+  .photo-box{
+    min-height:140px;
+  }
+}
 </style>
-
 </head>
-
 <body>
 
 <div class="video-bg">
-<video autoplay muted loop playsinline>
-<source src="praia.mp4" type="video/mp4">
-</video>
+  <video autoplay muted loop playsinline>
+    <source src="praia.mp4" type="video/mp4">
+  </video>
 </div>
+<div class="video-overlay"></div>
 
-<div class="container">
+<header class="topbar">
+  <nav class="nav">
+    <div class="logo">AP-96</div>
+    <div class="menu">
+      <a href="#inicio">Início</a>
+      <a href="#localizacao">Localização</a>
+      <a href="#conforto">Conforto</a>
+      <a href="#seguranca">Segurança</a>
+      <a href="#curiosidades">Curiosidades</a>
+      <a href="#turismo">Turismo</a>
+    </div>
+  </nav>
+</header>
 
-<h1>Bem-vindo</h1>
+<section class="hero" id="inicio">
+  <div class="hero-card">
+    <h1><strong>Bem-vindo</strong></h1>
+    <p>Sua experiência perfeita na Praia Grande começa aqui 🌊</p>
+    <div class="actions">
+      <a class="btn" href="https://www.airbnb.com.br/rooms/1145134548647828331?guests=1&adults=1&s=67&unique_share_id=0be977d9-6107-4de5-8830-d6bcc5b5b520" target="_blank" rel="noopener noreferrer">Reservar Agora</a>
+      <a class="btn-outline" href="#localizacao">Explorar o AP-96</a>
+    </div>
+  </div>
+</section>
 
-<p class="texto-destaque">
-Sua experiência perfeita na Praia Grande começa aqui 🌊
-</p>
+<main class="main">
+  <section class="panel" id="localizacao">
+    <h2 class="section-title">Localização</h2>
+    <p class="section-subtitle">Veja alguns pontos especiais próximos ao AP-96 para aproveitar ainda mais sua estadia.</p>
+    <div class="grid">
+      <article class="info-card">
+        <h3>🌳 Parque Mirim</h3>
+        <p>Próximo ao AP-96, o Parque Mirim é um espaço de lazer com mais de 700 árvores, áreas sombreadas e paisagismo florido, perfeito para caminhadas, esportes e convivência em meio à natureza.</p>
+        <a class="map-link" href="https://maps.app.goo.gl/XN8LHCotnwEvJqmq7" target="_blank" rel="noopener noreferrer">Ver localização</a>
+      </article>
 
-<a class="btn"
-href="https://www.airbnb.com.br/rooms/1145134548647828331?guests=1&adults=1&s=67&unique_share_id=0be977d9-6107-4de5-8830-d6bcc5b5b520"
-target="_blank"
-rel="noopener noreferrer">
-Reservar Agora
-</a>
+      <article class="info-card">
+        <h3>🍹 Brisa Bar Caiçara</h3>
+        <p>A apenas 2 km do AP-96, é uma excelente opção na orla para curtir boa comida, bebidas e um clima perfeito de praia.</p>
+        <p><strong>Endereço:</strong> Av. Pres. Castelo Branco, 12501 - Vila Caiçara, Praia Grande - SP, 11706-500</p>
+        <a class="map-link" href="https://maps.app.goo.gl/EFasiUBpuziubD9A9" target="_blank" rel="noopener noreferrer">Ver localização</a>
+      </article>
 
-</div>
+      <article class="info-card">
+        <h3>🏖️ Beach Paradise Quiosque 11</h3>
+        <p>Outro quiosque imperdível na orla, com boa comida, drinques e o cenário ideal para relaxar perto do mar.</p>
+        <p><strong>Endereço:</strong> Av. Presidente Castelo Branco, S/N Quiosque 11, defronte ao nº 8.420 - Esquina com Av. dos Sindicatos - Cidade Ocian, Praia Grande - SP, 11704-600</p>
+        <a class="map-link" href="https://maps.app.goo.gl/pwmWHKu5aKn4P41LA" target="_blank" rel="noopener noreferrer">Ver localização</a>
+      </article>
 
-<div class="section">
+      <article class="info-card">
+        <h3>🛍️ Praça Nossa Senhora de Fátima</h3>
+        <p>Tradicional ponto de encontro no bairro Caiçara, com feira de artesanato e alimentação. Após a revitalização, ficou ainda mais agradável para passear no fim da tarde e à noite.</p>
+        <a class="map-link" href="https://maps.app.goo.gl/nb8nTku1YTiKcFyi9" target="_blank" rel="noopener noreferrer">Ver localização</a>
+      </article>
 
-<h2>Por que escolher o AP96?</h2>
+      <article class="info-card">
+        <h3>🛒 Shopping Litoral Plaza</h3>
+        <p>O maior shopping do litoral paulista, com cinema, ampla praça de alimentação e novas atrações que reforçam sua importância turística na região.</p>
+        <a class="map-link" href="https://maps.app.goo.gl/EdZpYYZHQTYpZ3vR8" target="_blank" rel="noopener noreferrer">Ver localização</a>
+      </article>
+    </div>
+  </section>
 
-<div class="cards">
+  <section class="panel" id="conforto">
+    <h2 class="section-title">Conforto</h2>
+    <p class="section-subtitle">Este espaço foi preparado para receber você com praticidade, aconchego e uma experiência agradável do início ao fim.</p>
+    <div class="card">
+      <h3>📸 Galeria do AP-96</h3>
+      <p>Aqui ficará a galeria de fotos do apartamento. Você pode substituir os blocos abaixo pelas imagens reais do AP-96.</p>
+      <div class="gallery-placeholder">
+        <div class="photo-box">Foto da sala / ambiente principal</div>
+        <div class="photo-box">Foto do quarto</div>
+        <div class="photo-box">Foto da cozinha / vista / varanda</div>
+      </div>
+    </div>
+  </section>
 
-<div class="card">
-<h3>📍 Localização</h3>
-<p>Próximo à praia, mercados e restaurantes.</p>
-</div>
+  <section class="panel" id="seguranca">
+    <h2 class="section-title">Segurança</h2>
+    <p class="section-subtitle">Mais tranquilidade para você e sua família durante toda a estadia.</p>
+    <div class="grid">
+      <article class="card">
+        <h3>🕘 Portaria 24 horas</h3>
+        <p>O condomínio conta com portaria 24h, oferecendo mais controle de acesso e tranquilidade aos hóspedes.</p>
+      </article>
+      <article class="card">
+        <h3>📹 Monitoramento</h3>
+        <p>Há câmeras de vigilância nas áreas comuns, reforçando a segurança e o cuidado com o ambiente.</p>
+      </article>
+      <article class="card">
+        <h3>🚗 Vaga no prédio</h3>
+        <p>Cada apartamento possui sua própria vaga de estacionamento dentro do condomínio, trazendo mais comodidade e proteção ao veículo.</p>
+      </article>
+      <article class="card">
+        <h3>🌊 Frente para a praia</h3>
+        <p>Além de estar em frente ao mar, o condomínio fica em uma localização valorizada e muito procurada por visitantes da região.</p>
+      </article>
+    </div>
+  </section>
 
-<div class="card">
-<h3>🏖️ Conforto</h3>
-<p>Ambiente moderno, limpo e preparado para você.</p>
-</div>
+  <section class="panel" id="curiosidades">
+    <h2 class="section-title">Curiosidades da Praia Grande</h2>
+    <p class="section-subtitle">Uma cidade vibrante, em crescimento e com paisagens que surpreendem o ano inteiro.</p>
+    <div class="grid">
+      <article class="info-card">
+        <h3>🏙️ Uma das cidades mais visitadas do litoral paulista</h3>
+        <p>A Praia Grande vive uma fase de grandes transformações e investimentos turísticos, reforçando sua posição como um dos destinos mais movimentados do litoral.</p>
+      </article>
+      <article class="info-card">
+        <h3>🛍️ Novos polos turísticos</h3>
+        <p>Entre os destaques estão a expansão do Litoral Plaza Shopping, o futuro VillaMar Shopping na Vila Mirim e o novo Píer Turístico da Aviação, projetos que devem valorizar ainda mais a cidade.</p>
+      </article>
+      <article class="info-card">
+        <h3>🐬 Mar, natureza e encontros especiais</h3>
+        <p>Além da longa orla, a região pode surpreender com a visita de baleias, golfinhos, tartarugas marinhas, leões-marinhos e até pinguins em determinadas épocas do ano.</p>
+      </article>
+    </div>
+    <div class="highlight-quote">
+      “Mais de 20 km de praias contínuas e a visita inesperada de baleias, golfinhos e até pinguins fazem da Praia Grande um verdadeiro espetáculo da natureza.”
+    </div>
+  </section>
 
-<div class="card">
-<h3>🔐 Segurança</h3>
-<p>Check-in organizado e controle de hóspedes.</p>
-</div>
+  <section class="panel" id="turismo">
+    <h2 class="section-title">Turismo e Infraestrutura</h2>
+    <p class="section-subtitle">Praia Grande oferece estrutura completa para receber turistas em todas as épocas do ano.</p>
+    <div class="grid">
+      <article class="info-card">
+        <h3>🎭 Agenda cultural</h3>
+        <p>A cidade mantém programação cultural com atrações de música, teatro, dança, exposições e atividades esportivas ao longo do ano.</p>
+      </article>
+      <article class="info-card">
+        <h3>🎶 Grandes shows de verão</h3>
+        <p>O Estação Verão Show movimenta a cidade com apresentações de grandes artistas, atraindo visitantes de diversas regiões do Brasil.</p>
+      </article>
+      <article class="info-card">
+        <h3>🎆 Réveillon na orla</h3>
+        <p>A tradicional queima de fogos transforma a orla em um espetáculo de luzes, tornando a virada do ano ainda mais especial para moradores e turistas.</p>
+      </article>
+    </div>
+    <div class="card" style="margin-top:18px;">
+      <h3>📌 Destaques</h3>
+      <ul class="list">
+        <li>Infraestrutura moderna para turismo e lazer.</li>
+        <li>Eventos sazonais que movimentam a cidade e valorizam a estadia.</li>
+        <li>Combinação de praia, gastronomia, compras e entretenimento em um só destino.</li>
+      </ul>
+    </div>
+  </section>
+</main>
 
-</div>
-
-</div>
-
-<div class="section">
-
-<h2>Curiosidades da Praia Grande</h2>
-
-<div class="cards">
-
-<div class="card">
-<p>Uma das cidades mais visitadas do litoral paulista.</p>
-</div>
-
-<div class="card">
-<p>Mais de 20km de praias incríveis.</p>
-</div>
-
-<div class="card">
-<p>Infraestrutura completa para turismo.</p>
-</div>
-
-</div>
-
-</div>
-
-<div class="footer">
-
-Criado por <strong>Fabio Costa</strong>
-
-</div>
+<footer class="footer">
+  Criado por <strong>Fabio Costa</strong>
+</footer>
 
 </body>
 </html>
