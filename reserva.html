@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AP-96 | Boas-vindas à sua estadia</title>
+  <meta name="description" content="Página de boas-vindas e informações da estadia no AP-96." />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #172554;
+      --card: rgba(255,255,255,0.10);
+      --card-strong: rgba(255,255,255,0.16);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #fbbf24;
+      --accent-2: #38bdf8;
+      --danger: #fb7185;
+      --ok: #4ade80;
+      --shadow: 0 16px 40px rgba(0,0,0,0.28);
+      --radius: 24px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 35%),
+        radial-gradient(circle at top right, rgba(251,191,36,0.16), transparent 28%),
+        linear-gradient(180deg, #0b1120 0%, #0f172a 55%, #111827 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .waves,
+    .waves::before,
+    .waves::after {
+      position: fixed;
+      inset: auto -15% -120px -15%;
+      height: 280px;
+      content: "";
+      border-radius: 45%;
+      background: rgba(56, 189, 248, 0.08);
+      filter: blur(4px);
+      animation: flutuar 17s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .waves::before {
+      height: 240px;
+      background: rgba(251, 191, 36, 0.06);
+      animation-duration: 22s;
+    }
+
+    .waves::after {
+      height: 200px;
+      background: rgba(255,255,255,0.05);
+      animation-duration: 28s;
+    }
+
+    @keyframes flutuar {
+      0% { transform: translateX(-4%) rotate(0deg); }
+      50% { transform: translateX(4%) rotate(2deg); }
+      100% { transform: translateX(-4%) rotate(0deg); }
+    }
+
+    @keyframes subir {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: min(calc(100% - 28px), var(--max));
+      margin: 0 auto;
+      padding: 18px 0 48px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.13), rgba(255,255,255,0.07));
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 24px 18px 22px;
+      backdrop-filter: blur(12px);
+      animation: subir .7s ease both;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -90px auto;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(56,189,248,0.18), transparent 65%);
+      pointer-events: none;
+    }
+
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo-wrap img {
+      width: min(100%, 520px);
+      max-height: 240px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 26px rgba(0,0,0,0.35));
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 999px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0;
+      text-align: center;
+      font-size: clamp(28px, 5vw, 48px);
+      line-height: 1.08;
+      text-shadow: 0 3px 12px rgba(0,0,0,0.28);
+    }
+
+    .hero p {
+      margin: 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: clamp(15px, 2.7vw, 18px);
+      line-height: 1.7;
+      max-width: 840px;
+      margin-inline: auto;
+    }
+
+    .actions,
+    .pdf-actions,
+    .map-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .btn,
+    .btn-ghost,
+    .btn-outline,
+    .btn-soft {
+      text-decoration: none;
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-weight: 700;
+      transition: .22s ease;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      min-height: 52px;
+      border: 1px solid transparent;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .btn {
+      color: #111827;
+      background: linear-gradient(135deg, var(--accent), #fde68a);
+      box-shadow: 0 12px 28px rgba(251,191,36,0.28);
+    }
+
+    .btn:hover { transform: translateY(-2px) scale(1.01); }
+
+    .btn-ghost {
+      color: #fff;
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.14);
+    }
+
+    .btn-outline {
+      color: #fff;
+      background: rgba(56,189,248,0.10);
+      border-color: rgba(56,189,248,0.30);
+    }
+
+    .btn-soft {
+      color: #fff;
+      background: rgba(74,222,128,0.12);
+      border-color: rgba(74,222,128,0.25);
+    }
+
+    .btn-ghost:hover,
+    .btn-outline:hover,
+    .btn-soft:hover { transform: translateY(-2px); }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .grid.cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px 18px;
+      backdrop-filter: blur(10px);
+      animation: subir .75s ease both;
+    }
+
+    .card h2,
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: clamp(20px, 3vw, 28px);
+      line-height: 1.15;
+    }
+
+    .card h3 {
+      font-size: clamp(18px, 2.5vw, 22px);
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15.5px;
+    }
+
+    .alert-card {
+      background: linear-gradient(180deg, rgba(251,113,133,0.14), rgba(255,255,255,0.08));
+      border-color: rgba(251,113,133,0.20);
+    }
+
+    .check-card {
+      background: linear-gradient(180deg, rgba(74,222,128,0.12), rgba(255,255,255,0.07));
+      border-color: rgba(74,222,128,0.22);
+    }
+
+    .mini-list {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .mini-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 11px 12px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+    }
+
+    .mini-list li strong { color: #fff; }
+
+    .gallery-wrap {
+      margin-top: 18px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .gallery img,
+    .gallery .placeholder {
+      width: 100%;
+      aspect-ratio: 1 / 0.82;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      box-shadow: var(--shadow);
+    }
+
+    .placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.72);
+      font-weight: 700;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .notice {
+      font-size: 13px;
+      color: #dbeafe;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .map-box img {
+      width: 100%;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: var(--shadow);
+      object-fit: cover;
+      max-height: 340px;
+    }
+
+    .address {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: #fff;
+      margin: 14px 0;
+      line-height: 1.6;
+      font-weight: 700;
+    }
+
+    .quote-img {
+      display: flex;
+      justify-content: center;
+      margin-top: 8px;
+    }
+
+    .quote-img img {
+      width: min(100%, 520px);
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: var(--shadow);
+      object-fit: cover;
+      background: rgba(255,255,255,0.07);
+    }
+
+    details {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 12px 14px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: #fff;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    footer {
+      text-align: center;
+      color: #cbd5e1;
+      padding: 22px 10px 10px;
+      font-size: 14px;
+    }
+
+    .soon {
+      opacity: 0.92;
+      cursor: default;
+    }
+
+    @media (max-width: 860px) {
+      .grid.cols-2,
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 22px 14px 20px;
+        border-radius: 24px;
+      }
+
+      .card {
+        border-radius: 22px;
+        padding: 20px 14px;
+      }
+
+      .btn,
+      .btn-ghost,
+      .btn-outline,
+      .btn-soft {
+        width: 100%;
+      }
+
+      .actions,
+      .pdf-actions,
+      .map-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="waves"></div>
+
+  <main class="container">
+    <section class="hero">
+      <div class="logo-wrap">
+        <img src="logo.png" alt="Logo AP-96" />
+      </div>
+
+      <h1>Obrigado por escolher o AP-96 para a sua estadia</h1>
+      <p>
+        Preparamos esta página para deixar tudo mais simples, organizado e prático.
+        Aqui vocês encontram as regras importantes, localização, orientações úteis e alguns detalhes
+        para aproveitar melhor a hospedagem.
+      </p>
+
+      <div class="actions">
+        <a class="btn" href="#regras">Ler as regras agora</a>
+        <a class="btn-ghost" href="https://wa.me/5511991647744" target="_blank" rel="noopener noreferrer">Contato BETO</a>
+      </div>
+
+      <p>
+        <strong style="color:#fff;">Antes de tudo:</strong> pedimos que leiam as regras com atenção logo abaixo.
+        Isso ajuda a evitar dúvidas, incômodos e qualquer contratempo durante a estadia.
+      </p>
+    </section>
+
+    <section class="grid cols-2" id="regras">
+      <article class="card alert-card">
+        <h2>Regras importantes da estadia</h2>
+        <p>
+          Para que tudo ocorra da melhor forma possível, pedimos a gentileza de consultar os dois PDFs abaixo:
+          um com as regras do condomínio e outro com as orientações do AP-96.
+        </p>
+        <ul class="mini-list">
+          <li><span>📘</span><span><strong>Regra do condomínio:</strong> convivência, circulação e uso das áreas comuns.</span></li>
+          <li><span>🏠</span><span><strong>Regra do AP-96:</strong> cuidados com o apartamento, uso e orientações gerais.</span></li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Acesso rápido aos PDFs</h2>
+        <div class="pdf-actions" style="margin-top:14px;">
+          <a class="btn-outline" href="regras_condomini.pdf" target="_blank" rel="noopener noreferrer">Abrir regras do condomínio</a>
+          <a class="btn-ghost" href="regras_condomini.pdf" download>Baixar PDF do condomínio</a>
+          <a class="btn-outline" href="regra_ap96.pdf" target="_blank" rel="noopener noreferrer">Abrir regras do AP-96</a>
+          <a class="btn-ghost" href="regra_ap96.pdf" download>Baixar PDF do AP-96</a>
+        </div>
+        <p class="notice">Ao clicar, o PDF pode abrir em outra aba ou iniciar o download, dependendo do navegador do hóspede.</p>
+      </article>
+    </section>
+
+    <section class="grid cols-2">
+      <article class="card check-card">
+        <h2>Orientações para uma chegada tranquila</h2>
+        <ul class="mini-list">
+          <li><span>🪪</span><span>Envie com antecedência o <strong>nome completo</strong> e o <strong>documento (RG e CPF)</strong> de cada hóspede para facilitar a liberação na portaria.</span></li>
+          <li><span>🛏️</span><span>Lembrete importante: <strong style="color:#fbbf24;">não trabalhamos com toalhas de banho nem roupas de cama</strong>, então é necessário levar.</span></li>
+          <li><span>📶</span><span>Internet do apartamento: <strong>AP_96</strong> &nbsp;•&nbsp; senha: <strong>@Maracana10</strong></span></li>
+          <li><span>📱</span><span>Qualquer dúvida, seguimos a comunicação por <strong>WhatsApp</strong> para facilitar o envio de informações e orientações.</span></li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Mensagem de boas-vindas</h2>
+        <p>
+          Olá! Aqui é o Beto. Muito obrigado por escolher o AP-96.
+          Ficamos felizes em receber vocês e queremos que a estadia seja tranquila, prática e agradável do início ao fim.
+        </p>
+        <p>
+          Nesta página vocês encontram os principais avisos, as regras e a localização.
+          Também recomendamos visitar a página inicial do AP-96, onde há sugestões e pontos interessantes para conhecer na região.
+        </p>
+        <div class="actions" style="justify-content:flex-start; margin-top:10px;">
+          <a class="btn-soft" href="https://www.ap96.com.br" target="_blank" rel="noopener noreferrer">Ir para a página inicial</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid cols-2">
+      <article class="card">
+        <h2>Sobre o condomínio e o apartamento</h2>
+        <p>
+          O condomínio fica de frente para o mar e possui um portão com acesso direto ao calçadão da praia.
+          No último andar encontra-se a área de lazer, com piscina e uma vista incrível.
+          O AP-96 está localizado no 9º andar.
+        </p>
+        <details>
+          <summary>Informações adicionais</summary>
+          <p>
+            ✨ A poucos passos do lazer: basta subir um andar e aproveitar a piscina 🏊‍♂️🌴.
+          </p>
+        </details>
+      </article>
+
+      <article class="card">
+        <h2>🌴 Guia do Hóspede</h2>
+        <p>
+          Para que sua estadia seja ainda mais tranquila e agradável, preparamos um guia completo com tudo o que você precisa saber sobre o apartamento.
+        </p>
+        <div class="actions" style="justify-content:flex-start; margin-top:12px;">
+          <a class="btn-ghost" href="guia_apartamento.pdf" target="_blank" rel="noopener noreferrer">Informações do apartamento</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid cols-2">
+      <article class="card map-box">
+        <h2>Localização</h2>
+        <div id="mapImageWrap">
+          <img src="mapa.jpeg" alt="Mapa de localização do AP-96" />
+        </div>
+        <div class="address">
+          R. Dorivaldo Francisco Loria, 41 - Praia do Maracanna, Praia Grande - SP, 11705-320
+        </div>
+        <div class="map-actions">
+          <a class="btn" href="https://maps.app.goo.gl/Ukz9dMwRz2AjpKEN7" target="_blank" rel="noopener noreferrer">Abrir no Google Maps</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Um toque especial do Maracanã.</h2>
+        <p>
+          Desfrute da praia, relaxando e descansando, aproveitando cada instante, amando a natureza e celebrando a boa companhia.
+        </p>
+        <div class="quote-img" id="quoteImgWrap">
+          <img src="texto-ap96.png" alt="Mensagem especial do AP-96" />
+        </div>
+        <p class="notice">Viva o momento, ame a natureza e a companhia.</p>
+      </article>
+    </section>
+
+    <footer>
+      AP-96 • Página de boas-vindas da estadia<br>
+      Feita para funcionar bem no celular e também no computador.
+    </footer>
+  </main>
+
+  <script>
+    const extensoes = ["jpg", "jpeg", "png", "webp", "JPG", "JPEG", "PNG", "WEBP"];
+
+    function tentarImagem(baseName, onSuccess, onFail) {
+      let index = 0;
+      function tentar() {
+        if (index >= extensoes.length) {
+          onFail?.();
+          return;
+        }
+        const src = `${baseName}.${extensoes[index++]}`;
+        const img = new Image();
+        img.onload = () => onSuccess(src);
+        img.onerror = tentar;
+        img.src = src;
+      }
+      tentar();
+    }
+
+    function carregarGaleria() {
+      const gallery = document.getElementById("gallery");
+      gallery.innerHTML = "";
+      let encontradas = 0;
+      let verificadas = 0;
+      const limite = 12;
+
+      for (let i = 1; i <= limite; i++) {
+        tentarImagem(`praia${i}`,
+          (src) => {
+            encontradas++;
+            const img = document.createElement("img");
+            img.src = src;
+            img.alt = `Imagem da região ${i}`;
+            img.loading = "lazy";
+            gallery.appendChild(img);
+          },
+          () => {
+            verificadas++;
+            if (verificadas === limite && encontradas === 0) {
+              gallery.innerHTML = '<div class="placeholder">Adicione arquivos como praia1.jpg, praia2.png, praia3.webp...</div>';
+            }
+          }
+        );
+      }
+    }
+
+    function garantirImagemOpcional(wrapperId, nomesBase) {
+      const wrap = document.getElementById(wrapperId);
+      const img = wrap?.querySelector("img");
+      if (!wrap || !img) return;
+
+      const tentarBases = [...nomesBase];
+      function proximaBase() {
+        const base = tentarBases.shift();
+        if (!base) {
+          wrap.innerHTML = '<div class="placeholder">Adicione a imagem correspondente nesta pasta.</div>';
+          return;
+        }
+        tentarImagem(base, (src) => { img.src = src; }, proximaBase);
+      }
+      proximaBase();
+    }
+
+    carregarGaleria();
+    garantirImagemOpcional("quoteImgWrap", ["texto-ap96", "texto_ap96", "quadro", "mensagem", "frase"]);
+    garantirImagemOpcional("mapImageWrap", ["mapa", "mapa-local", "localizacao"]);
+  </script>
+</body>
+</html>
