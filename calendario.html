@@ -1,231 +1,194 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calendário | AP-96</title>
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif}
-    :root{
-      --bg1:#0f172a;--bg2:#1e293b;--glass:rgba(255,255,255,.12);--glass-2:rgba(255,255,255,.18);--txt:#fff;--txt-soft:#cbd5e1;--dark:#0f172a;--accent:#22c55e;--accent2:#0ea5e9;--danger:#ef4444;--danger-soft:rgba(239,68,68,.18);--border:rgba(255,255,255,.15);--radius:24px;--shadow:0 20px 45px rgba(0,0,0,.28);
-    }
-    body{min-height:100vh;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:var(--txt);padding:24px}
-    .wrap{max-width:1240px;margin:0 auto}
-    .topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:24px}
-    .brand h1{font-size:clamp(28px,4vw,42px);margin-bottom:8px}
-    .brand p{color:var(--txt-soft)}
-    .actions{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:700;border:1px solid var(--border);transition:.25s ease}
-    .btn-primary{background:var(--accent);color:#fff;border:none}
-    .btn-primary:hover{background:#16a34a;transform:translateY(-1px)}
-    .btn-ghost{background:var(--glass);color:#fff;backdrop-filter:blur(10px)}
-    .btn-ghost:hover{background:var(--glass-2)}
-    .hero{background:var(--glass);border:1px solid var(--border);backdrop-filter:blur(18px);border-radius:32px;padding:28px;box-shadow:var(--shadow);margin-bottom:22px}
-    .hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:18px}
-    .hero-card,.legend,.months,.list-box{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:22px}
-    .hero-card h2,.legend h3,.months h3,.list-box h3{margin-bottom:10px}
-    .hero-card p,.legend p,.muted{color:var(--txt-soft)}
-    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-    .chip{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);font-size:14px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-    .legend-row{display:flex;align-items:center;gap:10px;margin-top:10px;color:var(--txt-soft)}
-    .dot{width:14px;height:14px;border-radius:50%}
-    .dot.free{background:rgba(255,255,255,.85)}
-    .dot.busy{background:var(--danger)}
-    .dot.today{background:var(--accent)}
-    .calendar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}
-    .month{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:18px}
-    .month h4{text-align:center;margin-bottom:14px;font-size:18px}
-    .weekdays,.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
-    .weekdays div{font-size:12px;color:var(--txt-soft);text-align:center;padding-bottom:4px}
-    .day{min-height:42px;border-radius:12px;background:rgba(255,255,255,.9);color:#0f172a;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;position:relative}
-    .day.empty{background:transparent}
-    .day.blocked{background:var(--danger-soft);color:#fff;border:1px solid rgba(239,68,68,.4)}
-    .day.blocked::after{content:'';position:absolute;inset:7px;border-top:2px solid rgba(255,255,255,.95);transform:rotate(-26deg)}
-    .day.today{outline:2px solid var(--accent);outline-offset:2px}
-    .status-box{margin-bottom:18px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:var(--txt-soft)}
-    .status-box.ok{border-color:rgba(34,197,94,.38);background:rgba(34,197,94,.12);color:#dcfce7}
-    .status-box.error{border-color:rgba(239,68,68,.45);background:rgba(239,68,68,.12);color:#fee2e2}
-    .list{display:grid;gap:12px;margin-top:14px}
-    .item{padding:16px;border-radius:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
-    .item strong{display:block;margin-bottom:6px}
-    .item small{color:var(--txt-soft)}
-    .item .tag{display:inline-flex;margin-top:10px;padding:7px 12px;border-radius:999px;background:rgba(239,68,68,.18);border:1px solid rgba(239,68,68,.35);font-size:12px;font-weight:700}
-    .foot{margin-top:22px;text-align:center;color:var(--txt-soft);font-size:14px}
-    @media (max-width:980px){.hero-grid,.grid,.calendar-grid{grid-template-columns:1fr}}
-    @media (max-width:640px){body{padding:14px}.hero,.hero-card,.legend,.months,.list-box{padding:18px}.day{min-height:36px;font-size:13px}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Calendário AP-96</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background:#0f172a;
+  color:white;
+  text-align:center;
+  padding:20px;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+}
+
+h1{
+  margin-bottom:10px;
+}
+
+.top-buttons{
+  margin:20px 0;
+}
+
+.btn{
+  display:inline-block;
+  margin:5px;
+  padding:12px 20px;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.btn-airbnb{
+  background:#22c55e;
+  color:white;
+}
+
+.btn-back{
+  border:1px solid white;
+  color:white;
+}
+
+.status{
+  margin-top:20px;
+  font-size:14px;
+  opacity:0.8;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+  margin-top:30px;
+}
+
+.day{
+  padding:12px;
+  border-radius:8px;
+  background:#1e293b;
+}
+
+.blocked{
+  background:#ef4444;
+}
+
+.today{
+  border:2px solid #22c55e;
+}
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="topbar">
-      <div class="brand">
-        <h1>Calendário AP-96</h1>
-        <p>Consulte de forma rápida os períodos já bloqueados para sua estadia.</p>
-      </div>
-      <div class="actions">
-        <a class="btn btn-primary" href="https://www.airbnb.com.br/rooms/1145134548647828331?guests=1&adults=1&s=67&unique_share_id=0be977d9-6107-4de5-8830-d6bcc5b5b520" target="_blank" rel="noopener noreferrer">Reservar Agora</a>
-        <a class="btn btn-ghost" href="/">Voltar ao site</a>
-      </div>
-    </div>
 
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="hero-card">
-          <h2>Disponibilidade do AP-96</h2>
-          <p>Este calendário é atualizado a partir do controle interno do AP-96 e mostra os períodos já ocupados ou bloqueados.</p>
-          <div class="chips">
-            <span class="chip">✅ Atualização automática</span>
-            <span class="chip">🏖️ Leitura simples e rápida</span>
-            <span class="chip">📍 Baseado no calendário oficial do AP-96</span>
-          </div>
-        </div>
-        <div class="legend">
-          <h3>Legenda</h3>
-          <div class="legend-row"><span class="dot free"></span> Dia livre</div>
-          <div class="legend-row"><span class="dot busy"></span> Dia bloqueado / ocupado</div>
-          <div class="legend-row"><span class="dot today"></span> Hoje</div>
-          <p style="margin-top:14px">As datas em vermelho representam períodos já reservados ou bloqueados.</p>
-        </div>
-      </div>
-    </section>
+<div class="container">
+  <h1>📅 Calendário AP-96</h1>
+  <p>Consulte os períodos já ocupados antes de reservar</p>
 
-    <div class="grid">
-      <section class="months">
-        <h3>Próximos meses</h3>
-        <div id="status" class="status-box">Carregando calendário...</div>
-        <div id="calendarGrid" class="calendar-grid"></div>
-      </section>
+  <div class="top-buttons">
+    <a class="btn btn-airbnb" href="https://www.airbnb.com.br/rooms/1145134548647828331" target="_blank">
+      Reservar Agora
+    </a>
 
-      <section class="list-box">
-        <h3>Próximos períodos bloqueados</h3>
-        <p class="muted">Lista prática para visualizar rapidamente as próximas datas já ocupadas.</p>
-        <div id="eventsList" class="list"></div>
-      </section>
-    </div>
-
-    <div class="foot">Calendário visual do AP-96 • Atualizado pelo mesmo domínio do site</div>
+    <a class="btn btn-back" href="/">
+      Voltar ao site
+    </a>
   </div>
 
-  <script>
-    const ICS_URL = '/calendario.ics';
-    const MONTH_NAMES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-    const WEEKDAYS = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  <div id="status" class="status">Carregando calendário...</div>
 
-    function setStatus(message, type=''){ const el=document.getElementById('status'); el.className='status-box'+(type?` ${type}`:''); el.textContent=message; }
-    function pad(n){ return String(n).padStart(2,'0'); }
-    function keyFromDate(d){ return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
-    function formatBr(d){ return d.toLocaleDateString('pt-BR'); }
+  <div id="calendar" class="grid"></div>
+</div>
 
-    function parseICSDate(value){
-      if(!value) return null;
-      if(/^\d{8}$/.test(value)){
-        const y=Number(value.slice(0,4)), m=Number(value.slice(4,6))-1, d=Number(value.slice(6,8));
-        return new Date(y,m,d);
+<script>
+
+const ICS_URL = "https://script.google.com/macros/s/AKfycbxd-IH43mCezB3n2JG7TSRDLgT0Imrmb5ijPE63CxubOUkrVEd-sFffxVp-Icubz9-R/exec?formato=ics";
+
+async function carregarCalendario(){
+  try{
+    const res = await fetch(ICS_URL);
+    const text = await res.text();
+
+    const eventos = [];
+    const linhas = text.split("\n");
+
+    let atual = {};
+
+    linhas.forEach(linha=>{
+      if(linha.startsWith("BEGIN:VEVENT")){
+        atual = {};
       }
-      if(/^\d{8}T\d{6}Z?$/.test(value)){
-        const y=Number(value.slice(0,4)), m=Number(value.slice(4,6))-1, d=Number(value.slice(6,8)), hh=Number(value.slice(9,11)), mi=Number(value.slice(11,13)), ss=Number(value.slice(13,15));
-        return new Date(y,m,d,hh,mi,ss);
+      if(linha.startsWith("DTSTART")){
+        atual.start = linha.split(":")[1];
       }
-      return null;
-    }
-
-    function parseICS(text){
-      const lines=text.replace(/\r/g,'').split('\n');
-      const events=[]; let current=null;
-      for(const raw of lines){
-        const line=raw.trim();
-        if(line==='BEGIN:VEVENT'){ current={}; continue; }
-        if(line==='END:VEVENT'){ if(current) events.push(current); current=null; continue; }
-        if(!current || !line.includes(':')) continue;
-        const idx=line.indexOf(':');
-        const key=line.slice(0,idx).split(';')[0].toUpperCase();
-        const val=line.slice(idx+1).trim();
-        current[key]=val;
+      if(linha.startsWith("DTEND")){
+        atual.end = linha.split(":")[1];
       }
-      return events.map(ev=>({
-        summary: ev.SUMMARY || 'Reserva AP-96',
-        description: ev.DESCRIPTION || '',
-        start: parseICSDate(ev.DTSTART),
-        end: parseICSDate(ev.DTEND)
-      })).filter(ev=>ev.start && ev.end).sort((a,b)=>a.start-b.start);
-    }
-
-    function expandBlockedDays(events){
-      const blocked=new Set();
-      events.forEach(ev=>{
-        const d=new Date(ev.start.getFullYear(), ev.start.getMonth(), ev.start.getDate());
-        const end=new Date(ev.end.getFullYear(), ev.end.getMonth(), ev.end.getDate());
-        while(d < end){ blocked.add(keyFromDate(d)); d.setDate(d.getDate()+1); }
-      });
-      return blocked;
-    }
-
-    function renderMonths(blocked){
-      const grid=document.getElementById('calendarGrid');
-      grid.innerHTML='';
-      const today=new Date();
-      const base=new Date(today.getFullYear(), today.getMonth(), 1);
-
-      for(let offset=0; offset<3; offset++){
-        const firstDay=new Date(base.getFullYear(), base.getMonth()+offset, 1);
-        const year=firstDay.getFullYear();
-        const month=firstDay.getMonth();
-        const lastDay=new Date(year, month+1, 0).getDate();
-        const startWeekday=firstDay.getDay();
-
-        const card=document.createElement('div'); card.className='month';
-        const title=document.createElement('h4'); title.textContent=`${MONTH_NAMES[month]} ${year}`; card.appendChild(title);
-        const weekdays=document.createElement('div'); weekdays.className='weekdays'; WEEKDAYS.forEach(w=>{ const div=document.createElement('div'); div.textContent=w; weekdays.appendChild(div); }); card.appendChild(weekdays);
-        const days=document.createElement('div'); days.className='days';
-        for(let i=0;i<startWeekday;i++){ const empty=document.createElement('div'); empty.className='day empty'; days.appendChild(empty); }
-        for(let d=1; d<=lastDay; d++){
-          const date=new Date(year, month, d);
-          const key=keyFromDate(date);
-          const el=document.createElement('div');
-          el.className='day';
-          if(blocked.has(key)) el.classList.add('blocked');
-          if(key===keyFromDate(today)) el.classList.add('today');
-          el.textContent=d;
-          days.appendChild(el);
-        }
-        card.appendChild(days);
-        grid.appendChild(card);
+      if(linha.startsWith("END:VEVENT")){
+        eventos.push(atual);
       }
+    });
+
+    montarCalendario(eventos);
+
+    document.getElementById("status").innerText = "✅ Atualizado automaticamente";
+
+  }catch(e){
+    document.getElementById("status").innerText =
+      "⚠️ Não foi possível carregar o calendário agora";
+  }
+}
+
+function montarCalendario(eventos){
+  const container = document.getElementById("calendar");
+  container.innerHTML = "";
+
+  const hoje = new Date();
+  const ano = hoje.getFullYear();
+  const mes = hoje.getMonth();
+
+  const diasMes = new Date(ano, mes+1, 0).getDate();
+
+  for(let d=1; d<=diasMes; d++){
+    const data = new Date(ano, mes, d);
+
+    const div = document.createElement("div");
+    div.classList.add("day");
+
+    const dataStr = formatar(data);
+
+    if(isBlocked(dataStr, eventos)){
+      div.classList.add("blocked");
     }
 
-    function renderList(events){
-      const box=document.getElementById('eventsList');
-      box.innerHTML='';
-      if(!events.length){ box.innerHTML='<div class="item"><strong>Nenhum período bloqueado no momento.</strong><small>O calendário está livre agora.</small></div>'; return; }
-      events.slice(0,12).forEach(ev=>{
-        const item=document.createElement('div'); item.className='item';
-        item.innerHTML=`<strong>${ev.summary}</strong><small>${formatBr(ev.start)} até ${formatBr(new Date(ev.end.getFullYear(), ev.end.getMonth(), ev.end.getDate()-1))}</small><div class="tag">Bloqueado</div>`;
-        box.appendChild(item);
-      });
+    if(isHoje(data)){
+      div.classList.add("today");
     }
 
-    async function carregarCalendario(){
-      try{
-        setStatus('Atualizando disponibilidade...', '');
-        const resp=await fetch(ICS_URL, { cache:'no-store' });
-        if(!resp.ok) throw new Error('Não foi possível ler o calendário.');
-        const text=await resp.text();
-        if(!text.includes('BEGIN:VCALENDAR')) throw new Error('Calendário inválido.');
-        const events=parseICS(text);
-        const blocked=expandBlockedDays(events);
-        renderMonths(blocked);
-        renderList(events);
-        setStatus(`Calendário carregado com sucesso. ${events.length} período(s) bloqueado(s).`, 'ok');
-      }catch(err){
-        console.error(err);
-        setStatus('Não foi possível carregar o calendário agora. Verifique se o arquivo /calendario.ics está publicado no site.', 'error');
-        document.getElementById('calendarGrid').innerHTML='';
-        document.getElementById('eventsList').innerHTML='<div class="item"><strong>Calendário indisponível no momento.</strong><small>Assim que o arquivo /calendario.ics estiver publicado, esta página passará a exibir os períodos automaticamente.</small></div>';
-      }
-    }
+    div.innerText = d;
+    container.appendChild(div);
+  }
+}
 
-    carregarCalendario();
-  </script>
+function isBlocked(data, eventos){
+  return eventos.some(ev=>{
+    return data >= ev.start && data < ev.end;
+  });
+}
+
+function formatar(date){
+  const y = date.getFullYear();
+  const m = String(date.getMonth()+1).padStart(2,"0");
+  const d = String(date.getDate()).padStart(2,"0");
+  return `${y}${m}${d}`;
+}
+
+function isHoje(d){
+  const hoje = new Date();
+  return d.toDateString() === hoje.toDateString();
+}
+
+carregarCalendario();
+
+</script>
+
 </body>
 </html>
