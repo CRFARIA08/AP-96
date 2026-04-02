@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule ^calendario/?$ /calendario.html [L]
+RewriteRule ^calendario\.ics$ /calendario_proxy.php [L]

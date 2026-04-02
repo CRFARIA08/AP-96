@@ -6,555 +6,75 @@
   <title>AP-96 - Sua estadia perfeita</title>
 
   <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, Helvetica, sans-serif;
-    }
-
+    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;}
     :root{
       --video-brilho: brightness(1.28) contrast(1.06) saturate(1.08);
       --overlay-top: rgba(0,0,0,0.18);
       --overlay-bottom: rgba(15,23,42,0.42);
-
-      --text-light:#ffffff;
-      --text-dark:#1e293b;
-      --text-soft:#334155;
-      --muted:#cbd5e1;
-
-      --accent:#22c55e;
-      --accent-hover:#16a34a;
-      --secondary-btn:rgba(255,255,255,0.08);
-      --secondary-btn-hover:rgba(255,255,255,0.16);
-
-      --nav-bg:rgba(2,6,23,0.34);
-      --hero-bg:rgba(2,6,23,0.20);
-      --panel-bg:rgba(255,255,255,0.64);
-      --card-bg:rgba(255,255,255,0.50);
-      --footer-bg:rgba(15,23,42,0.18);
-
-      --border:rgba(255,255,255,0.18);
-      --border-soft:rgba(15,23,42,0.08);
-      --shadow:0 18px 40px rgba(0,0,0,0.18);
-      --shadow-soft:0 10px 24px rgba(15,23,42,0.10);
-
-      --radius-xl:30px;
-      --radius-lg:22px;
-      --radius-md:18px;
-      --max-width:1240px;
+      --text-light:#ffffff;--text-dark:#1e293b;--text-soft:#334155;--muted:#cbd5e1;
+      --accent:#22c55e;--accent-hover:#16a34a;--secondary-btn:rgba(255,255,255,0.08);--secondary-btn-hover:rgba(255,255,255,0.16);
+      --nav-bg:rgba(2,6,23,0.34);--hero-bg:rgba(2,6,23,0.20);--panel-bg:rgba(255,255,255,0.64);--card-bg:rgba(255,255,255,0.50);--footer-bg:rgba(15,23,42,0.18);
+      --border:rgba(255,255,255,0.18);--shadow:0 18px 40px rgba(0,0,0,0.18);--shadow-soft:0 10px 24px rgba(15,23,42,0.10);
+      --radius-xl:30px;--radius-lg:22px;--max-width:1240px;
     }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      color:var(--text-light);
-      background:#000;
-      line-height:1.6;
-      overflow-x:hidden;
-    }
-
-    .video-bg{
-      position:fixed;
-      inset:0;
-      z-index:-3;
-      overflow:hidden;
-      background:#000;
-    }
-
-    .video-bg video{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      filter:var(--video-brilho);
-    }
-
-    .video-overlay{
-      position:fixed;
-      inset:0;
-      z-index:-2;
-      background:linear-gradient(to bottom, var(--overlay-top), var(--overlay-bottom));
-    }
-
-    .topbar{
-      position:sticky;
-      top:0;
-      z-index:30;
-      width:100%;
-      backdrop-filter:blur(14px);
-      background:var(--nav-bg);
-      border-bottom:1px solid var(--border);
-    }
-
-    .nav{
-      max-width:var(--max-width);
-      margin:0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:6px;
-      padding:1px 4px;
-    }
-
-    .logo{
-      font-size:15px;
-      font-weight:700;
-      color:#fff;
-      letter-spacing:0.5px;
-      text-shadow:
-        -1px -1px 0 #000,
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000,
-         0px  2px 8px rgba(0,0,0,0.75);
-      white-space:nowrap;
-    }
-
-    .menu{
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:10px;
-    }
-
-    .menu a{
-      color:#fff;
-      text-decoration:none;
-      padding:10px 14px;
-      border:1px solid transparent;
-      border-radius:999px;
-      font-size:14px;
-      transition:0.25s ease;
-    }
-
-    .menu a:hover{
-      background:rgba(255,255,255,0.10);
-      border-color:rgba(255,255,255,0.16);
-    }
-
-    .hero{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:110px 20px 50px;
-    }
-
-    .hero-card{
-      width:min(100%, 700px);
-      text-align:center;
-      background:var(--hero-bg);
-      border:1px solid rgba(255,255,255,0.15);
-      border-radius:var(--radius-xl);
-      padding:28px 18px;
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(1px);
-    }
-
-    .hero h1,
-    .hero p{
-      text-shadow:
-        -1px -1px 0 #000,
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000,
-         0px  2px 10px rgba(0,0,0,0.7);
-    }
-
-    .hero h1{
-      font-size:clamp(34px, 6vw, 58px);
-      margin-bottom:14px;
-    }
-
-    .hero p{
-      font-size:clamp(18px, 2.6vw, 22px);
-      max-width:720px;
-      margin:0 auto;
-    }
-
-    .actions{
-      margin-top:34px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      justify-content:center;
-    }
-
-    .btn,
-    .btn-outline{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:54px;
-      padding:14px 28px;
-      border-radius:999px;
-      text-decoration:none;
-      font-weight:700;
-      transition:0.25s ease;
-      cursor:pointer;
-      border:none;
-    }
-
-    .btn{
-      background:var(--accent);
-      color:#fff;
-      box-shadow:0 10px 24px rgba(34,197,94,0.22);
-    }
-
-    .btn:hover{
-      background:var(--accent-hover);
-      transform:translateY(-1px);
-    }
-
-    .btn-outline{
-      color:#fff;
-      border:1px solid rgba(255,255,255,0.28);
-      background:var(--secondary-btn);
-      backdrop-filter:blur(8px);
-    }
-
-    .btn-outline:hover{
-      background:var(--secondary-btn-hover);
-    }
-
-    .main{
-      max-width:var(--max-width);
-      margin:0 auto;
-      padding:0 16px 60px;
-    }
-
-    .panel{
-      background:var(--panel-bg);
-      color:var(--text-dark);
-      border-radius:var(--radius-xl);
-      padding:36px 24px;
-      box-shadow:var(--shadow);
-      margin-bottom:24px;
-      backdrop-filter:blur(14px);
-      border:1px solid rgba(255,255,255,0.24);
-    }
-
-    .section-title{
-      color:var(--text-dark);
-      text-align:center;
-      font-size:clamp(28px, 4vw, 40px);
-      margin-bottom:10px;
-    }
-
-    .section-subtitle{
-      text-align:center;
-      color:#475569;
-      max-width:860px;
-      margin:0 auto 28px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:18px;
-    }
-
-    .info-card,
-    .card{
-      background:var(--card-bg);
-      border:1px solid rgba(255,255,255,0.35);
-      border-radius:var(--radius-lg);
-      padding:22px;
-      box-shadow:var(--shadow-soft);
-      backdrop-filter:blur(10px);
-    }
-
-    .info-card h3,
-    .card h3{
-      color:#0f172a;
-      margin-bottom:12px;
-      font-size:20px;
-    }
-
-    .info-card p,
-    .card p,
-    .card ul{
-      color:var(--text-soft);
-    }
-
-    .map-link{
-      display:inline-block;
-      margin-top:14px;
-      color:#0f766e;
-      font-weight:700;
-      text-decoration:none;
-    }
-
-    .map-link:hover{
-      text-decoration:underline;
-    }
-
-    .media-grid{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0,1fr));
-      gap:16px;
-      margin-top:18px;
-    }
-
-    .media-box{
-      position:relative;
-      min-height:220px;
-      border-radius:20px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,0.25);
-      background:rgba(255,255,255,0.34);
-      box-shadow:var(--shadow-soft);
-      backdrop-filter:blur(10px);
-    }
-
-    .media-box img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-
-    .media-label{
-      position:absolute;
-      left:12px;
-      bottom:12px;
-      background:rgba(2,6,23,0.58);
-      color:#fff;
-      padding:8px 12px;
-      border-radius:999px;
-      font-size:13px;
-      font-weight:700;
-      backdrop-filter:blur(8px);
-    }
-
-    .video-grid{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:16px;
-      margin-top:24px;
-      align-items:start;
-    }
-
-    .video-vertical{
-      width:100%;
-      aspect-ratio:9/16;
-      border-radius:24px;
-      overflow:hidden;
-      background:rgba(255,255,255,0.34);
-      border:1px solid rgba(255,255,255,0.25);
-      box-shadow:var(--shadow);
-      position:relative;
-      backdrop-filter:blur(10px);
-    }
-
-    .video-vertical video{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      background:#000;
-    }
-
-    .video-caption{
-      text-align:center;
-      color:#475569;
-      margin-top:14px;
-      font-size:14px;
-    }
-
-    .highlight-quote{
-      margin-top:20px;
-      padding:20px;
-      border-left:5px solid #0ea5e9;
-      background:rgba(255,255,255,0.36);
-      border-radius:18px;
-      font-weight:700;
-      color:#0f172a;
-      backdrop-filter:blur(10px);
-    }
-
-    .list{
-      padding-left:20px;
-    }
-
-    .list li + li{
-      margin-top:10px;
-    }
-
-    .footer{
-      text-align:center;
-      color:#e2e8f0;
-      padding:10px 16px 34px;
-      background:var(--footer-bg);
-      backdrop-filter:blur(12px);
-      border-top:1px solid rgba(255,255,255,0.10);
-    }
-
-    .footer strong{
-      color:#fff;
-    }
-
-    .modal{
-      display:none;
-      position:fixed;
-      inset:0;
-      z-index:100;
-      background:rgba(2,6,23,0.55);
-      backdrop-filter:blur(8px);
-      padding:20px;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .modal.active{
-      display:flex;
-    }
-
-    .modal-card{
-      width:min(100%, 560px);
-      background:rgba(255,255,255,0.92);
-      color:#1e293b;
-      border-radius:28px;
-      padding:26px;
-      box-shadow:0 24px 50px rgba(0,0,0,0.25);
-      position:relative;
-    }
-
-    .modal-card h3{
-      font-size:28px;
-      margin-bottom:8px;
-      color:#0f172a;
-    }
-
-    .modal-card p{
-      color:#475569;
-      margin-bottom:18px;
-    }
-
-    .close-modal{
-      position:absolute;
-      top:14px;
-      right:14px;
-      width:42px;
-      height:42px;
-      border:none;
-      border-radius:50%;
-      background:rgba(15,23,42,0.08);
-      color:#0f172a;
-      font-size:20px;
-      cursor:pointer;
-    }
-
-    .contact-form{
-      display:grid;
-      gap:14px;
-    }
-
-    .contact-form input,
-    .contact-form textarea{
-      width:100%;
-      padding:14px 16px;
-      border-radius:16px;
-      border:1px solid rgba(15,23,42,0.10);
-      background:#fff;
-      color:#0f172a;
-      font-size:16px;
-      outline:none;
-    }
-
-    .contact-form input:focus,
-    .contact-form textarea:focus{
-      border-color:#22c55e;
-      box-shadow:0 0 0 4px rgba(34,197,94,0.12);
-    }
-
-    .contact-form textarea{
-      min-height:140px;
-      resize:vertical;
-    }
-
-    .form-note{
-      font-size:13px;
-      color:#64748b;
-      line-height:1.5;
-    }
-
-    @media (max-width:900px){
-      .grid,
-      .media-grid{
-        grid-template-columns:1fr 1fr;
-      }
-
-      .video-grid{
-        grid-template-columns:1fr 1fr;
-      }
-    }
-
-    @media (max-width:700px){
-      .nav{
-        flex-direction:column;
-        align-items:stretch;
-      }
-
-      .logo{
-        text-align:center;
-      }
-
-      .menu{
-        justify-content:center;
-      }
-
-      .menu a{
-        font-size:13px;
-        padding:9px 12px;
-      }
-
-      .hero{
-        padding-top:130px;
-      }
-
-      .hero-card{
-        padding:34px 18px;
-        border-radius:24px;
-      }
-
-      .actions{
-        flex-direction:column;
-        align-items:center;
-      }
-
-      .btn,
-      .btn-outline{
-        width:100%;
-        max-width:320px;
-      }
-
-      .grid,
-      .media-grid,
-      .video-grid{
-        grid-template-columns:1fr;
-      }
-
-      .panel{
-        padding:26px 16px;
-        border-radius:24px;
-      }
-
-      .media-box{
-        min-height:220px;
-      }
-
-      .modal-card{
-        padding:22px 18px;
-        border-radius:22px;
-      }
-    }
+    html{scroll-behavior:smooth}
+    body{color:var(--text-light);background:#000;line-height:1.6;overflow-x:hidden}
+    .video-bg{position:fixed;inset:0;z-index:-3;overflow:hidden;background:#000}
+    .video-bg video{width:100%;height:100%;object-fit:cover;filter:var(--video-brilho)}
+    .video-overlay{position:fixed;inset:0;z-index:-2;background:linear-gradient(to bottom,var(--overlay-top),var(--overlay-bottom))}
+    .topbar{position:sticky;top:0;z-index:30;width:100%;backdrop-filter:blur(14px);background:var(--nav-bg);border-bottom:1px solid var(--border)}
+    .nav{max-width:var(--max-width);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:6px;padding:1px 4px}
+    .logo{font-size:15px;font-weight:700;color:#fff;letter-spacing:.5px;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000,0 2px 8px rgba(0,0,0,.75);white-space:nowrap}
+    .menu{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+    .menu a{color:#fff;text-decoration:none;padding:10px 14px;border:1px solid transparent;border-radius:999px;font-size:14px;transition:.25s ease}
+    .menu a:hover{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.16)}
+    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:110px 20px 50px}
+    .hero-card{width:min(100%,760px);text-align:center;background:var(--hero-bg);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius-xl);padding:30px 20px;box-shadow:var(--shadow);backdrop-filter:blur(1px)}
+    .hero h1,.hero p,.hero .hero-chip{text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000,0 2px 10px rgba(0,0,0,.7)}
+    .hero-chip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);padding:8px 14px;border-radius:999px;font-size:14px;margin-bottom:18px}
+    .hero h1{font-size:clamp(34px,6vw,58px);margin-bottom:14px}
+    .hero p{font-size:clamp(18px,2.6vw,22px);max-width:720px;margin:0 auto}
+    .actions{margin-top:34px;display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+    .btn,.btn-outline,.btn-calendar{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:14px 28px;border-radius:999px;text-decoration:none;font-weight:700;transition:.25s ease;cursor:pointer;border:none}
+    .btn{background:var(--accent);color:#fff;box-shadow:0 10px 24px rgba(34,197,94,.22)}
+    .btn:hover{background:var(--accent-hover);transform:translateY(-1px)}
+    .btn-outline{color:#fff;border:1px solid rgba(255,255,255,.28);background:var(--secondary-btn);backdrop-filter:blur(8px)}
+    .btn-outline:hover{background:var(--secondary-btn-hover)}
+    .btn-calendar{color:#0f172a;background:rgba(255,255,255,.92);box-shadow:0 10px 24px rgba(255,255,255,.18)}
+    .btn-calendar:hover{transform:translateY(-1px);background:#fff}
+    .main{max-width:var(--max-width);margin:0 auto;padding:0 16px 60px}
+    .panel{background:var(--panel-bg);color:var(--text-dark);border-radius:var(--radius-xl);padding:36px 24px;box-shadow:var(--shadow);margin-bottom:24px;backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.24)}
+    .section-title{color:var(--text-dark);text-align:center;font-size:clamp(28px,4vw,40px);margin-bottom:10px}
+    .section-subtitle{text-align:center;color:#475569;max-width:860px;margin:0 auto 28px}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .info-card,.card{background:var(--card-bg);border:1px solid rgba(255,255,255,.35);border-radius:var(--radius-lg);padding:22px;box-shadow:var(--shadow-soft);backdrop-filter:blur(10px)}
+    .info-card h3,.card h3{color:#0f172a;margin-bottom:12px;font-size:20px}
+    .info-card p,.card p,.card ul{color:var(--text-soft)}
+    .map-link{display:inline-block;margin-top:14px;color:#0f766e;font-weight:700;text-decoration:none}.map-link:hover{text-decoration:underline}
+    .media-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:18px}
+    .media-box{position:relative;min-height:220px;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.34);box-shadow:var(--shadow-soft);backdrop-filter:blur(10px)}
+    .media-box img{width:100%;height:100%;object-fit:cover;display:block}.media-label{position:absolute;left:12px;bottom:12px;background:rgba(2,6,23,.58);color:#fff;padding:8px 12px;border-radius:999px;font-size:13px;font-weight:700;backdrop-filter:blur(8px)}
+    .video-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:24px;align-items:start}
+    .video-vertical{width:100%;aspect-ratio:9/16;border-radius:24px;overflow:hidden;background:rgba(255,255,255,.34);border:1px solid rgba(255,255,255,.25);box-shadow:var(--shadow);position:relative;backdrop-filter:blur(10px)}
+    .video-vertical video{width:100%;height:100%;object-fit:cover;display:block;background:#000}.video-caption{text-align:center;color:#475569;margin-top:14px;font-size:14px}
+    .highlight-quote{margin-top:20px;padding:20px;border-left:5px solid #0ea5e9;background:rgba(255,255,255,.36);border-radius:18px;font-weight:700;color:#0f172a;backdrop-filter:blur(10px)}
+    .list{padding-left:20px}.list li+li{margin-top:10px}
+    .extra-actions{margin-top:24px;display:flex;justify-content:center}
+    .footer{text-align:center;color:#e2e8f0;padding:10px 16px 34px;background:var(--footer-bg);backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,.10)}
+    .footer strong{color:#fff}
+    .modal{display:none;position:fixed;inset:0;z-index:100;background:rgba(2,6,23,.55);backdrop-filter:blur(8px);padding:20px;align-items:center;justify-content:center}
+    .modal.active{display:flex}.modal-card{width:min(100%,560px);background:rgba(255,255,255,.92);color:#1e293b;border-radius:28px;padding:26px;box-shadow:0 24px 50px rgba(0,0,0,.25);position:relative}
+    .modal-card h3{font-size:28px;margin-bottom:8px;color:#0f172a}.modal-card p{color:#475569;margin-bottom:18px}
+    .close-modal{position:absolute;top:14px;right:14px;width:42px;height:42px;border:none;border-radius:50%;background:rgba(15,23,42,.08);color:#0f172a;font-size:20px;cursor:pointer}
+    .contact-form{display:grid;gap:14px}
+    .contact-form input,.contact-form textarea{width:100%;padding:14px 16px;border-radius:16px;border:1px solid rgba(15,23,42,.10);background:#fff;color:#0f172a;font-size:16px;outline:none}
+    .contact-form input:focus,.contact-form textarea:focus{border-color:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.12)}
+    .contact-form textarea{min-height:140px;resize:vertical}.form-note{font-size:13px;color:#64748b;line-height:1.5}
+    @media (max-width:900px){.grid,.media-grid,.video-grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:700px){.nav{flex-direction:column;align-items:stretch}.logo{text-align:center}.menu{justify-content:center}.menu a{font-size:13px;padding:9px 12px}.hero{padding-top:130px}.hero-card{padding:34px 18px;border-radius:24px}.actions{flex-direction:column;align-items:center}.btn,.btn-outline,.btn-calendar{width:100%;max-width:320px}.grid,.media-grid,.video-grid{grid-template-columns:1fr}.panel{padding:26px 16px;border-radius:24px}.media-box{min-height:220px}.modal-card{padding:22px 18px;border-radius:22px}}
   </style>
 </head>
 <body>
-
   <div class="video-bg">
     <video autoplay muted loop playsinline>
       <source src="praia.mp4" type="video/mp4" />
@@ -567,6 +87,7 @@
       <div class="logo">PRAIA DO MARACANÃ - PG</div>
       <div class="menu">
         <a href="#inicio">Início</a>
+        <a href="/calendario">Calendário</a>
         <a href="#localizacao">Localização</a>
         <a href="#conforto">Conforto</a>
         <a href="#seguranca">Segurança</a>
@@ -578,22 +99,14 @@
 
   <section class="hero" id="inicio">
     <div class="hero-card">
+      <div class="hero-chip">📅 Agora com calendário de disponibilidade</div>
       <h1>Bem-vindo</h1>
       <p>Sua experiência perfeita na Praia Grande começa aqui 🌊</p>
 
       <div class="actions">
-        <a
-          class="btn"
-          href="https://www.airbnb.com.br/rooms/1145134548647828331?guests=1&adults=1&s=67&unique_share_id=0be977d9-6107-4de5-8830-d6bcc5b5b520"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Reservar Agora
-        </a>
-
-        <button class="btn-outline" type="button" onclick="abrirModalContato()">
-          Enviar Mensagem
-        </button>
+        <a class="btn" href="https://www.airbnb.com.br/rooms/1145134548647828331?guests=1&adults=1&s=67&unique_share_id=0be977d9-6107-4de5-8830-d6bcc5b5b520" target="_blank" rel="noopener noreferrer">Reservar Agora</a>
+        <a class="btn-calendar" href="/calendario">Ver Calendário</a>
+        <button class="btn-outline" type="button" onclick="abrirModalContato()">Enviar Mensagem</button>
       </div>
     </div>
   </section>
@@ -602,119 +115,34 @@
     <section class="panel" id="localizacao">
       <h2 class="section-title">Localização</h2>
       <p class="section-subtitle">Veja alguns pontos especiais próximos ao AP-96 para aproveitar ainda mais sua estadia.</p>
-
       <div class="grid">
-        <article class="info-card">
-          <h3>🌳 Parque Mirim</h3>
-          <p>Próximo ao AP-96, o Parque Mirim é um espaço de lazer com mais de 700 árvores, áreas sombreadas e paisagismo florido, perfeito para caminhadas, esportes e convivência em meio à natureza.</p>
-          <a class="map-link" href="https://maps.app.goo.gl/XN8LHCotnwEvJqmq7" target="_blank" rel="noopener noreferrer">Ver localização</a>
-        </article>
-
-        <article class="info-card">
-          <h3>🍹 Brisa Bar Caiçara</h3>
-          <p>A apenas 2 km do AP-96, é uma excelente opção na orla para curtir boa comida, bebidas e um clima perfeito de praia.</p>
-          <p><strong>Endereço:</strong> Av. Pres. Castelo Branco, 12501 - Vila Caiçara, Praia Grande - SP, 11706-500</p>
-          <a class="map-link" href="https://maps.app.goo.gl/EFasiUBpuziubD9A9" target="_blank" rel="noopener noreferrer">Ver localização</a>
-        </article>
-
-        <article class="info-card">
-          <h3>🏖️ Beach Paradise Quiosque 11</h3>
-          <p>Outro quiosque imperdível na orla, com boa comida, drinques e o cenário ideal para relaxar perto do mar.</p>
-          <p><strong>Endereço:</strong> Av. Presidente Castelo Branco, S/N Quiosque 11, defronte ao nº 8.420 - Esquina com Av. dos Sindicatos - Cidade Ocian, Praia Grande - SP, 11704-600</p>
-          <a class="map-link" href="https://maps.app.goo.gl/pwmWHKu5aKn4P41LA" target="_blank" rel="noopener noreferrer">Ver localização</a>
-        </article>
-
-        <article class="info-card">
-          <h3>🛍️ Praça Nossa Senhora de Fátima</h3>
-          <p>Tradicional ponto de encontro no bairro Caiçara, com feira de artesanato e alimentação. Após a revitalização, ficou ainda mais agradável para passear no fim da tarde e à noite.</p>
-          <a class="map-link" href="https://maps.app.goo.gl/nb8nTku1YTiKcFyi9" target="_blank" rel="noopener noreferrer">Ver localização</a>
-        </article>
-
-        <article class="info-card">
-          <h3>🛒 Shopping Litoral Plaza</h3>
-          <p>O maior shopping do litoral paulista, com cinema, ampla praça de alimentação e novas atrações que reforçam sua importância turística na região.</p>
-          <a class="map-link" href="https://maps.app.goo.gl/EdZpYYZHQTYpZ3vR8" target="_blank" rel="noopener noreferrer">Ver localização</a>
-        </article>
-
-        <article class="info-card">
-          <h3>🥐 Padaria 2 Corações</h3>
-          <p>A Panificadora e Confeitaria 2 Corações é uma ótima opção próxima ao AP-96 para café da manhã, lanches e itens de conveniência durante a estadia.</p>
-          <p><strong>Endereço:</strong> Av. Pres. Kennedy, 9925 - Maracanã, Praia Grande - SP, 11705-750</p>
-          <a class="map-link" href="https://maps.app.goo.gl/QQvZZWzFAMCKcSa57" target="_blank" rel="noopener noreferrer">Ver localização</a>
-        </article>
+        <article class="info-card"><h3>🌳 Parque Mirim</h3><p>Próximo ao AP-96, o Parque Mirim é um espaço de lazer com mais de 700 árvores, áreas sombreadas e paisagismo florido, perfeito para caminhadas, esportes e convivência em meio à natureza.</p><a class="map-link" href="https://maps.app.goo.gl/XN8LHCotnwEvJqmq7" target="_blank" rel="noopener noreferrer">Ver localização</a></article>
+        <article class="info-card"><h3>🍹 Brisa Bar Caiçara</h3><p>A apenas 2 km do AP-96, é uma excelente opção na orla para curtir boa comida, bebidas e um clima perfeito de praia.</p><p><strong>Endereço:</strong> Av. Pres. Castelo Branco, 12501 - Vila Caiçara, Praia Grande - SP, 11706-500</p><a class="map-link" href="https://maps.app.goo.gl/EFasiUBpuziubD9A9" target="_blank" rel="noopener noreferrer">Ver localização</a></article>
+        <article class="info-card"><h3>🏖️ Beach Paradise Quiosque 11</h3><p>Outro quiosque imperdível na orla, com boa comida, drinques e o cenário ideal para relaxar perto do mar.</p><p><strong>Endereço:</strong> Av. Presidente Castelo Branco, S/N Quiosque 11, defronte ao nº 8.420 - Esquina com Av. dos Sindicatos - Cidade Ocian, Praia Grande - SP, 11704-600</p><a class="map-link" href="https://maps.app.goo.gl/pwmWHKu5aKn4P41LA" target="_blank" rel="noopener noreferrer">Ver localização</a></article>
+        <article class="info-card"><h3>🛍️ Praça Nossa Senhora de Fátima</h3><p>Tradicional ponto de encontro no bairro Caiçara, com feira de artesanato e alimentação. Após a revitalização, ficou ainda mais agradável para passear no fim da tarde e à noite.</p><a class="map-link" href="https://maps.app.goo.gl/nb8nTku1YTiKcFyi9" target="_blank" rel="noopener noreferrer">Ver localização</a></article>
+        <article class="info-card"><h3>🛒 Shopping Litoral Plaza</h3><p>O maior shopping do litoral paulista, com cinema, ampla praça de alimentação e novas atrações que reforçam sua importância turística na região.</p><a class="map-link" href="https://maps.app.goo.gl/EdZpYYZHQTYpZ3vR8" target="_blank" rel="noopener noreferrer">Ver localização</a></article>
+        <article class="info-card"><h3>🥐 Padaria 2 Corações</h3><p>A Panificadora e Confeitaria 2 Corações é uma ótima opção próxima ao AP-96 para café da manhã, lanches e itens de conveniência durante a estadia.</p><p><strong>Endereço:</strong> Av. Pres. Kennedy, 9925 - Maracanã, Praia Grande - SP, 11705-750</p><a class="map-link" href="https://maps.app.goo.gl/QQvZZWzFAMCKcSa57" target="_blank" rel="noopener noreferrer">Ver localização</a></article>
       </div>
+      <div class="extra-actions"><a class="btn-calendar" href="/calendario">📅 Consultar calendário de disponibilidade</a></div>
     </section>
 
     <section class="panel" id="conforto">
       <h2 class="section-title">Conforto</h2>
-      <p class="section-subtitle"></p>
-
       <div class="card">
         <h3>📸 Galeria do AP-96</h3>
-        <p>Conheça um pouco do nosso espaço! Para ver mais fotos, é só clicar em ‘Reserva’ e acessar pelo Airbnb.</p>
-
+        <p>Quer conhecer melhor o AP-96? Veja mais fotos e descubra o que nossos hóspedes já disseram! Clique em ‘Reserva’ e confira direto no Airbnb.</p>
         <div class="media-grid">
-          <div class="media-box">
-            <img src="foto_1.jpg" alt="Foto 1 do AP-96" />
-            <div class="media-label">foto_1.jpg</div>
-          </div>
-
-          <div class="media-box">
-            <img src="foto_2.jpg" alt="Foto 2 do AP-96" />
-            <div class="media-label">foto_2.jpg</div>
-          </div>
-
-          <div class="media-box">
-            <img src="foto_3.jpg" alt="Foto 3 do AP-96" />
-            <div class="media-label">foto_3.jpg</div>
-          </div>
-
-          <div class="media-box">
-            <img src="foto_4.jpg" alt="Foto 4 do AP-96" />
-            <div class="media-label">foto_4.jpg</div>
-          </div>
-
-          <div class="media-box">
-            <img src="foto_5.jpg" alt="Foto 5 do AP-96" />
-            <div class="media-label">foto_5.jpg</div>
-          </div>
-
-          <div class="media-box">
-            <img src="foto_6.jpg" alt="Foto 6 do AP-96" />
-            <div class="media-label">foto_6.jpg</div>
-          </div>
+          <div class="media-box"><img src="foto_1.jpg" alt="Foto 1 do AP-96" /><div class="media-label">foto_1.jpg</div></div>
+          <div class="media-box"><img src="foto_2.jpg" alt="Foto 2 do AP-96" /><div class="media-label">foto_2.jpg</div></div>
+          <div class="media-box"><img src="foto_3.jpg" alt="Foto 3 do AP-96" /><div class="media-label">foto_3.jpg</div></div>
+          <div class="media-box"><img src="foto_4.jpg" alt="Foto 4 do AP-96" /><div class="media-label">foto_4.jpg</div></div>
+          <div class="media-box"><img src="foto_5.jpg" alt="Foto 5 do AP-96" /><div class="media-label">foto_5.jpg</div></div>
+          <div class="media-box"><img src="foto_6.jpg" alt="Foto 6 do AP-96" /><div class="media-label">foto_6.jpg</div></div>
         </div>
-
         <div class="video-grid">
-          <div>
-            <div class="video-vertical">
-              <video controls playsinline preload="metadata">
-                <source src="video_1.mp4" type="video/mp4" />
-                Seu navegador não suporta vídeo.
-              </video>
-            </div>
-            <div class="video-caption">Vídeo 1 — <strong>video_1.mp4</strong></div>
-          </div>
-
-          <div>
-            <div class="video-vertical">
-              <video controls playsinline preload="metadata">
-                <source src="video_2.mp4" type="video/mp4" />
-                Seu navegador não suporta vídeo.
-              </video>
-            </div>
-            <div class="video-caption">Vídeo 2 — <strong>video_2.mp4</strong></div>
-          </div>
-
-          <div>
-            <div class="video-vertical">
-              <video controls playsinline preload="metadata">
-                <source src="video_3.mp4" type="video/mp4" />
-                Seu navegador não suporta vídeo.
-              </video>
-            </div>
-            <div class="video-caption">Vídeo 3 — <strong>video_3.mp4</strong></div>
-          </div>
+          <div><div class="video-vertical"><video controls playsinline preload="metadata"><source src="video_1.mp4" type="video/mp4" />Seu navegador não suporta vídeo.</video></div><div class="video-caption">Vídeo 1 — <strong>video_1.mp4</strong></div></div>
+          <div><div class="video-vertical"><video controls playsinline preload="metadata"><source src="video_2.mp4" type="video/mp4" />Seu navegador não suporta vídeo.</video></div><div class="video-caption">Vídeo 2 — <strong>video_2.mp4</strong></div></div>
+          <div><div class="video-vertical"><video controls playsinline preload="metadata"><source src="video_3.mp4" type="video/mp4" />Seu navegador não suporta vídeo.</video></div><div class="video-caption">Vídeo 3 — <strong>video_3.mp4</strong></div></div>
         </div>
       </div>
     </section>
@@ -722,157 +150,70 @@
     <section class="panel" id="seguranca">
       <h2 class="section-title">Segurança</h2>
       <p class="section-subtitle">Mais tranquilidade para você e sua família durante toda a estadia.</p>
-
       <div class="grid">
-        <article class="card">
-          <h3>🕘 Portaria 24 horas</h3>
-          <p>O condomínio conta com portaria 24h, oferecendo mais controle de acesso e tranquilidade aos hóspedes.</p>
-        </article>
-
-        <article class="card">
-          <h3>📹 Monitoramento</h3>
-          <p>Há câmeras de vigilância nas áreas comuns, reforçando a segurança e o cuidado com o ambiente.</p>
-        </article>
-
-        <article class="card">
-          <h3>🚗 Vaga no prédio</h3>
-          <p>Cada apartamento possui sua própria vaga de estacionamento dentro do condomínio, trazendo mais comodidade e proteção ao veículo.</p>
-        </article>
-
-        <article class="card">
-          <h3>🌊 Frente para a praia</h3>
-          <p>Além de estar em frente ao mar, o condomínio fica em uma localização valorizada e muito procurada por visitantes da região.</p>
-        </article>
+        <article class="card"><h3>🕘 Portaria 24 horas</h3><p>O condomínio conta com portaria 24h, oferecendo mais controle de acesso e tranquilidade aos hóspedes.</p></article>
+        <article class="card"><h3>📹 Monitoramento</h3><p>Há câmeras de vigilância nas áreas comuns, reforçando a segurança e o cuidado com o ambiente.</p></article>
+        <article class="card"><h3>🚗 Vaga no prédio</h3><p>Cada apartamento possui sua própria vaga de estacionamento dentro do condomínio, trazendo mais comodidade e proteção ao veículo.</p></article>
+        <article class="card"><h3>🌊 Frente para a praia</h3><p>Além de estar em frente ao mar, o condomínio fica em uma localização valorizada e muito procurada por visitantes da região.</p></article>
       </div>
     </section>
 
     <section class="panel" id="curiosidades">
       <h2 class="section-title">Curiosidades da Praia Grande</h2>
       <p class="section-subtitle">Uma cidade vibrante, em crescimento e com paisagens que surpreendem o ano inteiro.</p>
-
       <div class="grid">
-        <article class="info-card">
-          <h3>🏙️ Uma das cidades mais visitadas do litoral paulista</h3>
-          <p>A Praia Grande vive uma fase de grandes transformações e investimentos turísticos, reforçando sua posição como um dos destinos mais movimentados do litoral.</p>
-        </article>
-
-        <article class="info-card">
-          <h3>🛍️ Novos polos turísticos</h3>
-          <p>Entre os destaques estão a expansão do Litoral Plaza Shopping, o futuro VillaMar Shopping na Vila Mirim e o novo Píer Turístico da Aviação, projetos que devem valorizar ainda mais a cidade.</p>
-        </article>
-
-        <article class="info-card">
-          <h3>🐬 Mar, natureza e encontros especiais</h3>
-          <p>Além da longa orla, a região pode surpreender com a visita de baleias, golfinhos, tartarugas marinhas, leões-marinhos e até pinguins em determinadas épocas do ano.</p>
-        </article>
+        <article class="info-card"><h3>🏙️ Uma das cidades mais visitadas do litoral paulista</h3><p>A Praia Grande vive uma fase de grandes transformações e investimentos turísticos, reforçando sua posição como um dos destinos mais movimentados do litoral.</p></article>
+        <article class="info-card"><h3>🛍️ Novos polos turísticos</h3><p>Entre os destaques estão a expansão do Litoral Plaza Shopping, o futuro VillaMar Shopping na Vila Mirim e o novo Píer Turístico da Aviação, projetos que devem valorizar ainda mais a cidade.</p></article>
+        <article class="info-card"><h3>🐬 Mar, natureza e encontros especiais</h3><p>Além da longa orla, a região pode surpreender com a visita de baleias, golfinhos, tartarugas marinhas, leões-marinhos e até pinguins em determinadas épocas do ano.</p></article>
       </div>
-
-      <div class="highlight-quote">
-        “Mais de 20 km de praias contínuas e a visita inesperada de baleias, golfinhos e até pinguins fazem da Praia Grande um verdadeiro espetáculo da natureza.”
-      </div>
+      <div class="highlight-quote">“Mais de 20 km de praias contínuas e a visita inesperada de baleias, golfinhos e até pinguins fazem da Praia Grande um verdadeiro espetáculo da natureza.”</div>
     </section>
 
     <section class="panel" id="turismo">
       <h2 class="section-title">Turismo e Infraestrutura</h2>
       <p class="section-subtitle">Praia Grande oferece estrutura completa para receber turistas em todas as épocas do ano.</p>
-
       <div class="grid">
-        <article class="info-card">
-          <h3>🎭 Agenda cultural</h3>
-          <p>A cidade mantém programação cultural com atrações de música, teatro, dança, exposições e atividades esportivas ao longo do ano.</p>
-        </article>
-
-        <article class="info-card">
-          <h3>🎶 Grandes shows de verão</h3>
-          <p>O Estação Verão Show movimenta a cidade com apresentações de grandes artistas, atraindo visitantes de diversas regiões do Brasil.</p>
-        </article>
-
-        <article class="info-card">
-          <h3>🎆 Réveillon na orla</h3>
-          <p>A tradicional queima de fogos transforma a orla em um espetáculo de luzes, tornando a virada do ano ainda mais especial para moradores e turistas.</p>
-        </article>
+        <article class="info-card"><h3>🎭 Agenda cultural</h3><p>A cidade mantém programação cultural com atrações de música, teatro, dança, exposições e atividades esportivas ao longo do ano.</p></article>
+        <article class="info-card"><h3>🎶 Grandes shows de verão</h3><p>O Estação Verão Show movimenta a cidade com apresentações de grandes artistas, atraindo visitantes de diversas regiões do Brasil.</p></article>
+        <article class="info-card"><h3>🎆 Réveillon na orla</h3><p>A tradicional queima de fogos transforma a orla em um espetáculo de luzes, tornando a virada do ano ainda mais especial para moradores e turistas.</p></article>
       </div>
-
-      <div class="card" style="margin-top:18px;">
-        <h3>📌 Destaques</h3>
-        <ul class="list">
-          <li>Infraestrutura moderna para turismo e lazer.</li>
-          <li>Eventos sazonais que movimentam a cidade e valorizam a estadia.</li>
-          <li>Combinação de praia, gastronomia, compras e entretenimento em um só destino.</li>
-        </ul>
-      </div>
+      <div class="card" style="margin-top:18px;"><h3>📌 Destaques</h3><ul class="list"><li>Infraestrutura moderna para turismo e lazer.</li><li>Eventos sazonais que movimentam a cidade e valorizam a estadia.</li><li>Combinação de praia, gastronomia, compras e entretenimento em um só destino.</li></ul></div>
     </section>
   </main>
 
-  <footer class="footer">
-    2026 - criação <strong>FABIO COSTA & TATU</strong>
-  </footer>
+  <footer class="footer">2026 - criação <strong>FABIO COSTA &amp; CRFARIA</strong></footer>
 
   <div class="modal" id="modalContato" aria-hidden="true">
     <div class="modal-card">
       <button class="close-modal" type="button" onclick="fecharModalContato()" aria-label="Fechar">×</button>
-
       <h3>Enviar mensagem</h3>
       <p>Preencha os campos abaixo para abrir sua mensagem no aplicativo de e-mail.</p>
-
       <form class="contact-form" id="contactForm">
         <input type="text" id="nome" placeholder="Seu nome" required />
         <input type="email" id="email" placeholder="Seu e-mail" required />
         <input type="text" id="assunto" placeholder="Assunto" required />
         <textarea id="mensagem" placeholder="Digite sua mensagem" required></textarea>
-
         <button class="btn" type="submit">Abrir mensagem no e-mail</button>
-
-        <div class="form-note">
-          Observação: esta versão usa o aplicativo de e-mail do visitante. Para privacidade total do endereço e envio direto pelo site, depois será preciso integrar um backend ou serviço de formulário.
-        </div>
+        <div class="form-note">Observação: esta versão usa o aplicativo de e-mail do visitante. Para privacidade total do endereço e envio direto pelo site, depois será preciso integrar um backend ou serviço de formulário.</div>
       </form>
     </div>
   </div>
 
   <script>
-    function abrirModalContato(){
-      document.getElementById('modalContato').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function fecharModalContato(){
-      document.getElementById('modalContato').classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    document.getElementById('modalContato').addEventListener('click', function(e){
-      if(e.target === this){
-        fecharModalContato();
-      }
-    });
-
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape'){
-        fecharModalContato();
-      }
-    });
-
-    document.getElementById('contactForm').addEventListener('submit', function(e){
+    function abrirModalContato(){document.getElementById('modalContato').classList.add('active');document.body.style.overflow='hidden';}
+    function fecharModalContato(){document.getElementById('modalContato').classList.remove('active');document.body.style.overflow='';}
+    document.getElementById('modalContato').addEventListener('click',function(e){if(e.target===this){fecharModalContato();}});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){fecharModalContato();}});
+    document.getElementById('contactForm').addEventListener('submit',function(e){
       e.preventDefault();
-
-      const nome = document.getElementById('nome').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const assunto = document.getElementById('assunto').value.trim();
-      const mensagem = document.getElementById('mensagem').value.trim();
-
-      const corpo =
-`Nome: ${nome}
-E-mail: ${email}
-
-Mensagem:
-${mensagem}`;
-
-      const destinatario = 'faria1sp@gmail.com';
-      const mailtoLink =
-        `mailto:${destinatario}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
-
-      window.location.href = mailtoLink;
+      const nome=document.getElementById('nome').value.trim();
+      const email=document.getElementById('email').value.trim();
+      const assunto=document.getElementById('assunto').value.trim();
+      const mensagem=document.getElementById('mensagem').value.trim();
+      const corpo=`Nome: ${nome}\nE-mail: ${email}\n\nMensagem:\n${mensagem}`;
+      const destinatario='faria1sp@gmail.com';
+      const mailtoLink=`mailto:${destinatario}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
+      window.location.href=mailtoLink;
     });
   </script>
 </body>
