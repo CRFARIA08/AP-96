@@ -210,6 +210,18 @@ button:hover{background:#16a34a}
       </div>
     </div>
 
+    <div class="section">
+      <h2>Período da Estadia</h2>
+      <div class="row">
+        <div class="col">
+          <input type="date" id="checkin">
+        </div>
+        <div class="col">
+          <input type="date" id="checkout">
+        </div>
+      </div>
+    </div>
+
     <button id="botaoEnviar" onclick="enviar()">Enviar Cadastro</button>
 
     <div class="footer">
@@ -391,6 +403,8 @@ function enviar(){
   const celHospede = document.getElementById("celHospede").value.trim();
   const cpfHospede = document.getElementById("cpfHospede").value.trim();
   const rgHospede = document.getElementById("rgHospede").value.trim();
+  const checkin = document.getElementById("checkin").value;
+  const checkout = document.getElementById("checkout").value;
 
   if(nomeHospede === ""){
     alert("Preencha o nome do hóspede principal");
@@ -401,6 +415,24 @@ function enviar(){
   if(celHospede === ""){
     alert("Preencha o celular do hóspede principal");
     document.getElementById("celHospede").focus();
+    return;
+  }
+
+  if(checkin === ""){
+    alert("Preencha a data de check-in");
+    document.getElementById("checkin").focus();
+    return;
+  }
+
+  if(checkout === ""){
+    alert("Preencha a data de check-out");
+    document.getElementById("checkout").focus();
+    return;
+  }
+
+  if(checkout < checkin){
+    alert("A data de check-out não pode ser anterior ao check-in");
+    document.getElementById("checkout").focus();
     return;
   }
 
@@ -424,6 +456,8 @@ function enviar(){
     marcaModelo: valor("marcaModelo"),
     placa: document.getElementById("placa").value.trim().toUpperCase(),
     cor: valor("cor"),
+    checkin: checkin,
+    checkout: checkout,
     status: "PENDENTE"
   };
 
@@ -472,6 +506,8 @@ function resetForm(){
   document.getElementById("marcaModelo").value = "";
   document.getElementById("placa").value = "";
   document.getElementById("cor").value = "";
+  document.getElementById("checkin").value = "";
+  document.getElementById("checkout").value = "";
   document.getElementById("erroCpfPrincipal").innerText = "";
   document.getElementById("acompanhantes").innerHTML = "";
   totalAcompanhantes = 0;
