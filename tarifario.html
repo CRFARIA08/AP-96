@@ -535,8 +535,7 @@
   <script>
     const APP_PASSWORD = "@Molly26";
     const PERIODOS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSuOiupYu7oiTw8KRpNPfOsyWJgXKZ7YYD8xOhFBc_MS-jsJxiyG1x4P5z8SXWLVA/pub?output=csv&gid=2113046344";
-    const FERIADOS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSuOiupYu7oiTw8KRpNPfOsyWJgXKZ7YYD8xOhFBc_MS-jsJxiyG1x4P5z8SXWLVA/pubhtml?gid=1997911761&single=true";
-    
+       
 
     const FERIADOS = [
       { data: "2026-01-01", nome: "Confraternização Universal", tipo: "Nacional", forca: "media" },
@@ -667,9 +666,10 @@
     }
 
     async function loadPeriodos() {
-      const res = await fetch(PERIODOS_CSV_URL, { cache: "no-store" });
+      const res = await fetch(PERIODOS_CSV_URL + "&t=" + Date.now());
       const text = await res.text();
       const rows = parseCSVToObjects(text);
+      console.log("PERIODOS carregados:", rows);
 
       rawPeriodos = rows.map((row, index) => {
         const inicio = parseDateFlexible(getField(row, ["data inicial", "inicio", "data inicio", "início", "data_inicial"]));
@@ -945,8 +945,8 @@
       try {
         await loadPeriodos();
       } catch (err) {
-        console.error(err);
-        document.getElementById("periodCards").innerHTML = '<div class="empty-state">Não foi possível carregar a planilha agora. Verifique a publicação da aba PERIODOS e tente novamente.</div>';
+        console.error("Erro ao carregar PERIODOS:", err);
+        document.getElementById("periodCards").innerHTML = '<div class="empty-state">Não foi possível carregar a planilha agora. Verifique a publicação da aba PERIODOS, se há dados preenchidos e tente novamente.</div>';
       }
     }
 
