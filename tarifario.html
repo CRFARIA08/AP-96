@@ -1,483 +1,977 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AP96 | Tarifário Privado 2026</title>
-<style>
-  :root{
-    --bg1:#081428;
-    --bg2:#0f2747;
-    --panel:rgba(255,255,255,.10);
-    --panel-strong:rgba(255,255,255,.16);
-    --text:#f8fafc;
-    --muted:#cbd5e1;
-    --accent:#f59e0b;
-    --ok:#22c55e;
-    --danger:#ef4444;
-    --info:#38bdf8;
-    --line:rgba(255,255,255,.14);
-    --shadow:0 20px 50px rgba(0,0,0,.28);
-    --radius:24px;
-    --max:1280px;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family:Arial, Helvetica, sans-serif;
-    color:var(--text);
-    background:
-      radial-gradient(circle at top left, rgba(56,189,248,.12), transparent 22%),
-      radial-gradient(circle at top right, rgba(245,158,11,.14), transparent 22%),
-      linear-gradient(180deg, var(--bg2), var(--bg1));
-    min-height:100vh;
-  }
-  .shell{max-width:var(--max);margin:0 auto;padding:20px 14px 40px}
-  .hero,.panel,.month-card,.small-card,.table-wrap,.login-card{
-    background:var(--panel);
-    border:1px solid var(--line);
-    box-shadow:var(--shadow);
-    backdrop-filter:blur(12px);
-  }
-  .hero,.panel,.table-wrap,.login-card{border-radius:28px}
-  .month-card,.small-card{border-radius:20px}
-  .hero{padding:24px 20px}
-  .hero-top{display:flex;gap:18px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}
-  h1{margin:0 0 10px;font-size:clamp(32px,5vw,52px);line-height:1.05}
-  .subtitle{margin:0;color:var(--muted);font-size:clamp(15px,2vw,19px);max-width:760px;line-height:1.6}
-  .badges,.summary-grid,.month-grid,.top-grid{display:grid;gap:14px}
-  .badges{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:18px}
-  .badge{
-    padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.10);color:#fff;font-weight:700
-  }
-  .summary-grid{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:18px}
-  .small-card{padding:16px}
-  .small-card h3{margin:0 0 8px;font-size:14px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-  .small-card .value{font-size:28px;font-weight:700}
-  .small-card .note{margin-top:6px;color:var(--muted);font-size:13px;line-height:1.4}
-  .top-grid{grid-template-columns:1.15fr .85fr;margin-top:18px}
-  .panel{padding:20px 18px}
-  .panel h2{margin:0 0 10px;font-size:24px}
-  .muted{color:var(--muted);line-height:1.6}
-  .pill-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-  .pill{
-    padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.12);
-    background:rgba(255,255,255,.06);font-size:14px;color:#fff
-  }
-  .event-list{display:grid;gap:10px;margin-top:12px}
-  .event-item{
-    padding:14px;border-radius:18px;background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.10)
-  }
-  .event-item strong{display:block;font-size:16px}
-  .event-item span{display:block;margin-top:5px;color:var(--muted);font-size:14px;line-height:1.45}
-  .month-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:18px}
-  .month-card{padding:16px}
-  .month-card h3{margin:0 0 12px;font-size:22px}
-  .chips{display:flex;flex-wrap:wrap;gap:8px}
-  .chip{
-    display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;
-    font-size:13px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.06)
-  }
-  .chip.alta{background:rgba(239,68,68,.18)}
-  .chip.media{background:rgba(245,158,11,.16)}
-  .chip.baixa{background:rgba(56,189,248,.16)}
-  .table-wrap{padding:18px 16px;margin-top:18px;overflow:auto}
-  table{width:100%;border-collapse:collapse;min-width:880px}
-  th,td{padding:12px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.10);vertical-align:top}
-  th{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:#dbeafe}
-  td{font-size:14px}
-  .tag{
-    display:inline-flex;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700
-  }
-  .tag.critico{background:rgba(239,68,68,.24)}
-  .tag.alto{background:rgba(245,158,11,.20)}
-  .tag.medio{background:rgba(56,189,248,.20)}
-  .status{
-    display:inline-flex;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700
-  }
-  .status.planejar{background:rgba(255,255,255,.10)}
-  .status.publicado{background:rgba(34,197,94,.22)}
-  .legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-  .legend .pill{font-size:13px}
-  .footer-note{margin-top:12px;font-size:13px;color:var(--muted);line-height:1.55}
-  .gate{
-    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-    background:linear-gradient(180deg, rgba(2,6,23,.78), rgba(2,6,23,.90));z-index:99;padding:20px
-  }
-  .login-card{width:min(100%,420px);padding:24px}
-  .login-card h2{margin:0 0 10px;font-size:30px}
-  .login-card p{margin:0 0 16px;color:#cbd5e1;line-height:1.6}
-  .login-card input{
-    width:100%;padding:14px 16px;border-radius:16px;border:1px solid rgba(255,255,255,.18);
-    background:rgba(255,255,255,.10);color:#fff;font-size:16px;outline:none
-  }
-  .login-card button{
-    width:100%;margin-top:12px;padding:14px 16px;border:none;border-radius:16px;
-    background:linear-gradient(135deg,#22c55e,#16a34a);color:white;font-weight:700;font-size:16px;cursor:pointer
-  }
-  .login-error{min-height:18px;margin-top:10px;color:#fecaca;font-size:13px}
-  .hidden{display:none}
-  @media (max-width:1000px){
-    .summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .month-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .top-grid{grid-template-columns:1fr}
-    .badges{grid-template-columns:1fr}
-  }
-  @media (max-width:640px){
-    .summary-grid,.month-grid{grid-template-columns:1fr}
-    .hero,.panel,.table-wrap,.login-card{border-radius:22px}
-    .hero{padding:20px 16px}
-    .panel{padding:18px 14px}
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AP96 • Tarifário Privado</title>
+  <style>
+    :root {
+      --bg1: #071226;
+      --bg2: #0f274c;
+      --panel: rgba(255,255,255,0.10);
+      --panel-2: rgba(255,255,255,0.08);
+      --line: rgba(255,255,255,0.14);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --shadow: 0 18px 44px rgba(0,0,0,0.28);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max: 1260px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.10), transparent 30%),
+        radial-gradient(circle at top right, rgba(34,197,94,0.10), transparent 28%),
+        linear-gradient(180deg, var(--bg2), var(--bg1));
+      min-height: 100vh;
+    }
+
+    .gate {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: linear-gradient(180deg, rgba(2,6,23,0.76), rgba(2,6,23,0.92));
+      backdrop-filter: blur(10px);
+      z-index: 20;
+    }
+    .gate.hidden { display: none; }
+    .gate-card {
+      width: min(100%, 460px);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      padding: 28px 22px;
+      text-align: center;
+    }
+    .gate-card h1 { margin: 0 0 8px; font-size: 30px; }
+    .gate-card p { margin: 0 0 18px; color: var(--muted); line-height: 1.6; }
+
+    .wrap {
+      width: min(calc(100% - 28px), var(--max));
+      margin: 0 auto;
+      padding: 18px 0 38px;
+    }
+
+    .hero, .panel, .table-card, .calendar-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero {
+      padding: 24px 20px 20px;
+      margin-bottom: 18px;
+    }
+    .hero-top {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(34px, 5vw, 54px);
+      line-height: 1.04;
+    }
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 760px;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn, .btn-ghost, .btn-soft {
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: 999px;
+      min-height: 48px;
+      padding: 12px 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: .18s ease;
+    }
+    .btn { background: linear-gradient(135deg, var(--accent), #0ea5e9); color: white; }
+    .btn-ghost { background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.12); }
+    .btn-soft { background: rgba(34,197,94,0.14); color: white; border: 1px solid rgba(34,197,94,0.18); }
+    .btn:hover, .btn-ghost:hover, .btn-soft:hover { transform: translateY(-1px); }
+
+    .summary-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .summary-card {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+    }
+    .summary-card h3 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .summary-card .value {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.05;
+    }
+    .summary-card .sub {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+    .panel {
+      padding: 20px 18px;
+    }
+    .panel h2, .table-card h2, .calendar-card h2 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height: 1.1;
+    }
+    .panel p.top-note, .table-card p.top-note, .calendar-card p.top-note {
+      margin: 0 0 16px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 1.1fr .8fr .8fr .8fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    input, select {
+      width: 100%;
+      min-height: 46px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      padding: 12px 14px;
+      font-size: 14px;
+      outline: none;
+    }
+    input::placeholder { color: #cbd5e1; }
+    select option { color: #111827; }
+
+    .cards-list {
+      display: grid;
+      gap: 12px;
+    }
+    .period-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-left: 6px solid var(--accent);
+      border-radius: 18px;
+      padding: 16px;
+    }
+    .period-card.forca-forte { border-left-color: var(--danger); }
+    .period-card.forca-media { border-left-color: var(--warn); }
+    .period-card.forca-baixa { border-left-color: var(--accent-2); }
+    .period-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .period-head h3 {
+      margin: 0;
+      font-size: 22px;
+    }
+    .price-pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.16);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .meta-row {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .obs {
+      margin-top: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .quick-box {
+      display: grid;
+      gap: 12px;
+    }
+    .quick-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 14px;
+    }
+    .quick-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+    .mini-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .table-card, .calendar-card {
+      margin-top: 18px;
+      padding: 20px 18px;
+    }
+    .table-wrap {
+      overflow: auto;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 860px;
+      background: rgba(255,255,255,0.05);
+    }
+    th, td {
+      padding: 12px 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 14px;
+    }
+    th { color: white; background: rgba(255,255,255,0.08); }
+    td { color: var(--muted); }
+    .td-valor { color: white; font-weight: 700; }
+
+    .months-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .month-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 14px;
+    }
+    .month-box h3 {
+      margin: 0 0 12px;
+      font-size: 20px;
+    }
+    .weekdays, .days {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 6px;
+    }
+    .weekday {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      font-weight: 700;
+      padding-bottom: 4px;
+    }
+    .empty { aspect-ratio: 1 / 1; }
+    .day {
+      aspect-ratio: 1 / 1;
+      min-height: 0;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+    .day.period-forte { background: rgba(239,68,68,0.22); }
+    .day.period-media { background: rgba(245,158,11,0.22); }
+    .day.period-baixa { background: rgba(34,197,94,0.18); }
+    .day.feriado::after {
+      content: "•";
+      position: absolute;
+      bottom: 2px;
+      right: 5px;
+      color: #fde68a;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .empty-state {
+      padding: 26px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px dashed rgba(255,255,255,0.16);
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 1080px) {
+      .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .layout { grid-template-columns: 1fr; }
+      .months-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 760px) {
+      .filters, .summary-grid, .months-grid { grid-template-columns: 1fr; }
+      .hero-actions { width: 100%; }
+      .hero-actions .btn, .hero-actions .btn-ghost, .hero-actions .btn-soft { width: 100%; }
+      .period-head { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
-<div id="gate" class="gate">
-  <div class="login-card">
-    <h2>Tarifário privado</h2>
-    <p>Barreira simples de acesso para o painel interno do AP96. Não é segurança forte, mas já evita acesso casual no site público.</p>
-    <input id="passwordInput" type="password" placeholder="Digite a senha">
-    <button id="unlockBtn" type="button">Entrar</button>
-    <div id="loginError" class="login-error"></div>
+  <div id="loginGate" class="gate">
+    <div class="gate-card">
+      <h1>Tarifário Privado</h1>
+      <p>Painel interno do AP96 para consulta de períodos, preços, feriados e oportunidades antes de ajustar o Airbnb.</p>
+      <input id="passwordInput" type="password" placeholder="Digite a senha" />
+      <div style="display:flex; gap:10px; margin-top:12px; justify-content:center; flex-wrap:wrap;">
+        <button class="btn" id="loginBtn">Entrar</button>
+      </div>
+      <div id="loginMsg" style="margin-top:12px; color:#fecaca; min-height:20px; font-size:14px;"></div>
+    </div>
   </div>
-</div>
 
-<div id="app" class="shell hidden">
-  <section class="hero">
-    <div class="hero-top">
-      <div>
-        <h1>AP96 • Tarifário 2026</h1>
-        <p class="subtitle">Painel privado para apoiar seus preços no Airbnb com foco em São Paulo / Grande São Paulo, feriados nacionais e janelas paulistas relevantes.</p>
-      </div>
-      <div class="legend">
-        <div class="pill">Uso interno</div>
-        <div class="pill">Apoio ao Airbnb</div>
-        <div class="pill" id="modePill">Modo planilha publicada (períodos)</div>
-      </div>
-    </div>
+  <main id="app" style="display:none;">
+    <div class="wrap">
+      <section class="hero">
+        <div class="hero-top">
+          <div>
+            <div class="eyebrow">🔒 Uso interno • AP96 • Gestão de preços Airbnb</div>
+            <h1>Tarifário Estratégico</h1>
+            <p>Use este painel para visualizar períodos fortes, organizar valores, acompanhar feriados relevantes para hóspedes de São Paulo e Grande São Paulo e decidir com mais segurança a precificação no Airbnb.</p>
+          </div>
+          <div class="hero-actions">
+            <button class="btn" id="refreshBtn">⟳ Atualizar períodos</button>
+            <button class="btn-ghost" id="clearFiltersBtn">Limpar filtros</button>
+            <button class="btn-soft" id="exportTxtBtn">Copiar resumo rápido</button>
+          </div>
+        </div>
 
-    <div class="badges">
-      <div class="badge">Demanda principal: São Paulo / Grande São Paulo</div>
-      <div class="badge">Objetivo: organizar preços, não vender direto</div>
-      <div class="badge">Integração ativa: períodos vindos da planilha publicada</div>
-    </div>
+        <div class="summary-grid">
+          <div class="summary-card">
+            <h3>Total de períodos</h3>
+            <div class="value" id="sumTotal">0</div>
+            <div class="sub">Quantidade cadastrada na aba PERIODOS.</div>
+          </div>
+          <div class="summary-card">
+            <h3>Próximo período forte</h3>
+            <div class="value" id="sumNext">—</div>
+            <div class="sub" id="sumNextSub">Sem período futuro identificado.</div>
+          </div>
+          <div class="summary-card">
+            <h3>Valor mais alto</h3>
+            <div class="value" id="sumHigh">—</div>
+            <div class="sub" id="sumHighSub">Maior valor cadastrado no tarifário.</div>
+          </div>
+          <div class="summary-card">
+            <h3>Feriados monitorados</h3>
+            <div class="value" id="sumFeriados">0</div>
+            <div class="sub">Nacionais, SP e oportunidades com foco em seu público.</div>
+          </div>
+        </div>
+      </section>
 
-    <div class="summary-grid">
-      <div class="small-card">
-        <h3>Preço base dia útil</h3>
-        <div class="value" id="baseUtil">R$ 260</div>
-        <div class="note">Faixa-base para meses comuns.</div>
-      </div>
-      <div class="small-card">
-        <h3>Preço base fim de semana</h3>
-        <div class="value" id="baseFds">R$ 320</div>
-        <div class="note">Referência inicial para sexta a domingo.</div>
-      </div>
-      <div class="small-card">
-        <h3>Preço base data forte</h3>
-        <div class="value" id="baseFeriado">R$ 390</div>
-        <div class="note">Base para feriados e janelas fortes.</div>
-      </div>
-      <div class="small-card">
-        <h3>Períodos cadastrados</h3>
-        <div class="value" id="periodCount">—</div>
-        <div class="note">Blocos prontos para você aplicar no Airbnb.</div>
-      </div>
-    </div>
-  </section>
+      <div class="layout">
+        <section class="panel">
+          <h2>Períodos do tarifário</h2>
+          <p class="top-note">A leitura é automática da sua planilha publicada. Você altera no Google Sheets e consulta aqui.</p>
 
-  <section class="top-grid">
-    <div class="panel">
-      <h2>Próximos gatilhos fortes</h2>
-      <p class="muted">Leitura rápida das próximas datas e janelas que normalmente merecem atenção de preço.</p>
-      <div id="nextEvents" class="event-list"></div>
-    </div>
+          <div class="filters">
+            <input id="searchInput" type="text" placeholder="Buscar por nome, observação ou motivo" />
+            <select id="forcaFilter">
+              <option value="">Força: todas</option>
+              <option value="forte">Forte</option>
+              <option value="media">Média</option>
+              <option value="baixa">Baixa</option>
+            </select>
+            <select id="monthFilter">
+              <option value="">Mês: todos</option>
+            </select>
+            <select id="sortFilter">
+              <option value="inicio">Ordenar por data</option>
+              <option value="valor_desc">Maior valor</option>
+              <option value="valor_asc">Menor valor</option>
+            </select>
+          </div>
 
-    <div class="panel">
-      <h2>Leitura estratégica</h2>
-      <p class="muted">Este painel já nasceu para o pensamento final: ele separa dados oficiais, períodos aplicáveis no Airbnb e resumo mensal.</p>
-      <div class="pill-list">
-        <div class="pill">Carnaval</div>
-        <div class="pill">Semana Santa</div>
-        <div class="pill">Corpus Christi</div>
-        <div class="pill">9 de Julho</div>
-        <div class="pill">Férias de julho</div>
-        <div class="pill">Natal / Réveillon</div>
+          <div id="periodCards" class="cards-list"></div>
+        </section>
+
+        <aside class="panel">
+          <h2>Painel rápido</h2>
+          <p class="top-note">Visão prática para bater o olho antes de subir ou segurar preço.</p>
+          <div class="quick-box">
+            <div class="quick-card">
+              <h3>Próximas oportunidades</h3>
+              <ul id="nextOpportunities" class="mini-list"></ul>
+            </div>
+            <div class="quick-card">
+              <h3>Feriados relevantes</h3>
+              <ul id="nextFeriados" class="mini-list"></ul>
+            </div>
+            <div class="quick-card">
+              <h3>Leitura estratégica</h3>
+              <ul class="mini-list">
+                <li><strong>Forte:</strong> feriadão, alta procura, férias, emenda ou datas com maior chance de busca.</li>
+                <li><strong>Média:</strong> bom momento para sustentar valor ou subir com cautela.</li>
+                <li><strong>Baixa:</strong> período mais sensível a preço, útil para manter competitivo.</li>
+              </ul>
+            </div>
+          </div>
+        </aside>
       </div>
+
+      <section class="table-card">
+        <h2>Tabela completa</h2>
+        <p class="top-note">Planilha em formato visual para conferência rápida de tudo que foi cadastrado.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Período</th>
+                <th>Início</th>
+                <th>Fim</th>
+                <th>Noites</th>
+                <th>Valor</th>
+                <th>Força</th>
+                <th>Observação</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="calendar-card">
+        <h2>Mapa anual</h2>
+        <p class="top-note">Calendário com destaque dos períodos cadastrados e dos feriados mais relevantes para o seu público.</p>
+        <div class="months-grid" id="monthsGrid"></div>
+      </section>
+
       <div class="footer-note">
-        Os períodos já estão conectados à planilha publicada. Se depois quiser, também conectamos a aba de feriados.
+        Painel privado do AP96. A senha nesta página serve como barreira leve de acesso visual, não como segurança forte de sistema.
       </div>
     </div>
-  </section>
+  </main>
 
-  <section class="panel" style="margin-top:18px;">
-    <h2>Mapa mensal</h2>
-    <p class="muted">Cada mês mostra rapidamente o que merece atenção. Vermelho = muito forte. Amarelo = bom gatilho. Azul = apoio leve.</p>
-    <div id="monthGrid" class="month-grid"></div>
-  </section>
+  <script>
+    const APP_PASSWORD = "@Molly26";
+    const PERIODOS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSuOiupYu7oiTw8KRpNPfOsyWJgXKZ7YYD8xOhFBc_MS-jsJxiyG1x4P5z8SXWLVA/pub?output=csv&gid=2113046344";
 
-  <section class="table-wrap">
-    <h2 style="margin:0 0 8px;font-size:24px;">Períodos prontos para aplicar</h2>
-    <p class="muted" style="margin:0 0 14px;">Tabela base para você revisar e replicar no Airbnb. Depois, se quiser, conectamos direto à planilha publicada.</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Período</th>
-          <th>Nível</th>
-          <th>Gatilho</th>
-          <th>Diária sugerida</th>
-          <th>Mín. noites</th>
-          <th>Status</th>
-          <th>Observação</th>
-        </tr>
-      </thead>
-      <tbody id="periodTable"></tbody>
-    </table>
-    <div class="footer-note">
-      Dica: mantenha o site público separado e use este painel apenas como apoio interno.
-    </div>
-  </section>
-</div>
+    const FERIADOS = [
+      { data: "2026-01-01", nome: "Confraternização Universal", tipo: "Nacional", forca: "media" },
+      { data: "2026-01-25", nome: "Aniversário de São Paulo", tipo: "São Paulo", forca: "media" },
+      { data: "2026-02-16", nome: "Carnaval", tipo: "Ponto facultativo", forca: "forte" },
+      { data: "2026-02-17", nome: "Carnaval", tipo: "Ponto facultativo", forca: "forte" },
+      { data: "2026-04-03", nome: "Paixão de Cristo", tipo: "Nacional", forca: "forte" },
+      { data: "2026-04-21", nome: "Tiradentes", tipo: "Nacional", forca: "media" },
+      { data: "2026-05-01", nome: "Dia do Trabalho", tipo: "Nacional", forca: "media" },
+      { data: "2026-06-04", nome: "Corpus Christi", tipo: "Ponto facultativo", forca: "forte" },
+      { data: "2026-07-09", nome: "Revolução Constitucionalista", tipo: "Estado de SP", forca: "forte" },
+      { data: "2026-07-10", nome: "Emenda provável 9 de Julho", tipo: "Oportunidade", forca: "forte" },
+      { data: "2026-07-01", nome: "Início do recesso escolar de julho", tipo: "Oportunidade", forca: "media" },
+      { data: "2026-07-31", nome: "Fim do recesso escolar de julho", tipo: "Oportunidade", forca: "media" },
+      { data: "2026-09-07", nome: "Independência do Brasil", tipo: "Nacional", forca: "media" },
+      { data: "2026-10-12", nome: "Nossa Senhora Aparecida", tipo: "Nacional", forca: "media" },
+      { data: "2026-11-02", nome: "Finados", tipo: "Nacional", forca: "media" },
+      { data: "2026-11-15", nome: "Proclamação da República", tipo: "Nacional", forca: "media" },
+      { data: "2026-11-20", nome: "Dia da Consciência Negra", tipo: "Nacional", forca: "forte" },
+      { data: "2026-12-25", nome: "Natal", tipo: "Nacional", forca: "forte" },
+      { data: "2026-12-31", nome: "Véspera de Ano Novo", tipo: "Oportunidade", forca: "forte" }
+    ];
 
-<script>
-/* =========================
-   CONFIGURAÇÃO INICIAL
-   =========================
-   Se quiser conectar à nova planilha publicada no Google Sheets:
-   1) publique a aba PERIODOS em CSV
-   2) publique a aba FERIADOS_2026 em CSV
-   3) cole as URLs abaixo
-*/
-const ACCESS_PASSWORD = "@Molly26";
-const PERIODOS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSuOiupYu7oiTw8KRpNPfOsyWJgXKZ7YYD8xOhFBc_MS-jsJxiyG1x4P5z8SXWLVA/pub?output=csv&gid=2113046344";
-const FERIADOS_CSV_URL = "";
+    const MONTH_NAMES = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+    const WEEKDAYS = ["D","S","T","Q","Q","S","S"];
 
-const fallbackConfig = {
-  precoBaseUtil: 260,
-  precoBaseFds: 320,
-  precoBaseFeriado: 390
-};
+    let rawPeriodos = [];
+    let filteredPeriodos = [];
 
-const fallbackFeriados = [
-  {data:"2026-01-01", evento:"Confraternização Universal", leitura:"Alta", obs:"Alta de verão"},
-  {data:"2026-01-25", evento:"Aniversário da Cidade de São Paulo", leitura:"Média", obs:"Importante para público paulistano"},
-  {data:"2026-02-16", evento:"Carnaval", leitura:"Alta", obs:"Janela clássica de demanda"},
-  {data:"2026-02-17", evento:"Carnaval", leitura:"Alta", obs:"Janela clássica de demanda"},
-  {data:"2026-02-18", evento:"Cinzas até 12h", leitura:"Média", obs:"Alongamento do Carnaval"},
-  {data:"2026-04-03", evento:"Paixão de Cristo", leitura:"Alta", obs:"Muito boa para litoral"},
-  {data:"2026-04-20", evento:"Ponte Tiradentes", leitura:"Média", obs:"Pode ampliar demanda"},
-  {data:"2026-04-21", evento:"Tiradentes", leitura:"Alta", obs:"Boa janela curta"},
-  {data:"2026-05-01", evento:"Dia do Trabalho", leitura:"Alta", obs:"Janela forte de 2 a 3 noites"},
-  {data:"2026-06-04", evento:"Corpus Christi", leitura:"Alta", obs:"Muito relevante para SP"},
-  {data:"2026-06-05", evento:"Ponte Corpus", leitura:"Média", obs:"Emenda paulista"},
-  {data:"2026-07-06", evento:"Recesso escolar começa", leitura:"Média", obs:"Julho mais quente"},
-  {data:"2026-07-09", evento:"Data Magna de SP", leitura:"Alta", obs:"Fortíssimo para seu público"},
-  {data:"2026-07-10", evento:"Ponte 9 de Julho", leitura:"Média", obs:"Emenda útil"},
-  {data:"2026-07-17", evento:"Recesso escolar termina", leitura:"Média", obs:"Julho segue forte"},
-  {data:"2026-09-07", evento:"Independência do Brasil", leitura:"Alta", obs:"Muito bom para litoral"},
-  {data:"2026-10-12", evento:"Nossa Senhora Aparecida", leitura:"Alta", obs:"Janela de primavera"},
-  {data:"2026-10-30", evento:"Servidor público (SP)", leitura:"Baixa", obs:"Apoio pontual"},
-  {data:"2026-11-02", evento:"Finados", leitura:"Alta", obs:"Janela curta de viagem"},
-  {data:"2026-11-15", evento:"Proclamação da República", leitura:"Média", obs:"Depende do encaixe"},
-  {data:"2026-11-20", evento:"Consciência Negra", leitura:"Alta", obs:"Feriado bom para praia"},
-  {data:"2026-12-24", evento:"Véspera de Natal", leitura:"Baixa", obs:"Ajuste fino"},
-  {data:"2026-12-25", evento:"Natal", leitura:"Alta", obs:"Período forte"},
-  {data:"2026-12-31", evento:"Véspera de Ano Novo", leitura:"Alta", obs:"Gatilho Réveillon"}
-];
-
-const fallbackPeriodos = [
-  {periodo:"Verão / janeiro", nivel:"ALTO", gatilho:"Férias + Ano Novo", diaria:488, minNoites:3, status:"Planejar", obs:"Revisar ocupação semanalmente"},
-  {periodo:"Carnaval", nivel:"CRÍTICO", gatilho:"Carnaval", diaria:566, minNoites:4, status:"Planejar", obs:"Janela mais sensível para preço"},
-  {periodo:"Semana Santa", nivel:"ALTO", gatilho:"Paixão de Cristo", diaria:488, minNoites:3, status:"Planejar", obs:"Bom para 2 a 3 noites"},
-  {periodo:"Ponte Tiradentes", nivel:"ALTO", gatilho:"Tiradentes + ponto", diaria:488, minNoites:3, status:"Planejar", obs:"Monitorar emenda"},
-  {periodo:"Dia do Trabalho", nivel:"ALTO", gatilho:"Feriado nacional", diaria:488, minNoites:3, status:"Planejar", obs:"Janela curta clássica"},
-  {periodo:"Corpus Christi", nivel:"ALTO", gatilho:"Corpus + emenda SP", diaria:488, minNoites:3, status:"Planejar", obs:"Muito relevante para SP"},
-  {periodo:"Férias de julho", nivel:"ALTO", gatilho:"Recesso escolar SP", diaria:488, minNoites:3, status:"Planejar", obs:"Tratar como mês quente"},
-  {periodo:"9 de Julho", nivel:"ALTO", gatilho:"Estado de SP + ponte", diaria:488, minNoites:3, status:"Planejar", obs:"Janela muito aderente"},
-  {periodo:"7 de Setembro", nivel:"ALTO", gatilho:"Feriado nacional", diaria:488, minNoites:3, status:"Planejar", obs:"Janela forte"},
-  {periodo:"Nossa Senhora Aparecida", nivel:"ALTO", gatilho:"Feriado nacional", diaria:488, minNoites:3, status:"Planejar", obs:"Primavera boa"},
-  {periodo:"Finados / ponte", nivel:"ALTO", gatilho:"Ponte + Finados", diaria:488, minNoites:3, status:"Planejar", obs:"Observar resposta do mercado"},
-  {periodo:"Consciência Negra", nivel:"ALTO", gatilho:"20 de novembro", diaria:488, minNoites:3, status:"Planejar", obs:"Muito bom para litoral"},
-  {periodo:"Natal", nivel:"ALTO", gatilho:"Natal", diaria:488, minNoites:3, status:"Planejar", obs:"Pode subir com antecedência"},
-  {periodo:"Réveillon", nivel:"CRÍTICO", gatilho:"Ano Novo", diaria:566, minNoites:4, status:"Planejar", obs:"Janela premium"}
-];
-
-function fmtBR(v){
-  return Number(v || 0).toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0});
-}
-function niceDate(iso){
-  const d = new Date(iso + "T12:00:00");
-  return d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"});
-}
-function monthName(index){
-  return ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"][index];
-}
-function levelClass(str){
-  const s = String(str || "").toLowerCase();
-  if(s.includes("crít")) return "critico";
-  if(s.includes("alto")) return "alto";
-  return "medio";
-}
-function readClass(str){
-  const s = String(str || "").toLowerCase();
-  if(s === "alta") return "alta";
-  if(s === "média" || s === "media") return "media";
-  return "baixa";
-}
-function parseCSV(text){
-  const lines = text.trim().split(/\r?\n/).filter(Boolean);
-  if(!lines.length) return [];
-  const rows = [];
-  let headers = null;
-  for(const line of lines){
-    const cols = [];
-    let current = "", inside = false;
-    for(let i=0;i<line.length;i++){
-      const ch = line[i];
-      if(ch === '"' && line[i+1] === '"'){ current += '"'; i++; continue; }
-      if(ch === '"'){ inside = !inside; continue; }
-      if(ch === "," && !inside){ cols.push(current); current = ""; continue; }
-      current += ch;
+    function parseDateFlexible(value) {
+      if (!value) return null;
+      const text = String(value).trim();
+      if (!text) return null;
+      if (/^\d{4}-\d{2}-\d{2}$/.test(text)) {
+        const [y,m,d] = text.split("-").map(Number);
+        return new Date(y, m - 1, d);
+      }
+      if (/^\d{2}\/\d{2}\/\d{4}$/.test(text)) {
+        const [d,m,y] = text.split("/").map(Number);
+        return new Date(y, m - 1, d);
+      }
+      const maybe = new Date(text);
+      return isNaN(maybe.getTime()) ? null : new Date(maybe.getFullYear(), maybe.getMonth(), maybe.getDate());
     }
-    cols.push(current);
-    if(!headers){ headers = cols; continue; }
-    const obj = {};
-    headers.forEach((h,idx)=> obj[h.trim()] = (cols[idx] || "").trim());
-    rows.push(obj);
-  }
-  return rows;
-}
 
-async function loadCSV(url){
-  const res = await fetch(url,{cache:"no-store"});
-  if(!res.ok) throw new Error("Falha ao carregar CSV");
-  return parseCSV(await res.text());
-}
-
-async function loadData(){
-  let feriados = fallbackFeriados;
-  let periodos = fallbackPeriodos;
-  let mode = "Modo planilha publicada (períodos)";
-
-  try{
-    if(FERIADOS_CSV_URL){
-      const rows = await loadCSV(FERIADOS_CSV_URL);
-      feriados = rows.map(r=>({
-        data:(r["Data"] || "").split(" ")[0].replace(/\//g,"-"),
-        evento:r["Evento"] || "",
-        leitura:r["Leitura rápida"] || "Média",
-        obs:r["Observação"] || ""
-      })).filter(r=>r.data && r.evento);
-      mode = "Modo planilha publicada (feriados + períodos)";
+    function formatBR(date) {
+      return date ? date.toLocaleDateString("pt-BR") : "—";
     }
-    if(PERIODOS_CSV_URL){
-      const rows = await loadCSV(PERIODOS_CSV_URL);
-      periodos = rows.map(r=>({
-        periodo:r["Período"] || "",
-        nivel:r["Nível"] || "ALTO",
-        gatilho:r["Gatilho"] || "",
-        diaria:Number(String(r["Diária sugerida"] || "0").replace(/[^\d,.-]/g,"").replace(",", ".")) || 0,
-        minNoites:r["Mín. noites"] || "",
-        status:r["Status"] || "Planejar",
-        obs:r["Observação"] || ""
-      })).filter(r=>r.periodo);
-      mode = FERIADOS_CSV_URL ? "Modo planilha publicada (feriados + períodos)" : "Modo planilha publicada (períodos)";
+
+    function numberFromCurrency(text) {
+      if (text == null) return 0;
+      const clean = String(text).replace(/\./g, "").replace(/,/g, ".").replace(/[^0-9.-]/g, "");
+      const n = Number(clean);
+      return isFinite(n) ? n : 0;
     }
-  }catch(err){
-    console.warn(err);
-    mode = "Modo planilha publicada (períodos)";
-  }
 
-  return {feriados, periodos, mode};
-}
+    function currencyBR(value) {
+      return Number(value || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    }
 
-function renderSummary(config, periodos, mode){
-  document.getElementById("baseUtil").textContent = fmtBR(config.precoBaseUtil);
-  document.getElementById("baseFds").textContent = fmtBR(config.precoBaseFds);
-  document.getElementById("baseFeriado").textContent = fmtBR(config.precoBaseFeriado);
-  document.getElementById("periodCount").textContent = String(periodos.length);
-  document.getElementById("modePill").textContent = mode;
-}
+    function slug(v) {
+      return String(v || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim()
+        .toLowerCase();
+    }
 
-function renderNextEvents(feriados){
-  const now = new Date("2026-01-01T12:00:00");
-  const list = document.getElementById("nextEvents");
-  const proximos = [...feriados]
-    .sort((a,b)=> new Date(a.data) - new Date(b.data))
-    .slice(0,8);
+    function smartCSVSplit(line) {
+      const result = [];
+      let current = "";
+      let inside = false;
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"') {
+          if (inside && line[i + 1] === '"') {
+            current += '"';
+            i++;
+          } else {
+            inside = !inside;
+          }
+        } else if (ch === ',' && !inside) {
+          result.push(current);
+          current = "";
+        } else {
+          current += ch;
+        }
+      }
+      result.push(current);
+      return result.map(v => v.trim());
+    }
 
-  list.innerHTML = "";
-  proximos.forEach(ev=>{
-    const div = document.createElement("div");
-    div.className = "event-item";
-    div.innerHTML = `<strong>${niceDate(ev.data)} • ${ev.evento}</strong><span>${ev.obs || ""}</span>`;
-    list.appendChild(div);
-  });
-}
+    function detectarForca(texto, valor) {
+      const t = slug(texto);
+      if (t.includes("forte") || t.includes("reveillon") || t.includes("réveillon") || t.includes("carnaval") || t.includes("natal") || t.includes("feriadao") || t.includes("feriadão") || t.includes("alta")) return "forte";
+      if (t.includes("baixa") || t.includes("fraco") || t.includes("baixa procura")) return "baixa";
+      if (valor >= 800) return "forte";
+      if (valor > 0 && valor <= 250) return "baixa";
+      return "media";
+    }
 
-function renderMonths(feriados){
-  const byMonth = Array.from({length:12},()=>[]);
-  feriados.forEach(ev=>{
-    const m = new Date(ev.data + "T12:00:00").getMonth();
-    byMonth[m].push(ev);
-  });
-  const grid = document.getElementById("monthGrid");
-  grid.innerHTML = "";
-  byMonth.forEach((events, m)=>{
-    const card = document.createElement("div");
-    card.className = "month-card";
-    const chips = events.length ? events.map(ev=>`<span class="chip ${readClass(ev.leitura)}">${niceDate(ev.data)} • ${ev.evento}</span>`).join("") : `<span class="chip baixa">Sem gatilho forte mapeado</span>`;
-    card.innerHTML = `<h3>${monthName(m)}</h3><div class="chips">${chips}</div>`;
-    grid.appendChild(card);
-  });
-}
+    function countNights(start, end) {
+      if (!start || !end) return 0;
+      const ms = end - start;
+      const days = Math.round(ms / 86400000);
+      return days > 0 ? days : 1;
+    }
 
-function renderTable(periodos){
-  const tbody = document.getElementById("periodTable");
-  tbody.innerHTML = "";
-  periodos.forEach(p=>{
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${p.periodo}</td>
-      <td><span class="tag ${levelClass(p.nivel)}">${p.nivel}</span></td>
-      <td>${p.gatilho}</td>
-      <td>${fmtBR(p.diaria)}</td>
-      <td>${p.minNoites}</td>
-      <td><span class="status ${String(p.status).toLowerCase()}">${p.status}</span></td>
-      <td>${p.obs}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
+    function getField(row, aliases) {
+      const keys = Object.keys(row);
+      for (const a of aliases) {
+        const hit = keys.find(k => slug(k) === slug(a));
+        if (hit) return row[hit];
+      }
+      return "";
+    }
 
-async function boot(){
-  const {feriados, periodos, mode} = await loadData();
-  renderSummary(fallbackConfig, periodos, mode);
-  renderNextEvents(feriados);
-  renderMonths(feriados);
-  renderTable(periodos);
-}
+    function parseCSVToObjects(text) {
+      const lines = text.replace(/^\uFEFF/, "").split(/\r?\n/).filter(Boolean);
+      if (!lines.length) return [];
+      const headers = smartCSVSplit(lines[0]);
+      return lines.slice(1).map(line => {
+        const cols = smartCSVSplit(line);
+        const obj = {};
+        headers.forEach((h, i) => obj[h] = cols[i] || "");
+        return obj;
+      });
+    }
 
-const gate = document.getElementById("gate");
-const app = document.getElementById("app");
-const passwordInput = document.getElementById("passwordInput");
-const loginError = document.getElementById("loginError");
+    async function loadPeriodos() {
+      const res = await fetch(PERIODOS_CSV_URL, { cache: "no-store" });
+      const text = await res.text();
+      const rows = parseCSVToObjects(text);
 
-function unlock(){
-  if(passwordInput.value === ACCESS_PASSWORD){
-    gate.classList.add("hidden");
-    app.classList.remove("hidden");
-    boot();
-  }else{
-    loginError.textContent = "Senha incorreta.";
-  }
-}
-document.getElementById("unlockBtn").addEventListener("click", unlock);
-passwordInput.addEventListener("keydown", e => {
-  if(e.key === "Enter") unlock();
-});
-</script>
+      rawPeriodos = rows.map((row, index) => {
+        const inicio = parseDateFlexible(getField(row, ["data inicial", "inicio", "data inicio", "início", "data_inicial"]));
+        const fim = parseDateFlexible(getField(row, ["data final", "fim", "data fim", "data_final"]));
+        const nome = getField(row, ["nome do periodo", "nome do período", "periodo", "período", "nome"]);
+        const valorTxt = getField(row, ["preco sugerido", "preço sugerido", "valor", "preco", "preço"]);
+        const obs = getField(row, ["observacao", "observação", "motivo", "obs"]);
+        const forcaBase = getField(row, ["forca", "força", "prioridade", "nivel", "nível"]);
+        const valor = numberFromCurrency(valorTxt);
+        const forca = detectarForca(forcaBase || obs || nome, valor);
+
+        return {
+          id: index + 1,
+          nome: nome || `Período ${index + 1}`,
+          inicio,
+          fim,
+          valor,
+          valorTxt: valorTxt || "",
+          obs: obs || "",
+          forca,
+          noites: countNights(inicio, fim),
+          inicioMes: inicio ? inicio.getMonth() + 1 : null,
+          inicioAno: inicio ? inicio.getFullYear() : null,
+          intervalo: `${formatBR(inicio)} até ${formatBR(fim)}`
+        };
+      }).filter(p => p.inicio && p.fim);
+
+      fillMonthFilter(rawPeriodos);
+      applyFilters();
+      renderSummary();
+      renderQuickBoxes();
+      renderCalendar();
+    }
+
+    function fillMonthFilter(list) {
+      const sel = document.getElementById("monthFilter");
+      const existing = new Set(Array.from(sel.options).map(o => o.value));
+      list.forEach(p => {
+        const val = String(p.inicioMes).padStart(2, '0');
+        if (!existing.has(val)) {
+          const opt = document.createElement("option");
+          opt.value = val;
+          opt.textContent = MONTH_NAMES[p.inicioMes - 1];
+          sel.appendChild(opt);
+          existing.add(val);
+        }
+      });
+    }
+
+    function applyFilters() {
+      const term = slug(document.getElementById("searchInput").value);
+      const force = document.getElementById("forcaFilter").value;
+      const month = document.getElementById("monthFilter").value;
+      const sort = document.getElementById("sortFilter").value;
+
+      filteredPeriodos = rawPeriodos.filter(p => {
+        const hay = slug(`${p.nome} ${p.obs}`);
+        const okTerm = !term || hay.includes(term);
+        const okForce = !force || p.forca === force;
+        const okMonth = !month || String(p.inicioMes).padStart(2, '0') === month;
+        return okTerm && okForce && okMonth;
+      });
+
+      filteredPeriodos.sort((a,b) => {
+        if (sort === "valor_desc") return b.valor - a.valor;
+        if (sort === "valor_asc") return a.valor - b.valor;
+        return a.inicio - b.inicio;
+      });
+
+      renderCards();
+      renderTable();
+    }
+
+    function renderCards() {
+      const root = document.getElementById("periodCards");
+      root.innerHTML = "";
+      if (!filteredPeriodos.length) {
+        root.innerHTML = '<div class="empty-state">Nenhum período encontrado com os filtros atuais.</div>';
+        return;
+      }
+
+      filteredPeriodos.forEach(p => {
+        const card = document.createElement("article");
+        card.className = `period-card forca-${p.forca}`;
+        card.innerHTML = `
+          <div class="period-head">
+            <div>
+              <h3>${escapeHtml(p.nome)}</h3>
+            </div>
+            <div class="price-pill">${p.valor ? currencyBR(p.valor) : (escapeHtml(p.valorTxt) || "Sem valor")}</div>
+          </div>
+          <div class="meta-row">
+            <span class="tag">📅 ${p.intervalo}</span>
+            <span class="tag">🌙 ${p.noites} ${p.noites === 1 ? "noite" : "noites"}</span>
+            <span class="tag">🔥 ${labelForca(p.forca)}</span>
+          </div>
+          <div class="obs">${escapeHtml(p.obs || "Sem observação cadastrada.")}</div>
+        `;
+        root.appendChild(card);
+      });
+    }
+
+    function renderTable() {
+      const body = document.getElementById("tableBody");
+      body.innerHTML = "";
+      filteredPeriodos.forEach(p => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${escapeHtml(p.nome)}</td>
+          <td>${formatBR(p.inicio)}</td>
+          <td>${formatBR(p.fim)}</td>
+          <td>${p.noites}</td>
+          <td class="td-valor">${p.valor ? currencyBR(p.valor) : (escapeHtml(p.valorTxt) || "—")}</td>
+          <td>${labelForca(p.forca)}</td>
+          <td>${escapeHtml(p.obs || "—")}</td>
+        `;
+        body.appendChild(tr);
+      });
+    }
+
+    function renderSummary() {
+      document.getElementById("sumTotal").textContent = rawPeriodos.length;
+      document.getElementById("sumFeriados").textContent = FERIADOS.length;
+
+      const today = new Date();
+      today.setHours(0,0,0,0);
+
+      const futureStrong = rawPeriodos
+        .filter(p => p.inicio >= today && p.forca === "forte")
+        .sort((a,b) => a.inicio - b.inicio)[0];
+
+      document.getElementById("sumNext").textContent = futureStrong ? futureStrong.nome : "—";
+      document.getElementById("sumNextSub").textContent = futureStrong ? `${formatBR(futureStrong.inicio)} a ${formatBR(futureStrong.fim)} • ${futureStrong.valor ? currencyBR(futureStrong.valor) : "valor não definido"}` : "Sem período futuro forte cadastrado.";
+
+      const high = [...rawPeriodos].sort((a,b) => b.valor - a.valor)[0];
+      document.getElementById("sumHigh").textContent = high && high.valor ? currencyBR(high.valor) : "—";
+      document.getElementById("sumHighSub").textContent = high ? `${high.nome} • ${formatBR(high.inicio)} a ${formatBR(high.fim)}` : "Nenhum valor encontrado.";
+    }
+
+    function renderQuickBoxes() {
+      const opp = document.getElementById("nextOpportunities");
+      const fer = document.getElementById("nextFeriados");
+      opp.innerHTML = "";
+      fer.innerHTML = "";
+
+      const today = new Date();
+      today.setHours(0,0,0,0);
+
+      const nextPeriods = rawPeriodos.filter(p => p.fim >= today).sort((a,b) => a.inicio - b.inicio).slice(0,5);
+      if (!nextPeriods.length) {
+        opp.innerHTML = "<li>Sem períodos futuros cadastrados.</li>";
+      } else {
+        nextPeriods.forEach(p => {
+          const li = document.createElement("li");
+          li.innerHTML = `<strong>${escapeHtml(p.nome)}</strong> — ${formatBR(p.inicio)} a ${formatBR(p.fim)}${p.valor ? ` • ${currencyBR(p.valor)}` : ""}`;
+          opp.appendChild(li);
+        });
+      }
+
+      const nextHolidays = FERIADOS
+        .map(f => ({ ...f, dateObj: parseDateFlexible(f.data) }))
+        .filter(f => f.dateObj >= today)
+        .sort((a,b) => a.dateObj - b.dateObj)
+        .slice(0,6);
+
+      nextHolidays.forEach(f => {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${escapeHtml(f.nome)}</strong> — ${formatBR(f.dateObj)} • ${escapeHtml(f.tipo)}`;
+        fer.appendChild(li);
+      });
+    }
+
+    function renderCalendar() {
+      const root = document.getElementById("monthsGrid");
+      root.innerHTML = "";
+      const year = detectMainYear();
+
+      for (let month = 0; month < 12; month++) {
+        const box = document.createElement("div");
+        box.className = "month-box";
+        box.innerHTML = `<h3>${MONTH_NAMES[month]} <span style="color:var(--muted); font-size:13px; font-weight:600;">${year}</span></h3>`;
+
+        const weekdays = document.createElement("div");
+        weekdays.className = "weekdays";
+        WEEKDAYS.forEach(w => {
+          const d = document.createElement("div");
+          d.className = "weekday";
+          d.textContent = w;
+          weekdays.appendChild(d);
+        });
+
+        const days = document.createElement("div");
+        days.className = "days";
+
+        const first = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0).getDate();
+        const offset = first.getDay();
+        for (let i = 0; i < offset; i++) {
+          const e = document.createElement("div");
+          e.className = "empty";
+          days.appendChild(e);
+        }
+
+        for (let day = 1; day <= lastDay; day++) {
+          const date = new Date(year, month, day);
+          const el = document.createElement("div");
+          el.className = "day";
+          el.textContent = day;
+
+          const periodo = getPeriodForDate(date);
+          if (periodo) el.classList.add(`period-${periodo.forca}`);
+          if (isHoliday(date)) el.classList.add("feriado");
+          days.appendChild(el);
+        }
+
+        box.appendChild(weekdays);
+        box.appendChild(days);
+        root.appendChild(box);
+      }
+    }
+
+    function detectMainYear() {
+      const years = rawPeriodos.map(p => p.inicioAno).filter(Boolean);
+      if (!years.length) return new Date().getFullYear();
+      const count = {};
+      years.forEach(y => count[y] = (count[y] || 0) + 1);
+      return Number(Object.entries(count).sort((a,b) => b[1] - a[1])[0][0]);
+    }
+
+    function getPeriodForDate(date) {
+      return rawPeriodos.find(p => date >= p.inicio && date < p.fim);
+    }
+
+    function isHoliday(date) {
+      const key = date.toISOString().slice(0,10);
+      return FERIADOS.some(f => f.data === key);
+    }
+
+    function labelForca(f) {
+      if (f === "forte") return "Forte";
+      if (f === "baixa") return "Baixa";
+      return "Média";
+    }
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function clearFilters() {
+      document.getElementById("searchInput").value = "";
+      document.getElementById("forcaFilter").value = "";
+      document.getElementById("monthFilter").value = "";
+      document.getElementById("sortFilter").value = "inicio";
+      applyFilters();
+    }
+
+    function copyQuickSummary() {
+      const lines = filteredPeriodos.slice(0, 10).map(p => `• ${p.nome} | ${formatBR(p.inicio)} a ${formatBR(p.fim)} | ${p.valor ? currencyBR(p.valor) : "sem valor"} | ${labelForca(p.forca)}`);
+      const text = lines.length ? lines.join("\n") : "Nenhum período filtrado.";
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Resumo copiado.");
+      }).catch(() => {
+        alert("Não foi possível copiar agora.");
+      });
+    }
+
+    async function initApp() {
+      try {
+        await loadPeriodos();
+      } catch (err) {
+        console.error(err);
+        document.getElementById("periodCards").innerHTML = '<div class="empty-state">Não foi possível carregar a planilha agora. Verifique a publicação da aba PERIODOS e tente novamente.</div>';
+      }
+    }
+
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      const val = document.getElementById("passwordInput").value;
+      const msg = document.getElementById("loginMsg");
+      if (val !== APP_PASSWORD) {
+        msg.textContent = "Senha incorreta.";
+        return;
+      }
+      msg.textContent = "";
+      document.getElementById("loginGate").classList.add("hidden");
+      document.getElementById("app").style.display = "block";
+      initApp();
+    });
+
+    document.getElementById("passwordInput").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") document.getElementById("loginBtn").click();
+    });
+
+    document.getElementById("searchInput").addEventListener("input", applyFilters);
+    document.getElementById("forcaFilter").addEventListener("change", applyFilters);
+    document.getElementById("monthFilter").addEventListener("change", applyFilters);
+    document.getElementById("sortFilter").addEventListener("change", applyFilters);
+    document.getElementById("clearFiltersBtn").addEventListener("click", clearFilters);
+    document.getElementById("refreshBtn").addEventListener("click", initApp);
+    document.getElementById("exportTxtBtn").addEventListener("click", copyQuickSummary);
+  </script>
 </body>
 </html>
