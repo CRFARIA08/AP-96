@@ -218,9 +218,10 @@
       border-radius: 18px;
       padding: 16px;
     }
-    .period-card.forca-forte { border-left-color: var(--danger); }
-    .period-card.forca-media { border-left-color: var(--warn); }
-    .period-card.forca-baixa { border-left-color: var(--accent-2); }
+    .period-card.nivel-critica { border-left-color: #ff4d4f; }
+    .period-card.nivel-alta { border-left-color: var(--danger); }
+    .period-card.nivel-media { border-left-color: var(--warn); }
+    .period-card.nivel-normal { border-left-color: var(--accent-2); }
     .period-head {
       display: flex;
       justify-content: space-between;
@@ -352,9 +353,10 @@
       border: 1px solid rgba(255,255,255,0.08);
       position: relative;
     }
-    .day.period-forte { background: rgba(239,68,68,0.22); }
+    .day.period-critica { background: rgba(255,77,79,0.26); }
+    .day.period-alta { background: rgba(239,68,68,0.22); }
     .day.period-media { background: rgba(245,158,11,0.22); }
-    .day.period-baixa { background: rgba(34,197,94,0.18); }
+    .day.period-normal { background: rgba(34,197,94,0.18); }
     .day.feriado::after {
       content: "•";
       position: absolute;
@@ -432,9 +434,9 @@
             <div class="sub">Quantidade cadastrada na aba PERIODOS.</div>
           </div>
           <div class="summary-card">
-            <h3>Próximo período forte</h3>
+            <h3>Próximo período prioritário</h3>
             <div class="value" id="sumNext">—</div>
-            <div class="sub" id="sumNextSub">Sem período futuro identificado.</div>
+            <div class="sub" id="sumNextSub">Sem período futuro alto/crítico cadastrado.</div>
           </div>
           <div class="summary-card">
             <h3>Valor mais alto</h3>
@@ -457,10 +459,11 @@
           <div class="filters">
             <input id="searchInput" type="text" placeholder="Buscar por nome, observação ou motivo" />
             <select id="forcaFilter">
-              <option value="">Força: todas</option>
-              <option value="forte">Forte</option>
+              <option value="">Nível: todos</option>
+              <option value="critica">Crítica</option>
+              <option value="alta">Alta</option>
               <option value="media">Média</option>
-              <option value="baixa">Baixa</option>
+              <option value="normal">Normal</option>
             </select>
             <select id="monthFilter">
               <option value="">Mês: todos</option>
@@ -490,9 +493,10 @@
             <div class="quick-card">
               <h3>Leitura estratégica</h3>
               <ul class="mini-list">
-                <li><strong>Forte:</strong> feriadão, alta procura, férias, emenda ou datas com maior chance de busca.</li>
+                <li><strong>Crítica:</strong> pico de demanda, feriadão muito forte, Réveillon, Carnaval ou janela premium.</li>
+                <li><strong>Alta:</strong> período forte para subir com confiança e monitorar a concorrência.</li>
                 <li><strong>Média:</strong> bom momento para sustentar valor ou subir com cautela.</li>
-                <li><strong>Baixa:</strong> período mais sensível a preço, útil para manter competitivo.</li>
+                <li><strong>Normal:</strong> base estável para manter competitivo sem exagerar no preço.</li>
               </ul>
             </div>
           </div>
@@ -511,7 +515,7 @@
                 <th>Fim</th>
                 <th>Noites</th>
                 <th>Valor</th>
-                <th>Força</th>
+                <th>Nível</th>
                 <th>Observação</th>
               </tr>
             </thead>
@@ -628,13 +632,42 @@
       return result.map(v => v.trim());
     }
 
-    function detectarForca(texto, valor) {
+    function inferirNivel(texto, valor) {
       const t = slug(texto);
-      if (t.includes("forte") || t.includes("reveillon") || t.includes("réveillon") || t.includes("carnaval") || t.includes("natal") || t.includes("feriadao") || t.includes("feriadão") || t.includes("alta")) return "forte";
-      if (t.includes("baixa") || t.includes("fraco") || t.includes("baixa procura")) return "baixa";
-      if (valor >= 800) return "forte";
-      if (valor > 0 && valor <= 250) return "baixa";
-      return "media";
+
+      if (
+        t.includes("critico") || t.includes("crítica") || t.includes("critica") ||
+        t.includes("reveillon") || t.includes("réveillon") || t.includes("carnaval")
+      ) return "critica";
+
+      if (
+        t.includes("alto") || t.includes("alta") || t.includes("natal") ||
+        t.includes("feriadao") || t.includes("feriadão") || t.includes("ponte")
+      ) return "alta";
+
+      if (
+        t.includes("medio") || t.includes("médio") || t.includes("media") || t.includes("média")
+      ) return "media";
+
+      if (
+        t.includes("normal") || t.includes("baixo") || t.includes("baixa") || t.includes("fraco")
+      ) return "normal";
+
+      if (valor >= 450) return "critica";
+      if (valor >= 380) return "alta";
+      if (valor >= 300) return "media";
+      return "normal";
+    }
+
+    function mapearNivelPlanilha(nivel, nome, gatilho, obs, valor) {
+      const n = slug(nivel);
+
+      if (n === "critico" || n === "crítico" || n === "critica" || n === "crítica") return "critica";
+      if (n === "alto" || n === "alta") return "alta";
+      if (n === "medio" || n === "médio" || n === "media" || n === "média") return "media";
+      if (n === "normal" || n === "baixo" || n === "baixa") return "normal";
+
+      return inferirNivel(`${nome} ${gatilho} ${obs}`, valor);
     }
 
     function countNights(start, end) {
@@ -669,17 +702,25 @@
       const res = await fetch(PERIODOS_CSV_URL + "&t=" + Date.now());
       const text = await res.text();
       const rows = parseCSVToObjects(text);
-      console.log("PERIODOS carregados:", rows);
 
       rawPeriodos = rows.map((row, index) => {
         const inicio = parseDateFlexible(getField(row, ["data inicial", "inicio", "data inicio", "início", "data_inicial"]));
         const fim = parseDateFlexible(getField(row, ["data final", "fim", "data fim", "data_final"]));
         const nome = getField(row, ["nome do periodo", "nome do período", "periodo", "período", "nome"]);
-        const valorTxt = getField(row, ["preco sugerido", "preço sugerido", "valor", "preco", "preço"]);
+        const gatilho = getField(row, ["gatilho", "motivo gatilho", "evento", "referencia", "referência"]);
+        const valorTxt = getField(row, [
+          "diaria sugerida",
+          "diária sugerida",
+          "preco sugerido",
+          "preço sugerido",
+          "valor",
+          "preco",
+          "preço"
+        ]);
         const obs = getField(row, ["observacao", "observação", "motivo", "obs"]);
-        const forcaBase = getField(row, ["forca", "força", "prioridade", "nivel", "nível"]);
+        const nivelBase = getField(row, ["nivel", "nível", "forca", "força", "prioridade"]);
         const valor = numberFromCurrency(valorTxt);
-        const forca = detectarForca(forcaBase || obs || nome, valor);
+        const nivel = mapearNivelPlanilha(nivelBase, nome, gatilho, obs, valor);
 
         return {
           id: index + 1,
@@ -689,7 +730,7 @@
           valor,
           valorTxt: valorTxt || "",
           obs: obs || "",
-          forca,
+          nivel,
           noites: countNights(inicio, fim),
           inicioMes: inicio ? inicio.getMonth() + 1 : null,
           inicioAno: inicio ? inicio.getFullYear() : null,
@@ -728,7 +769,7 @@
       filteredPeriodos = rawPeriodos.filter(p => {
         const hay = slug(`${p.nome} ${p.obs}`);
         const okTerm = !term || hay.includes(term);
-        const okForce = !force || p.forca === force;
+        const okForce = !force || p.nivel === force;
         const okMonth = !month || String(p.inicioMes).padStart(2, '0') === month;
         return okTerm && okForce && okMonth;
       });
@@ -753,7 +794,7 @@
 
       filteredPeriodos.forEach(p => {
         const card = document.createElement("article");
-        card.className = `period-card forca-${p.forca}`;
+        card.className = `period-card nivel-${p.nivel}`;
         card.innerHTML = `
           <div class="period-head">
             <div>
@@ -764,7 +805,7 @@
           <div class="meta-row">
             <span class="tag">📅 ${p.intervalo}</span>
             <span class="tag">🌙 ${p.noites} ${p.noites === 1 ? "noite" : "noites"}</span>
-            <span class="tag">🔥 ${labelForca(p.forca)}</span>
+            <span class="tag">🔥 ${labelNivel(p.nivel)}</span>
           </div>
           <div class="obs">${escapeHtml(p.obs || "Sem observação cadastrada.")}</div>
         `;
@@ -783,7 +824,7 @@
           <td>${formatBR(p.fim)}</td>
           <td>${p.noites}</td>
           <td class="td-valor">${p.valor ? currencyBR(p.valor) : (escapeHtml(p.valorTxt) || "—")}</td>
-          <td>${labelForca(p.forca)}</td>
+          <td>${labelNivel(p.nivel)}</td>
           <td>${escapeHtml(p.obs || "—")}</td>
         `;
         body.appendChild(tr);
@@ -798,11 +839,11 @@
       today.setHours(0,0,0,0);
 
       const futureStrong = rawPeriodos
-        .filter(p => p.inicio >= today && p.forca === "forte")
+        .filter(p => p.inicio >= today && (p.nivel === "critica" || p.nivel === "alta"))
         .sort((a,b) => a.inicio - b.inicio)[0];
 
       document.getElementById("sumNext").textContent = futureStrong ? futureStrong.nome : "—";
-      document.getElementById("sumNextSub").textContent = futureStrong ? `${formatBR(futureStrong.inicio)} a ${formatBR(futureStrong.fim)} • ${futureStrong.valor ? currencyBR(futureStrong.valor) : "valor não definido"}` : "Sem período futuro forte cadastrado.";
+      document.getElementById("sumNextSub").textContent = futureStrong ? `${formatBR(futureStrong.inicio)} a ${formatBR(futureStrong.fim)} • ${futureStrong.valor ? currencyBR(futureStrong.valor) : "valor não definido"}` : "Sem período futuro alto/crítico cadastrado.";
 
       const high = [...rawPeriodos].sort((a,b) => b.valor - a.valor)[0];
       document.getElementById("sumHigh").textContent = high && high.valor ? currencyBR(high.valor) : "—";
@@ -880,7 +921,7 @@
           el.textContent = day;
 
           const periodo = getPeriodForDate(date);
-          if (periodo) el.classList.add(`period-${periodo.forca}`);
+          if (periodo) el.classList.add(`period-${periodo.nivel}`);
           if (isHoliday(date)) el.classList.add("feriado");
           days.appendChild(el);
         }
@@ -908,10 +949,11 @@
       return FERIADOS.some(f => f.data === key);
     }
 
-    function labelForca(f) {
-      if (f === "forte") return "Forte";
-      if (f === "baixa") return "Baixa";
-      return "Média";
+    function labelNivel(n) {
+      if (n === "critica") return "Crítica";
+      if (n === "alta") return "Alta";
+      if (n === "media") return "Média";
+      return "Normal";
     }
 
     function escapeHtml(str) {
@@ -932,7 +974,7 @@
     }
 
     function copyQuickSummary() {
-      const lines = filteredPeriodos.slice(0, 10).map(p => `• ${p.nome} | ${formatBR(p.inicio)} a ${formatBR(p.fim)} | ${p.valor ? currencyBR(p.valor) : "sem valor"} | ${labelForca(p.forca)}`);
+      const lines = filteredPeriodos.slice(0, 10).map(p => `• ${p.nome} | ${formatBR(p.inicio)} a ${formatBR(p.fim)} | ${p.valor ? currencyBR(p.valor) : "sem valor"} | ${labelNivel(p.nivel)}`);
       const text = lines.length ? lines.join("\n") : "Nenhum período filtrado.";
       navigator.clipboard.writeText(text).then(() => {
         alert("Resumo copiado.");
@@ -945,8 +987,8 @@
       try {
         await loadPeriodos();
       } catch (err) {
-        console.error("Erro ao carregar PERIODOS:", err);
-        document.getElementById("periodCards").innerHTML = '<div class="empty-state">Não foi possível carregar a planilha agora. Verifique a publicação da aba PERIODOS, se há dados preenchidos e tente novamente.</div>';
+        console.error(err);
+        document.getElementById("periodCards").innerHTML = '<div class="empty-state">Não foi possível carregar a planilha agora. Verifique a publicação da aba PERIODOS e tente novamente.</div>';
       }
     }
 
@@ -975,5 +1017,86 @@
     document.getElementById("refreshBtn").addEventListener("click", initApp);
     document.getElementById("exportTxtBtn").addEventListener("click", copyQuickSummary);
   </script>
+  <div id="periodos"></div>
+
+  <script>
+  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSuOiupYu7oiTw8KRpNPfOsyWJgXKZ7YYD8xOhFBc_MS-jsJxiyG1x4P5z8SXWLVA/pub?output=csv&gid=2113046344";
+
+  function parseCSV(text){
+    const linhas = text.trim().split("\n");
+
+    return linhas.map(linha => {
+      const clean = linha.replace(/"/g, "");
+      const sep = clean.includes(";") ? ";" : ",";
+      return clean.split(sep);
+    });
+  }
+
+  async function carregarPeriodos(){
+    try{
+      const res = await fetch(CSV_URL + "&t=" + Date.now());
+      const text = await res.text();
+
+      console.log("CSV recebido:", text);
+
+      const dados = parseCSV(text);
+
+      if(dados.length <= 1){
+        console.log("Sem dados válidos");
+        return;
+      }
+
+      const container = document.getElementById("periodos");
+      if (!container) {
+        console.log("Div #periodos não encontrada");
+        return;
+      }
+
+      container.innerHTML = "";
+
+      let total = 0;
+
+      dados.slice(1).forEach(cols => {
+        if(cols.length < 3) return;
+
+        const inicio = cols[0]?.trim();
+        const fim = cols[1]?.trim();
+        const nome = cols[2]?.trim();
+        const preco = cols[3]?.trim();
+        const obs = cols[4]?.trim();
+
+        if(!inicio) return;
+
+        const card = document.createElement("div");
+        card.className = "card-periodo";
+
+        card.innerHTML = `
+          <h3>${nome || "Período"}</h3>
+          <p>📅 ${inicio} até ${fim}</p>
+          <p>💰 R$ ${preco || "-"}</p>
+          <p style="opacity:0.7">${obs || ""}</p>
+        `;
+
+        container.appendChild(card);
+        total++;
+      });
+
+      const totalEl = document.querySelector("#totalPeriodos");
+      if (totalEl) totalEl.innerText = total;
+
+      console.log("TOTAL:", total);
+
+    }catch(e){
+      console.error("Erro real:", e);
+    }
+  }
+
+  window.onload = carregarPeriodos;
+
+  function atualizarPeriodos(){
+    carregarPeriodos();
+  }
+  </script>
+ 
 </body>
 </html>
