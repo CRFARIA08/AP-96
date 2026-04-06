@@ -17,6 +17,7 @@
       --accent-2: #22c55e;
       --warn: #f59e0b;
       --danger: #ef4444;
+      --danger-strong: #b91c1c;
       --shadow: 0 18px 44px rgba(0,0,0,0.28);
       --radius-xl: 28px;
       --radius-lg: 20px;
@@ -74,10 +75,7 @@
       backdrop-filter: blur(12px);
     }
 
-    .hero {
-      padding: 24px 20px 20px;
-      margin-bottom: 18px;
-    }
+    .hero { padding: 24px 20px 20px; margin-bottom: 18px; }
     .hero-top {
       display: flex;
       gap: 18px;
@@ -97,23 +95,9 @@
       color: var(--muted);
       margin-bottom: 12px;
     }
-    .hero h1 {
-      margin: 0 0 8px;
-      font-size: clamp(34px, 5vw, 54px);
-      line-height: 1.04;
-    }
-    .hero p {
-      margin: 0;
-      color: var(--muted);
-      max-width: 760px;
-      line-height: 1.7;
-      font-size: 16px;
-    }
-    .hero-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+    .hero h1 { margin: 0 0 8px; font-size: clamp(34px, 5vw, 54px); line-height: 1.04; }
+    .hero p { margin: 0; color: var(--muted); max-width: 760px; line-height: 1.7; font-size: 16px; }
+    .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
     .btn, .btn-ghost, .btn-soft {
       appearance: none;
@@ -148,23 +132,9 @@
       border-radius: var(--radius-lg);
       padding: 16px;
     }
-    .summary-card h3 {
-      margin: 0 0 8px;
-      font-size: 14px;
-      color: var(--muted);
-      font-weight: 600;
-    }
-    .summary-card .value {
-      font-size: 28px;
-      font-weight: 700;
-      line-height: 1.05;
-    }
-    .summary-card .sub {
-      margin-top: 8px;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
+    .summary-card h3 { margin: 0 0 8px; font-size: 14px; color: var(--muted); font-weight: 600; }
+    .summary-card .value { font-size: 28px; font-weight: 700; line-height: 1.05; }
+    .summary-card .sub { margin-top: 8px; font-size: 13px; color: var(--muted); line-height: 1.5; }
 
     .layout {
       display: grid;
@@ -172,14 +142,8 @@
       gap: 18px;
       margin-top: 18px;
     }
-    .panel {
-      padding: 20px 18px;
-    }
-    .panel h2, .table-card h2, .calendar-card h2 {
-      margin: 0 0 8px;
-      font-size: 28px;
-      line-height: 1.1;
-    }
+    .panel { padding: 20px 18px; }
+    .panel h2, .table-card h2, .calendar-card h2 { margin: 0 0 8px; font-size: 28px; line-height: 1.1; }
     .panel p.top-note, .table-card p.top-note, .calendar-card p.top-note {
       margin: 0 0 16px;
       color: var(--muted);
@@ -189,7 +153,7 @@
 
     .filters {
       display: grid;
-      grid-template-columns: 1.1fr .8fr .8fr .8fr;
+      grid-template-columns: 1.1fr .8fr .8fr .8fr .8fr;
       gap: 10px;
       margin-bottom: 16px;
     }
@@ -207,10 +171,7 @@
     input::placeholder { color: #cbd5e1; }
     select option { color: #111827; }
 
-    .cards-list {
-      display: grid;
-      gap: 12px;
-    }
+    .cards-list { display: grid; gap: 12px; }
     .period-card {
       background: rgba(255,255,255,0.07);
       border: 1px solid rgba(255,255,255,0.12);
@@ -218,10 +179,11 @@
       border-radius: 18px;
       padding: 16px;
     }
-    .period-card.nivel-critica { border-left-color: #ff4d4f; }
+    .period-card.nivel-critica { border-left-color: var(--danger-strong); }
     .period-card.nivel-alta { border-left-color: var(--danger); }
     .period-card.nivel-media { border-left-color: var(--warn); }
     .period-card.nivel-normal { border-left-color: var(--accent-2); }
+    .period-card.nao-aplicar { opacity: 0.56; }
     .period-head {
       display: flex;
       justify-content: space-between;
@@ -229,10 +191,7 @@
       align-items: flex-start;
       flex-wrap: wrap;
     }
-    .period-head h3 {
-      margin: 0;
-      font-size: 22px;
-    }
+    .period-head h3 { margin: 0; font-size: 22px; }
     .price-pill {
       padding: 10px 14px;
       border-radius: 999px;
@@ -258,39 +217,19 @@
       font-size: 13px;
       color: var(--muted);
     }
-    .obs {
-      margin-top: 12px;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 14px;
-    }
+    .obs { margin-top: 12px; color: var(--muted); line-height: 1.6; font-size: 14px; }
 
-    .quick-box {
-      display: grid;
-      gap: 12px;
-    }
+    .quick-box { display: grid; gap: 12px; }
     .quick-card {
       background: rgba(255,255,255,0.07);
       border: 1px solid rgba(255,255,255,0.12);
       border-radius: 18px;
       padding: 14px;
     }
-    .quick-card h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
-    }
-    .mini-list {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 14px;
-    }
+    .quick-card h3 { margin: 0 0 8px; font-size: 18px; }
+    .mini-list { margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.7; font-size: 14px; }
 
-    .table-card, .calendar-card {
-      margin-top: 18px;
-      padding: 20px 18px;
-    }
+    .table-card, .calendar-card { margin-top: 18px; padding: 20px 18px; }
     .table-wrap {
       overflow: auto;
       border-radius: 18px;
@@ -299,7 +238,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 860px;
+      min-width: 960px;
       background: rgba(255,255,255,0.05);
     }
     th, td {
@@ -323,10 +262,7 @@
       border-radius: 18px;
       padding: 14px;
     }
-    .month-box h3 {
-      margin: 0 0 12px;
-      font-size: 20px;
-    }
+    .month-box h3 { margin: 0 0 12px; font-size: 20px; }
     .weekdays, .days {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -353,10 +289,10 @@
       border: 1px solid rgba(255,255,255,0.08);
       position: relative;
     }
-    .day.period-critica { background: rgba(255,77,79,0.26); }
-    .day.period-alta { background: rgba(239,68,68,0.22); }
-    .day.period-media { background: rgba(245,158,11,0.22); }
-    .day.period-normal { background: rgba(34,197,94,0.18); }
+    .day.nivel-critica { background: rgba(127,29,29,0.45); }
+    .day.nivel-alta { background: rgba(239,68,68,0.22); }
+    .day.nivel-media { background: rgba(245,158,11,0.22); }
+    .day.nivel-normal { background: rgba(34,197,94,0.18); }
     .day.feriado::after {
       content: "•";
       position: absolute;
@@ -376,7 +312,6 @@
       text-align: center;
       line-height: 1.7;
     }
-
     .footer-note {
       text-align: center;
       color: var(--muted);
@@ -418,7 +353,7 @@
           <div>
             <div class="eyebrow">🔒 Uso interno • AP96 • Gestão de preços Airbnb</div>
             <h1>Tarifário Estratégico</h1>
-            <p>Use este painel para visualizar períodos fortes, organizar valores, acompanhar feriados relevantes para hóspedes de São Paulo e Grande São Paulo e decidir com mais segurança a precificação no Airbnb.</p>
+            <p>Use este painel para visualizar períodos estratégicos, organizar valores, acompanhar feriados relevantes para hóspedes de São Paulo e Grande São Paulo e decidir com mais segurança a precificação no Airbnb.</p>
           </div>
           <div class="hero-actions">
             <button class="btn" id="refreshBtn">⟳ Atualizar períodos</button>
@@ -434,9 +369,9 @@
             <div class="sub">Quantidade cadastrada na aba PERIODOS.</div>
           </div>
           <div class="summary-card">
-            <h3>Próximo período prioritário</h3>
+            <h3>Próximo período prioridade</h3>
             <div class="value" id="sumNext">—</div>
-            <div class="sub" id="sumNextSub">Sem período futuro alto/crítico cadastrado.</div>
+            <div class="sub" id="sumNextSub">Sem período futuro Alta/Crítica marcado para aplicar.</div>
           </div>
           <div class="summary-card">
             <h3>Valor mais alto</h3>
@@ -457,8 +392,8 @@
           <p class="top-note">A leitura é automática da sua planilha publicada. Você altera no Google Sheets e consulta aqui.</p>
 
           <div class="filters">
-            <input id="searchInput" type="text" placeholder="Buscar por nome, observação ou motivo" />
-            <select id="forcaFilter">
+            <input id="searchInput" type="text" placeholder="Buscar por nome, gatilho ou observação" />
+            <select id="nivelFilter">
               <option value="">Nível: todos</option>
               <option value="critica">Crítica</option>
               <option value="alta">Alta</option>
@@ -467,6 +402,12 @@
             </select>
             <select id="monthFilter">
               <option value="">Mês: todos</option>
+            </select>
+            <select id="statusFilter">
+              <option value="">Status: todos</option>
+              <option value="publicado">Publicado</option>
+              <option value="planejado">Planejado</option>
+              <option value="revisar">Revisar</option>
             </select>
             <select id="sortFilter">
               <option value="inicio">Ordenar por data</option>
@@ -480,7 +421,7 @@
 
         <aside class="panel">
           <h2>Painel rápido</h2>
-          <p class="top-note">Visão prática para bater o olho antes de subir ou segurar preço.</p>
+          <p class="top-note">Visão prática para bater o olho antes de subir, segurar ou revisar preço.</p>
           <div class="quick-box">
             <div class="quick-card">
               <h3>Próximas oportunidades</h3>
@@ -493,10 +434,10 @@
             <div class="quick-card">
               <h3>Leitura estratégica</h3>
               <ul class="mini-list">
-                <li><strong>Crítica:</strong> pico de demanda, feriadão muito forte, Réveillon, Carnaval ou janela premium.</li>
-                <li><strong>Alta:</strong> período forte para subir com confiança e monitorar a concorrência.</li>
-                <li><strong>Média:</strong> bom momento para sustentar valor ou subir com cautela.</li>
-                <li><strong>Normal:</strong> base estável para manter competitivo sem exagerar no preço.</li>
+                <li><strong>Crítica:</strong> janelas premium e de maior potencial.</li>
+                <li><strong>Alta:</strong> período forte para sustentar ou subir preço.</li>
+                <li><strong>Média:</strong> boa tração, mas com mais sensibilidade.</li>
+                <li><strong>Normal:</strong> período padrão ou de menor prioridade.</li>
               </ul>
             </div>
           </div>
@@ -505,7 +446,7 @@
 
       <section class="table-card">
         <h2>Tabela completa</h2>
-        <p class="top-note">Planilha em formato visual para conferência rápida de tudo que foi cadastrado.</p>
+        <p class="top-note">Leitura direta da planilha, já refletindo nível, mínimo de noites, status e aplicação no Airbnb.</p>
         <div class="table-wrap">
           <table>
             <thead>
@@ -513,9 +454,11 @@
                 <th>Período</th>
                 <th>Início</th>
                 <th>Fim</th>
-                <th>Noites</th>
+                <th>Mín. noites</th>
                 <th>Valor</th>
                 <th>Nível</th>
+                <th>Aplicar</th>
+                <th>Status</th>
                 <th>Observação</th>
               </tr>
             </thead>
@@ -526,7 +469,7 @@
 
       <section class="calendar-card">
         <h2>Mapa anual</h2>
-        <p class="top-note">Calendário com destaque dos períodos cadastrados e dos feriados mais relevantes para o seu público.</p>
+        <p class="top-note">Calendário com destaque apenas dos períodos marcados para aplicar no Airbnb.</p>
         <div class="months-grid" id="monthsGrid"></div>
       </section>
 
@@ -539,28 +482,27 @@
   <script>
     const APP_PASSWORD = "@Molly26";
     const PERIODOS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSuOiupYu7oiTw8KRpNPfOsyWJgXKZ7YYD8xOhFBc_MS-jsJxiyG1x4P5z8SXWLVA/pub?output=csv&gid=2113046344";
-       
 
     const FERIADOS = [
-      { data: "2026-01-01", nome: "Confraternização Universal", tipo: "Nacional", forca: "media" },
-      { data: "2026-01-25", nome: "Aniversário de São Paulo", tipo: "São Paulo", forca: "media" },
-      { data: "2026-02-16", nome: "Carnaval", tipo: "Ponto facultativo", forca: "forte" },
-      { data: "2026-02-17", nome: "Carnaval", tipo: "Ponto facultativo", forca: "forte" },
-      { data: "2026-04-03", nome: "Paixão de Cristo", tipo: "Nacional", forca: "forte" },
-      { data: "2026-04-21", nome: "Tiradentes", tipo: "Nacional", forca: "media" },
-      { data: "2026-05-01", nome: "Dia do Trabalho", tipo: "Nacional", forca: "media" },
-      { data: "2026-06-04", nome: "Corpus Christi", tipo: "Ponto facultativo", forca: "forte" },
-      { data: "2026-07-09", nome: "Revolução Constitucionalista", tipo: "Estado de SP", forca: "forte" },
-      { data: "2026-07-10", nome: "Emenda provável 9 de Julho", tipo: "Oportunidade", forca: "forte" },
-      { data: "2026-07-01", nome: "Início do recesso escolar de julho", tipo: "Oportunidade", forca: "media" },
-      { data: "2026-07-31", nome: "Fim do recesso escolar de julho", tipo: "Oportunidade", forca: "media" },
-      { data: "2026-09-07", nome: "Independência do Brasil", tipo: "Nacional", forca: "media" },
-      { data: "2026-10-12", nome: "Nossa Senhora Aparecida", tipo: "Nacional", forca: "media" },
-      { data: "2026-11-02", nome: "Finados", tipo: "Nacional", forca: "media" },
-      { data: "2026-11-15", nome: "Proclamação da República", tipo: "Nacional", forca: "media" },
-      { data: "2026-11-20", nome: "Dia da Consciência Negra", tipo: "Nacional", forca: "forte" },
-      { data: "2026-12-25", nome: "Natal", tipo: "Nacional", forca: "forte" },
-      { data: "2026-12-31", nome: "Véspera de Ano Novo", tipo: "Oportunidade", forca: "forte" }
+      { data: "2026-01-01", nome: "Confraternização Universal", tipo: "Nacional" },
+      { data: "2026-01-25", nome: "Aniversário de São Paulo", tipo: "São Paulo" },
+      { data: "2026-02-16", nome: "Carnaval", tipo: "Ponto facultativo" },
+      { data: "2026-02-17", nome: "Carnaval", tipo: "Ponto facultativo" },
+      { data: "2026-04-03", nome: "Paixão de Cristo", tipo: "Nacional" },
+      { data: "2026-04-21", nome: "Tiradentes", tipo: "Nacional" },
+      { data: "2026-05-01", nome: "Dia do Trabalho", tipo: "Nacional" },
+      { data: "2026-06-04", nome: "Corpus Christi", tipo: "Ponto facultativo" },
+      { data: "2026-07-09", nome: "Revolução Constitucionalista", tipo: "Estado de SP" },
+      { data: "2026-07-10", nome: "Emenda provável 9 de Julho", tipo: "Oportunidade" },
+      { data: "2026-07-01", nome: "Início do recesso escolar de julho", tipo: "Oportunidade" },
+      { data: "2026-07-31", nome: "Fim do recesso escolar de julho", tipo: "Oportunidade" },
+      { data: "2026-09-07", nome: "Independência do Brasil", tipo: "Nacional" },
+      { data: "2026-10-12", nome: "Nossa Senhora Aparecida", tipo: "Nacional" },
+      { data: "2026-11-02", nome: "Finados", tipo: "Nacional" },
+      { data: "2026-11-15", nome: "Proclamação da República", tipo: "Nacional" },
+      { data: "2026-11-20", nome: "Dia da Consciência Negra", tipo: "Nacional" },
+      { data: "2026-12-25", nome: "Natal", tipo: "Nacional" },
+      { data: "2026-12-31", nome: "Véspera de Ano Novo", tipo: "Oportunidade" }
     ];
 
     const MONTH_NAMES = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
@@ -568,6 +510,23 @@
 
     let rawPeriodos = [];
     let filteredPeriodos = [];
+
+    function slug(v) {
+      return String(v || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim()
+        .toLowerCase();
+    }
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
 
     function parseDateFlexible(value) {
       if (!value) return null;
@@ -600,12 +559,34 @@
       return Number(value || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     }
 
-    function slug(v) {
-      return String(v || "")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim()
-        .toLowerCase();
+    function normalizeStatus(value) {
+      const s = slug(value);
+      if (s === "planejar" || s === "planejado") return "planejado";
+      if (s.includes("revis")) return "revisar";
+      if (s.includes("public")) return "publicado";
+      return s;
+    }
+
+    function normalizeNivel(value, nome = "", gatilho = "", obs = "", valor = 0) {
+      const n = slug(value);
+      if (["critica","crítica","critico","crítico"].includes(n)) return "critica";
+      if (["alta","alto"].includes(n)) return "alta";
+      if (["media","média","medio","médio"].includes(n)) return "media";
+      if (["normal","baixo","baixa"].includes(n)) return "normal";
+
+      const t = slug(`${nome} ${gatilho} ${obs}`);
+      if (t.includes("reveillon") || t.includes("réveillon")) return "critica";
+      if (t.includes("natal") || t.includes("carnaval") || t.includes("ponte") || t.includes("feriadao") || t.includes("feriadão")) return "alta";
+      if (valor >= 370) return "alta";
+      if (valor > 0 && valor <= 260) return "normal";
+      return "media";
+    }
+
+    function labelNivel(v) {
+      if (v === "critica") return "Crítica";
+      if (v === "alta") return "Alta";
+      if (v === "normal") return "Normal";
+      return "Média";
     }
 
     function smartCSVSplit(line) {
@@ -632,60 +613,6 @@
       return result.map(v => v.trim());
     }
 
-    function inferirNivel(texto, valor) {
-      const t = slug(texto);
-
-      if (
-        t.includes("critico") || t.includes("crítica") || t.includes("critica") ||
-        t.includes("reveillon") || t.includes("réveillon") || t.includes("carnaval")
-      ) return "critica";
-
-      if (
-        t.includes("alto") || t.includes("alta") || t.includes("natal") ||
-        t.includes("feriadao") || t.includes("feriadão") || t.includes("ponte")
-      ) return "alta";
-
-      if (
-        t.includes("medio") || t.includes("médio") || t.includes("media") || t.includes("média")
-      ) return "media";
-
-      if (
-        t.includes("normal") || t.includes("baixo") || t.includes("baixa") || t.includes("fraco")
-      ) return "normal";
-
-      if (valor >= 450) return "critica";
-      if (valor >= 380) return "alta";
-      if (valor >= 300) return "media";
-      return "normal";
-    }
-
-    function mapearNivelPlanilha(nivel, nome, gatilho, obs, valor) {
-      const n = slug(nivel);
-
-      if (n === "critico" || n === "crítico" || n === "critica" || n === "crítica") return "critica";
-      if (n === "alto" || n === "alta") return "alta";
-      if (n === "medio" || n === "médio" || n === "media" || n === "média") return "media";
-      if (n === "normal" || n === "baixo" || n === "baixa") return "normal";
-
-      return inferirNivel(`${nome} ${gatilho} ${obs}`, valor);
-    }
-
-    function countNights(start, end) {
-      if (!start || !end) return 0;
-      const ms = end - start;
-      const days = Math.round(ms / 86400000);
-      return days > 0 ? days : 1;
-    }
-
-    function getField(row, aliases) {
-      const keys = Object.keys(row);
-      for (const a of aliases) {
-        const hit = keys.find(k => slug(k) === slug(a));
-        if (hit) return row[hit];
-      }
-      return "";
-    }
-
     function parseCSVToObjects(text) {
       const lines = text.replace(/^\uFEFF/, "").split(/\r?\n/).filter(Boolean);
       if (!lines.length) return [];
@@ -698,8 +625,24 @@
       });
     }
 
+    function getField(row, aliases) {
+      const keys = Object.keys(row);
+      for (const a of aliases) {
+        const hit = keys.find(k => slug(k) === slug(a));
+        if (hit) return row[hit];
+      }
+      return "";
+    }
+
+    function countWindowNights(start, end) {
+      if (!start || !end) return 0;
+      const ms = end - start;
+      const days = Math.round(ms / 86400000);
+      return days > 0 ? days : 1;
+    }
+
     async function loadPeriodos() {
-      const res = await fetch(PERIODOS_CSV_URL + "&t=" + Date.now());
+      const res = await fetch(PERIODOS_CSV_URL + "&t=" + Date.now(), { cache: "no-store" });
       const text = await res.text();
       const rows = parseCSVToObjects(text);
 
@@ -709,29 +652,40 @@
         const nome = getField(row, ["nome do periodo", "nome do período", "periodo", "período", "nome"]);
         const gatilho = getField(row, ["gatilho", "motivo gatilho", "evento", "referencia", "referência"]);
         const valorTxt = getField(row, [
-          "diaria sugerida",
-          "diária sugerida",
           "preco sugerido",
           "preço sugerido",
+          "diaria sugerida",
+          "diária sugerida",
           "valor",
           "preco",
           "preço"
         ]);
         const obs = getField(row, ["observacao", "observação", "motivo", "obs"]);
-        const nivelBase = getField(row, ["nivel", "nível", "forca", "força", "prioridade"]);
+        const nivelTxt = getField(row, ["nivel", "nível", "forca", "força", "prioridade"]);
+        const minNoites = getField(row, ["min. noites", "min noites", "minimo noites", "mín. noites", "mínimo noites"]);
+        const aplicarTxt = getField(row, ["aplicar no airbnb?", "aplicar no airbnb", "aplicar airbnb", "aplicar"]);
+        const statusTxt = getField(row, ["status"]);
+
         const valor = numberFromCurrency(valorTxt);
-        const nivel = mapearNivelPlanilha(nivelBase, nome, gatilho, obs, valor);
+        const nivel = normalizeNivel(nivelTxt, nome, gatilho, obs, valor);
+        const aplicar = slug(aplicarTxt) === "sim";
+        const status = normalizeStatus(statusTxt);
 
         return {
           id: index + 1,
           nome: nome || `Período ${index + 1}`,
+          gatilho: gatilho || "",
           inicio,
           fim,
           valor,
           valorTxt: valorTxt || "",
           obs: obs || "",
           nivel,
-          noites: countNights(inicio, fim),
+          minNoites: String(minNoites || "").trim(),
+          aplicar,
+          status,
+          statusLabel: statusTxt || "",
+          janelaNoites: countWindowNights(inicio, fim),
           inicioMes: inicio ? inicio.getMonth() + 1 : null,
           inicioAno: inicio ? inicio.getFullYear() : null,
           intervalo: `${formatBR(inicio)} até ${formatBR(fim)}`
@@ -749,7 +703,7 @@
       const sel = document.getElementById("monthFilter");
       const existing = new Set(Array.from(sel.options).map(o => o.value));
       list.forEach(p => {
-        const val = String(p.inicioMes).padStart(2, '0');
+        const val = String(p.inicioMes).padStart(2, "0");
         if (!existing.has(val)) {
           const opt = document.createElement("option");
           opt.value = val;
@@ -762,19 +716,21 @@
 
     function applyFilters() {
       const term = slug(document.getElementById("searchInput").value);
-      const force = document.getElementById("forcaFilter").value;
+      const nivel = document.getElementById("nivelFilter").value;
       const month = document.getElementById("monthFilter").value;
+      const status = document.getElementById("statusFilter").value;
       const sort = document.getElementById("sortFilter").value;
 
       filteredPeriodos = rawPeriodos.filter(p => {
-        const hay = slug(`${p.nome} ${p.obs}`);
+        const hay = slug(`${p.nome} ${p.gatilho} ${p.obs}`);
         const okTerm = !term || hay.includes(term);
-        const okForce = !force || p.nivel === force;
-        const okMonth = !month || String(p.inicioMes).padStart(2, '0') === month;
-        return okTerm && okForce && okMonth;
+        const okNivel = !nivel || p.nivel === nivel;
+        const okMonth = !month || String(p.inicioMes).padStart(2, "0") === month;
+        const okStatus = !status || p.status === status;
+        return okTerm && okNivel && okMonth && okStatus;
       });
 
-      filteredPeriodos.sort((a,b) => {
+      filteredPeriodos.sort((a, b) => {
         if (sort === "valor_desc") return b.valor - a.valor;
         if (sort === "valor_asc") return a.valor - b.valor;
         return a.inicio - b.inicio;
@@ -794,7 +750,7 @@
 
       filteredPeriodos.forEach(p => {
         const card = document.createElement("article");
-        card.className = `period-card nivel-${p.nivel}`;
+        card.className = `period-card nivel-${p.nivel}${p.aplicar ? "" : " nao-aplicar"}`;
         card.innerHTML = `
           <div class="period-head">
             <div>
@@ -804,8 +760,11 @@
           </div>
           <div class="meta-row">
             <span class="tag">📅 ${p.intervalo}</span>
-            <span class="tag">🌙 ${p.noites} ${p.noites === 1 ? "noite" : "noites"}</span>
-            <span class="tag">🔥 ${labelNivel(p.nivel)}</span>
+            <span class="tag">🌙 Janela ${p.janelaNoites} ${p.janelaNoites === 1 ? "noite" : "noites"}</span>
+            <span class="tag">🛏️ Mín. ${escapeHtml(p.minNoites || "-")}</span>
+            <span class="tag">🏷️ ${labelNivel(p.nivel)}</span>
+            <span class="tag">📡 ${p.aplicar ? "Aplicar no Airbnb" : "Não aplicar"}</span>
+            <span class="tag">📌 ${escapeHtml(p.statusLabel || "-")}</span>
           </div>
           <div class="obs">${escapeHtml(p.obs || "Sem observação cadastrada.")}</div>
         `;
@@ -822,9 +781,11 @@
           <td>${escapeHtml(p.nome)}</td>
           <td>${formatBR(p.inicio)}</td>
           <td>${formatBR(p.fim)}</td>
-          <td>${p.noites}</td>
+          <td>${escapeHtml(p.minNoites || "-")}</td>
           <td class="td-valor">${p.valor ? currencyBR(p.valor) : (escapeHtml(p.valorTxt) || "—")}</td>
           <td>${labelNivel(p.nivel)}</td>
+          <td>${p.aplicar ? "Sim" : "Não"}</td>
+          <td>${escapeHtml(p.statusLabel || "—")}</td>
           <td>${escapeHtml(p.obs || "—")}</td>
         `;
         body.appendChild(tr);
@@ -838,14 +799,16 @@
       const today = new Date();
       today.setHours(0,0,0,0);
 
-      const futureStrong = rawPeriodos
-        .filter(p => p.inicio >= today && (p.nivel === "critica" || p.nivel === "alta"))
-        .sort((a,b) => a.inicio - b.inicio)[0];
+      const futurePriority = rawPeriodos
+        .filter(p => p.inicio >= today && p.aplicar && (p.nivel === "critica" || p.nivel === "alta"))
+        .sort((a, b) => a.inicio - b.inicio)[0];
 
-      document.getElementById("sumNext").textContent = futureStrong ? futureStrong.nome : "—";
-      document.getElementById("sumNextSub").textContent = futureStrong ? `${formatBR(futureStrong.inicio)} a ${formatBR(futureStrong.fim)} • ${futureStrong.valor ? currencyBR(futureStrong.valor) : "valor não definido"}` : "Sem período futuro alto/crítico cadastrado.";
+      document.getElementById("sumNext").textContent = futurePriority ? futurePriority.nome : "—";
+      document.getElementById("sumNextSub").textContent = futurePriority
+        ? `${formatBR(futurePriority.inicio)} a ${formatBR(futurePriority.fim)} • ${futurePriority.valor ? currencyBR(futurePriority.valor) : "valor não definido"} • ${labelNivel(futurePriority.nivel)}`
+        : "Sem período futuro Alta/Crítica marcado para aplicar.";
 
-      const high = [...rawPeriodos].sort((a,b) => b.valor - a.valor)[0];
+      const high = [...rawPeriodos].sort((a, b) => b.valor - a.valor)[0];
       document.getElementById("sumHigh").textContent = high && high.valor ? currencyBR(high.valor) : "—";
       document.getElementById("sumHighSub").textContent = high ? `${high.nome} • ${formatBR(high.inicio)} a ${formatBR(high.fim)}` : "Nenhum valor encontrado.";
     }
@@ -859,13 +822,17 @@
       const today = new Date();
       today.setHours(0,0,0,0);
 
-      const nextPeriods = rawPeriodos.filter(p => p.fim >= today).sort((a,b) => a.inicio - b.inicio).slice(0,5);
+      const nextPeriods = rawPeriodos
+        .filter(p => p.fim >= today && p.aplicar)
+        .sort((a, b) => a.inicio - b.inicio)
+        .slice(0, 5);
+
       if (!nextPeriods.length) {
         opp.innerHTML = "<li>Sem períodos futuros cadastrados.</li>";
       } else {
         nextPeriods.forEach(p => {
           const li = document.createElement("li");
-          li.innerHTML = `<strong>${escapeHtml(p.nome)}</strong> — ${formatBR(p.inicio)} a ${formatBR(p.fim)}${p.valor ? ` • ${currencyBR(p.valor)}` : ""}`;
+          li.innerHTML = `<strong>${escapeHtml(p.nome)}</strong> — ${formatBR(p.inicio)} a ${formatBR(p.fim)}${p.valor ? ` • ${currencyBR(p.valor)}` : ""} • ${labelNivel(p.nivel)}`;
           opp.appendChild(li);
         });
       }
@@ -873,14 +840,31 @@
       const nextHolidays = FERIADOS
         .map(f => ({ ...f, dateObj: parseDateFlexible(f.data) }))
         .filter(f => f.dateObj >= today)
-        .sort((a,b) => a.dateObj - b.dateObj)
-        .slice(0,6);
+        .sort((a, b) => a.dateObj - b.dateObj)
+        .slice(0, 6);
 
       nextHolidays.forEach(f => {
         const li = document.createElement("li");
         li.innerHTML = `<strong>${escapeHtml(f.nome)}</strong> — ${formatBR(f.dateObj)} • ${escapeHtml(f.tipo)}`;
         fer.appendChild(li);
       });
+    }
+
+    function detectMainYear() {
+      const years = rawPeriodos.map(p => p.inicioAno).filter(Boolean);
+      if (!years.length) return new Date().getFullYear();
+      const count = {};
+      years.forEach(y => count[y] = (count[y] || 0) + 1);
+      return Number(Object.entries(count).sort((a, b) => b[1] - a[1])[0][0]);
+    }
+
+    function getPeriodForDate(date) {
+      return rawPeriodos.find(p => p.aplicar && date >= p.inicio && date < p.fim);
+    }
+
+    function isHoliday(date) {
+      const key = date.toISOString().slice(0,10);
+      return FERIADOS.some(f => f.data === key);
     }
 
     function renderCalendar() {
@@ -908,6 +892,7 @@
         const first = new Date(year, month, 1);
         const lastDay = new Date(year, month + 1, 0).getDate();
         const offset = first.getDay();
+
         for (let i = 0; i < offset; i++) {
           const e = document.createElement("div");
           e.className = "empty";
@@ -921,7 +906,7 @@
           el.textContent = day;
 
           const periodo = getPeriodForDate(date);
-          if (periodo) el.classList.add(`period-${periodo.nivel}`);
+          if (periodo) el.classList.add(`nivel-${periodo.nivel}`);
           if (isHoliday(date)) el.classList.add("feriado");
           days.appendChild(el);
         }
@@ -932,49 +917,19 @@
       }
     }
 
-    function detectMainYear() {
-      const years = rawPeriodos.map(p => p.inicioAno).filter(Boolean);
-      if (!years.length) return new Date().getFullYear();
-      const count = {};
-      years.forEach(y => count[y] = (count[y] || 0) + 1);
-      return Number(Object.entries(count).sort((a,b) => b[1] - a[1])[0][0]);
-    }
-
-    function getPeriodForDate(date) {
-      return rawPeriodos.find(p => date >= p.inicio && date < p.fim);
-    }
-
-    function isHoliday(date) {
-      const key = date.toISOString().slice(0,10);
-      return FERIADOS.some(f => f.data === key);
-    }
-
-    function labelNivel(n) {
-      if (n === "critica") return "Crítica";
-      if (n === "alta") return "Alta";
-      if (n === "media") return "Média";
-      return "Normal";
-    }
-
-    function escapeHtml(str) {
-      return String(str || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
-    }
-
     function clearFilters() {
       document.getElementById("searchInput").value = "";
-      document.getElementById("forcaFilter").value = "";
+      document.getElementById("nivelFilter").value = "";
       document.getElementById("monthFilter").value = "";
+      document.getElementById("statusFilter").value = "";
       document.getElementById("sortFilter").value = "inicio";
       applyFilters();
     }
 
     function copyQuickSummary() {
-      const lines = filteredPeriodos.slice(0, 10).map(p => `• ${p.nome} | ${formatBR(p.inicio)} a ${formatBR(p.fim)} | ${p.valor ? currencyBR(p.valor) : "sem valor"} | ${labelNivel(p.nivel)}`);
+      const lines = filteredPeriodos.slice(0, 10).map(p =>
+        `• ${p.nome} | ${formatBR(p.inicio)} a ${formatBR(p.fim)} | ${p.valor ? currencyBR(p.valor) : "sem valor"} | ${labelNivel(p.nivel)} | ${p.aplicar ? "Aplicar" : "Não aplicar"} | ${p.statusLabel || "-"}`
+      );
       const text = lines.length ? lines.join("\n") : "Nenhum período filtrado.";
       navigator.clipboard.writeText(text).then(() => {
         alert("Resumo copiado.");
@@ -1010,93 +965,13 @@
     });
 
     document.getElementById("searchInput").addEventListener("input", applyFilters);
-    document.getElementById("forcaFilter").addEventListener("change", applyFilters);
+    document.getElementById("nivelFilter").addEventListener("change", applyFilters);
     document.getElementById("monthFilter").addEventListener("change", applyFilters);
+    document.getElementById("statusFilter").addEventListener("change", applyFilters);
     document.getElementById("sortFilter").addEventListener("change", applyFilters);
     document.getElementById("clearFiltersBtn").addEventListener("click", clearFilters);
     document.getElementById("refreshBtn").addEventListener("click", initApp);
     document.getElementById("exportTxtBtn").addEventListener("click", copyQuickSummary);
   </script>
-  <div id="periodos"></div>
-
-  <script>
-  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSuOiupYu7oiTw8KRpNPfOsyWJgXKZ7YYD8xOhFBc_MS-jsJxiyG1x4P5z8SXWLVA/pub?output=csv&gid=2113046344";
-
-  function parseCSV(text){
-    const linhas = text.trim().split("\n");
-
-    return linhas.map(linha => {
-      const clean = linha.replace(/"/g, "");
-      const sep = clean.includes(";") ? ";" : ",";
-      return clean.split(sep);
-    });
-  }
-
-  async function carregarPeriodos(){
-    try{
-      const res = await fetch(CSV_URL + "&t=" + Date.now());
-      const text = await res.text();
-
-      console.log("CSV recebido:", text);
-
-      const dados = parseCSV(text);
-
-      if(dados.length <= 1){
-        console.log("Sem dados válidos");
-        return;
-      }
-
-      const container = document.getElementById("periodos");
-      if (!container) {
-        console.log("Div #periodos não encontrada");
-        return;
-      }
-
-      container.innerHTML = "";
-
-      let total = 0;
-
-      dados.slice(1).forEach(cols => {
-        if(cols.length < 3) return;
-
-        const inicio = cols[0]?.trim();
-        const fim = cols[1]?.trim();
-        const nome = cols[2]?.trim();
-        const preco = cols[3]?.trim();
-        const obs = cols[4]?.trim();
-
-        if(!inicio) return;
-
-        const card = document.createElement("div");
-        card.className = "card-periodo";
-
-        card.innerHTML = `
-          <h3>${nome || "Período"}</h3>
-          <p>📅 ${inicio} até ${fim}</p>
-          <p>💰 R$ ${preco || "-"}</p>
-          <p style="opacity:0.7">${obs || ""}</p>
-        `;
-
-        container.appendChild(card);
-        total++;
-      });
-
-      const totalEl = document.querySelector("#totalPeriodos");
-      if (totalEl) totalEl.innerText = total;
-
-      console.log("TOTAL:", total);
-
-    }catch(e){
-      console.error("Erro real:", e);
-    }
-  }
-
-  window.onload = carregarPeriodos;
-
-  function atualizarPeriodos(){
-    carregarPeriodos();
-  }
-  </script>
- 
 </body>
 </html>
