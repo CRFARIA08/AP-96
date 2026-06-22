@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AP-96 | Informativo</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:url('fundo-praia.jpg') center center/cover no-repeat fixed;
+    position:relative;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.35);
+    backdrop-filter:blur(3px);
+}
+
+.container{
+    position:relative;
+    z-index:1;
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+.logo{
+    display:flex;
+    justify-content:center;
+    margin-top:10px;
+}
+
+.logo img{
+    width:220px;
+    max-width:80%;
+}
+
+.hero{
+    text-align:center;
+    color:white;
+    margin-top:10px;
+}
+
+.hero h2{
+    font-size:18px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+.hero h1{
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    max-width:600px;
+    margin:auto;
+    line-height:1.6;
+}
+
+.cadastro{
+    margin-top:30px;
+    background:linear-gradient(135deg,#fbbf24,#f59e0b);
+    border-radius:25px;
+    padding:25px;
+    text-align:center;
+    color:white;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.cadastro h3{
+    font-size:26px;
+    margin-bottom:10px;
+}
+
+.cadastro p{
+    line-height:1.6;
+}
+
+.btn-cadastro{
+    display:inline-block;
+    margin-top:20px;
+    padding:15px 30px;
+    background:white;
+    color:#c27803;
+    text-decoration:none;
+    border-radius:50px;
+    font-weight:bold;
+    font-size:18px;
+    transition:.3s;
+}
+
+.btn-cadastro:hover{
+    transform:scale(1.05);
+}
+
+.menu{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+    margin-top:30px;
+}
+
+.card{
+    text-decoration:none;
+    color:white;
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:25px;
+    padding:25px 15px;
+    text-align:center;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.icon{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.card span{
+    display:block;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.footer{
+    text-align:center;
+    color:white;
+    margin-top:40px;
+    padding-bottom:30px;
+}
+
+.footer h3{
+    margin-bottom:10px;
+}
+
+@media(min-width:768px){
+
+    .menu{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .hero h1{
+        font-size:48px;
+    }
+
+    .card{
+        padding:35px 20px;
+    }
+
+    .icon{
+        font-size:55px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        <img src="logo.png" alt="AP96">
+    </div>
+
+    <section class="hero">
+        <h2>PRAIA GRANDE - SP</h2>
+
+        <h1>Bem-vindo ao AP-96</h1>
+
+        <p>
+            Tudo o que você precisa para sua estadia está aqui.
+        </p>
+    </section>
+
+    <section class="cadastro">
+
+        <h3>⭐ CADASTRO OBRIGATÓRIO</h3>
+
+        <p>
+            O condomínio exige o cadastro prévio de todos os hóspedes.
+        </p>
+
+        <p>
+            ⏱️ Leva menos de 2 minutos.
+        </p>
+
+        <a href="https://www.ap96.com.br/cadastro"
+           class="btn-cadastro">
+
+           REALIZAR CADASTRO
+
+        </a>
+
+    </section>
+
+    <section class="menu">
+
+        <a href="regras.html" class="card">
+            <div class="icon">📖</div>
+            <span>Regras</span>
+        </a>
+
+        <a href="wifi.html" class="card">
+            <div class="icon">📶</div>
+            <span>Wi-Fi</span>
+        </a>
+
+        <a href="localizacao.html" class="card">
+            <div class="icon">📍</div>
+            <span>Localização</span>
+        </a>
+
+        <a href="guia.html" class="card">
+            <div class="icon">🏠</div>
+            <span>Guia do AP</span>
+        </a>
+
+        <a href="restaurantes.html" class="card">
+            <div class="icon">🍹</div>
+            <span>Restaurantes</span>
+        </a>
+
+        <a href="contato.html" class="card">
+            <div class="icon">📞</div>
+            <span>Contato</span>
+        </a>
+
+    </section>
+
+    <div class="footer">
+        <h3>🌴 Aproveite cada momento!</h3>
+        <p>AP-96 • Praia Grande - SP</p>
+    </div>
+
+</div>
+
+</body>
+</html>
