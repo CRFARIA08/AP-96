@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AP-96 | Wi-Fi</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+min-height:100vh;
+padding-bottom:90px;
+background:url('fundo_wifi.jpg') center center/cover no-repeat fixed;
+position:relative;
+}
+
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.35);
+backdrop-filter:blur(2px);
+}
+
+.container{
+position:relative;
+z-index:1;
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.logo{
+text-align:center;
+margin-top:10px;
+}
+
+.logo img{
+width:220px;
+max-width:80%;
+}
+
+.hero{
+text-align:center;
+color:white;
+margin-top:15px;
+}
+
+.hero h1{
+font-size:34px;
+margin-bottom:10px;
+text-shadow:2px 2px 5px rgba(0,0,0,.8);
+}
+
+.hero p{
+font-size:18px;
+line-height:1.6;
+text-shadow:2px 2px 5px rgba(0,0,0,.8);
+}
+
+.card{
+
+margin-top:20px;
+
+background:rgba(255,255,255,.15);
+
+backdrop-filter:blur(12px);
+
+border:1px solid rgba(255,255,255,.20);
+
+border-radius:25px;
+
+padding:25px;
+
+color:white;
+
+box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.card h2{
+margin-bottom:15px;
+color:#ffd166;
+}
+
+.card p{
+line-height:1.8;
+}
+
+.wifi-box{
+
+text-align:center;
+
+padding:15px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,.08);
+
+margin-top:10px;
+}
+
+.wifi-nome{
+font-size:30px;
+font-weight:bold;
+margin-top:10px;
+}
+
+.wifi-senha{
+font-size:24px;
+font-weight:bold;
+color:#ffd166;
+margin-top:10px;
+word-break:break-word;
+}
+
+.btn{
+
+display:inline-block;
+
+margin-top:15px;
+
+padding:15px 30px;
+
+border-radius:50px;
+
+text-decoration:none;
+
+color:white;
+
+font-weight:bold;
+
+background:linear-gradient(
+135deg,
+#c69825,
+#f59e0b
+);
+
+transition:.3s;
+}
+
+.btn:hover{
+transform:scale(1.05);
+}
+
+.centralizar{
+text-align:center;
+}
+
+.bottom-nav{
+
+position:fixed;
+bottom:0;
+left:0;
+
+width:100%;
+
+background:rgba(255,255,255,0.132);
+
+backdrop-filter:blur(15px);
+
+display:flex;
+justify-content:space-around;
+
+padding:12px 0;
+
+z-index:9999;
+}
+
+.bottom-nav a{
+
+text-decoration:none;
+
+color:white;
+
+display:flex;
+flex-direction:column;
+
+align-items:center;
+
+font-size:13px;
+font-weight:bold;
+}
+
+.icone{
+font-size:24px;
+margin-bottom:3px;
+}
+
+</style>
+</head>
+
+<body>
+
+<script>
+
+const WIFI_NOME = "AP-96";
+const WIFI_SENHA = "@Maracana10_2026";
+
+</script>
+
+<div class="container">
+
+<div class="logo">
+<img src="logo.png" alt="AP-96">
+</div>
+
+<div class="hero">
+<h1>📶 Wi-Fi AP-96</h1>
+<p>
+Conecte-se rapidamente e aproveite sua estadia.
+</p>
+</div>
+
+<div class="card">
+
+<h2>📶 Rede Wi-Fi</h2>
+
+<div class="wifi-box">
+
+<p>Rede</p>
+
+<div class="wifi-nome" id="wifiNome"></div>
+
+<p style="margin-top:15px;">Senha</p>
+
+<div class="wifi-senha" id="wifiSenha"></div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>💻 Ideal para</h2>
+
+<p>
+✔ Home Office<br>
+✔ Netflix e Streaming<br>
+✔ YouTube<br>
+✔ Videochamadas<br>
+✔ Redes Sociais
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>💡 Dica</h2>
+
+<p>
+Caso tenha dificuldade de conexão,
+desative e ative novamente o Wi-Fi do aparelho.
+</p>
+
+</div>
+
+<div class="card centralizar">
+
+<h2>📞 Precisa de ajuda?</h2>
+
+<p>
+Entre em contato conosco pelo WhatsApp.
+</p>
+
+<a href="contato.html" class="btn">
+FALAR CONOSCO
+</a>
+
+</div>
+
+</div>
+
+<nav class="bottom-nav">
+
+<a href="informativo.html">
+<div class="icone">🏠</div>
+<span>Início</span>
+</a>
+
+<a href="https://www.ap96.com.br/cadastro">
+<div class="icone">📝</div>
+<span>Cadastro</span>
+</a>
+
+<a href="contato.html">
+<div class="icone">📞</div>
+<span>Contato</span>
+</a>
+
+</nav>
+
+<script>
+
+document.getElementById('wifiNome').textContent = WIFI_NOME;
+document.getElementById('wifiSenha').textContent = WIFI_SENHA;
+
+</script>
+
+</body>
+</html>
