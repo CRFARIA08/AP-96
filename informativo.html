@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>AP-96 | Informativo</title>
 
 <style>
@@ -16,6 +15,7 @@
 
 body{
     min-height:100vh;
+    padding-bottom:90px;
     background:url('fundo-praia.jpg') center center/cover no-repeat fixed;
     position:relative;
 }
@@ -24,8 +24,8 @@ body::before{
     content:"";
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.35);
-    backdrop-filter:blur(3px);
+    background:rgba(0,0,0,.30);
+    backdrop-filter:blur(1px);
 }
 
 .container{
@@ -53,6 +53,15 @@ body::before{
     margin-top:10px;
 }
 
+.hero h2,
+.hero h1,
+.hero p,
+.footer h3,
+.footer p,
+.card span{
+    text-shadow:2px 2px 4px rgba(0,0,0,.75);
+}
+
 .hero h2{
     font-size:18px;
     letter-spacing:2px;
@@ -72,7 +81,7 @@ body::before{
 
 .cadastro{
     margin-top:30px;
-    background:linear-gradient(135deg,#fbbf24,#f59e0b);
+    background:linear-gradient(135deg,#bc922a,#fba105);
     border-radius:25px;
     padding:25px;
     text-align:center;
@@ -151,6 +160,41 @@ body::before{
     margin-bottom:10px;
 }
 
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(12px);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    padding:12px 0;
+    z-index:9999;
+    box-shadow:0 -3px 15px rgba(0,0,0,.20);
+}
+
+.bottom-nav a{
+    text-decoration:none;
+    color:#0f172a;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    font-size:13px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.bottom-nav a:hover{
+    color:#f59e0b;
+}
+
+.bottom-nav .icone{
+    font-size:24px;
+    margin-bottom:3px;
+}
+
 @media(min-width:768px){
 
     .menu{
@@ -162,7 +206,7 @@ body::before{
     }
 
     .card{
-        padding:35px 20px;
+        padding:50px 20px;
     }
 
     .icon{
@@ -192,21 +236,19 @@ body::before{
 
     <section class="cadastro">
 
-        <h3>⭐ CADASTRO OBRIGATÓRIO</h3>
+        <h3>⭐ AÇÃO NECESSÁRIA</h3>
 
         <p>
-            O condomínio exige o cadastro prévio de todos os hóspedes.
+            Para liberação da entrada no condomínio,
+            é necessário cadastrar todos os hóspedes.
         </p>
 
         <p>
             ⏱️ Leva menos de 2 minutos.
         </p>
 
-        <a href="https://www.ap96.com.br/cadastro"
-           class="btn-cadastro">
-
+        <a href="https://www.ap96.com.br/cadastro" class="btn-cadastro">
            REALIZAR CADASTRO
-
         </a>
 
     </section>
@@ -220,7 +262,7 @@ body::before{
 
         <a href="wifi.html" class="card">
             <div class="icon">📶</div>
-            <span>Wi-Fi</span>
+            <span>Wi‑Fi</span>
         </a>
 
         <a href="localizacao.html" class="card">
@@ -251,6 +293,25 @@ body::before{
     </div>
 
 </div>
+
+<nav class="bottom-nav">
+
+    <a href="informativo.html">
+        <div class="icone">🏠</div>
+        <span>Início</span>
+    </a>
+
+    <a href="https://www.ap96.com.br/cadastro">
+        <div class="icone">📝</div>
+        <span>Cadastro</span>
+    </a>
+
+    <a href="contato.html">
+        <div class="icone">📞</div>
+        <span>Contato</span>
+    </a>
+
+</nav>
 
 </body>
 </html>
