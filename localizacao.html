@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Localização | AP-96</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:url('foto_4.jpg') center center/cover no-repeat fixed;
+min-height:100vh;
+color:white;
+position:relative;
+padding-bottom:100px;
+}
+
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.45);
+backdrop-filter:blur(2px);
+z-index:0;
+}
+
+.container{
+position:relative;
+z-index:1;
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.logo{
+text-align:center;
+margin-top:10px;
+}
+
+.logo img{
+width:220px;
+max-width:80%;
+}
+
+.hero{
+text-align:center;
+padding:15px 0 25px;
+}
+
+.hero h1{
+font-size:40px;
+margin-bottom:10px;
+text-shadow:2px 2px 10px rgba(0,0,0,.8);
+}
+
+.hero p{
+font-size:18px;
+line-height:1.6;
+max-width:700px;
+margin:auto;
+text-shadow:2px 2px 5px rgba(0,0,0,.8);
+}
+
+.card{
+background:rgba(255,255,255,0.132);
+backdrop-filter:blur(14px);
+border:1px solid rgba(255,255,255,0.18);
+border-radius:25px;
+padding:25px;
+margin-bottom:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.card h2{
+margin-bottom:15px;
+color:#FFD166;
+font-size:24px;
+}
+
+.card p,
+.card li{
+font-size:17px;
+line-height:1.8;
+}
+
+.card ul{
+padding-left:20px;
+}
+
+.botao{
+display:block;
+width:100%;
+padding:18px;
+margin-top:15px;
+border-radius:15px;
+background:linear-gradient(
+135deg,
+#c69825,
+#f59e0b
+);
+color:white;
+text-decoration:none;
+font-weight:bold;
+font-size:18px;
+text-align:center;
+transition:.3s;
+}
+
+.botao:hover{
+transform:translateY(-2px);
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:rgba(255,255,255,0.132);
+backdrop-filter:blur(15px);
+display:flex;
+justify-content:space-around;
+padding:12px 0;
+z-index:999;
+}
+
+.bottom-nav a{
+text-decoration:none;
+color:white;
+display:flex;
+flex-direction:column;
+align-items:center;
+font-size:13px;
+font-weight:bold;
+}
+
+.icon{
+font-size:24px;
+margin-bottom:3px;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:32px;
+}
+
+.card{
+padding:20px;
+}
+
+.card h2{
+font-size:22px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+<img src="logo.png" alt="AP-96">
+</div>
+
+<div class="hero">
+
+<h1>📍 Localização AP-96</h1>
+
+<p>
+Você está hospedado em frente ao mar, em uma das melhores regiões da Praia Grande.
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>📍 Endereço do AP-96</h2>
+
+<p>
+R. Dorivaldo Francisco Loria, 41<br>
+Nova Mirim<br>
+Praia Grande - SP<br>
+CEP: 11705-320
+</p>
+
+<a class="botao"
+href="https://maps.app.goo.gl/N75qu7uYZpGgnebL9"
+target="_blank">
+📍 ABRIR NO GOOGLE MAPS
+</a>
+
+</div>
+
+<div class="card">
+
+<h2>🚘 Navegação pelo Waze</h2>
+
+<p>
+Utilize o Waze para chegar diretamente ao AP-96.
+</p>
+
+<a class="botao"
+href="https://waze.com/ul/h6gwzjzvh6"
+target="_blank">
+🚘 ABRIR NO WAZE
+</a>
+
+</div>
+
+<div class="card">
+
+<h2>🏖 O que existe por perto</h2>
+
+<ul>
+<li>Praia em frente ao condomínio</li>
+<li>Restaurantes</li>
+<li>Mercados</li>
+<li>Padarias</li>
+<li>Farmácias</li>
+<li>Sorveterias</li>
+<li>Ciclovia da orla</li>
+</ul>
+
+</div>
+
+<div class="card">
+
+<h2>💡 Dica</h2>
+
+<p>
+Salve a localização antes da viagem para facilitar sua chegada e compartilhe o endereço com todos os acompanhantes.
+</p>
+
+</div>
+
+</div>
+
+<nav class="bottom-nav">
+
+<a href="informativo.html">
+<div class="icon">🏠</div>
+<span>Início</span>
+</a>
+
+<a href="https://www.ap96.com.br/cadastro">
+<div class="icon">📝</div>
+<span>Cadastro</span>
+</a>
+
+<a href="contato.html">
+<div class="icon">📞</div>
+<span>Contato</span>
+</a>
+
+</nav>
+
+</body>
+</html>
