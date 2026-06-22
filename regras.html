@@ -16,97 +16,101 @@
 }
 
 body{
-    background:#0f172a;
-    color:white;
+    min-height:100vh;
     padding-bottom:90px;
-}
-
-/* HERO */
-
-.hero{
+    background:url('foto_6.jpg') center center/cover no-repeat fixed;
     position:relative;
-    height:420px;
-    background:url('foto_6.jpg') center center/cover no-repeat;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
 }
 
-.hero::before{
+body::before{
     content:"";
-    position:absolute;
+    position:fixed;
     inset:0;
-    background:rgba(0,0,0,.55);
+    background:rgba(0,0,0,.35);
+    backdrop-filter:blur(2px);
 }
-
-.hero-content{
-    position:relative;
-    z-index:2;
-    padding:20px;
-}
-
-.logo{
-    width:220px;
-    max-width:80%;
-    margin-bottom:15px;
-}
-
-.hero h1{
-    font-size:38px;
-    margin-bottom:10px;
-    text-shadow:2px 2px 5px rgba(0,0,0,.8);
-}
-
-.hero p{
-    font-size:18px;
-    text-shadow:2px 2px 5px rgba(0,0,0,.8);
-}
-
-/* CONTEÚDO */
 
 .container{
+    position:relative;
+    z-index:1;
     max-width:900px;
     margin:auto;
     padding:20px;
 }
 
+.logo{
+    display:flex;
+    justify-content:center;
+    margin-top:10px;
+}
+
+.logo img{
+    width:220px;
+    max-width:80%;
+}
+
+.hero{
+    text-align:center;
+    color:white;
+    margin-top:10px;
+}
+
+.hero h1{
+    font-size:32px;
+    margin-bottom:10px;
+    text-shadow:2px 2px 4px rgba(0,0,0,.8);
+}
+
+.hero p{
+    text-shadow:2px 2px 4px rgba(0,0,0,.8);
+    line-height:1.6;
+}
+
 .card{
-    background:rgba(15,23,42,.78);
-    backdrop-filter:blur(12px);
-    border:1px solid rgba(255,255,255,.10);
-    border-radius:24px;
+    margin-top:20px;
+
+    background:rgba(255,255,255,.15);
+
+    backdrop-filter:blur(10px);
+
+    border:1px solid rgba(255,255,255,.20);
+
+    border-radius:25px;
+
     padding:25px;
-    margin-bottom:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+    color:white;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.20);
 }
 
 .card h2{
-    color:#fbbf24;
     margin-bottom:15px;
+    color:#ffd166;
 }
 
 .card p{
     line-height:1.8;
 }
 
-.check{
-    margin-bottom:12px;
-}
-
-/* BOTÃO PDF */
-
 .pdf{
     text-align:center;
 }
 
 .btn-pdf{
+
     display:inline-block;
+
     margin-top:15px;
+
     padding:15px 30px;
+
     border-radius:50px;
+
     text-decoration:none;
+
     color:white;
+
     font-weight:bold;
 
     background:linear-gradient(
@@ -122,8 +126,6 @@ body{
     transform:scale(1.05);
 }
 
-/* RODAPÉ APP */
-
 .bottom-nav{
 
     position:fixed;
@@ -132,13 +134,12 @@ body{
 
     width:100%;
 
-    background:rgba(255,255,255,.92);
+    background:rgba(255, 255, 255, 0.132);
 
     backdrop-filter:blur(12px);
 
     display:flex;
     justify-content:space-around;
-    align-items:center;
 
     padding:12px 0;
 
@@ -150,6 +151,7 @@ body{
 .bottom-nav a{
 
     text-decoration:none;
+
     color:#0f172a;
 
     display:flex;
@@ -166,64 +168,38 @@ body{
     margin-bottom:3px;
 }
 
-/* MOBILE */
-
-@media(max-width:768px){
-
-    .hero{
-        height:360px;
-    }
-
-    .hero h1{
-        font-size:30px;
-    }
-
-    .hero p{
-        font-size:16px;
-    }
-
-    .card{
-        padding:20px;
-    }
-}
-
 </style>
 </head>
 
 <body>
 
-<section class="hero">
+<div class="container">
 
-    <div class="hero-content">
+    <div class="logo">
+        <img src="logo.png" alt="AP96">
+    </div>
 
-        <img src="logo.png" class="logo">
+    <section class="hero">
 
         <h1>🍷 Regras da Hospedagem</h1>
 
         <p>
-            Algumas orientações ajudam a garantir
-            uma estadia tranquila e agradável para todos.
+            Algumas orientações importantes para uma estadia tranquila.
         </p>
 
-    </div>
-
-</section>
-
-<div class="container">
+    </section>
 
     <div class="card">
 
         <h2>🏠 Regras Principais</h2>
 
-        <p class="check">✔ Máximo de 6 hóspedes.</p>
-
-        <p class="check">✔ Não é permitido receber visitantes.</p>
-
-        <p class="check">✔ Não fumar dentro do apartamento.</p>
-
-        <p class="check">✔ Respeitar o silêncio e os demais hóspedes.</p>
-
-        <p class="check">✔ Preservar móveis, utensílios e equipamentos.</p>
+        <p>
+        ✔ Máximo de 6 hóspedes<br>
+        ✔ Não receber visitantes<br>
+        ✔ Não fumar dentro do apartamento<br>
+        ✔ Respeitar o silêncio<br>
+        ✔ Preservar móveis e equipamentos
+        </p>
 
     </div>
 
@@ -232,7 +208,7 @@ body{
         <h2>🛏️ Conforto</h2>
 
         <p>
-            Disponibilizamos travesseiros para maior conforto durante sua estadia.
+        Disponibilizamos travesseiros para maior conforto durante sua estadia.
         </p>
 
     </div>
@@ -242,8 +218,7 @@ body{
         <h2>❤️ Cuidando do AP-96</h2>
 
         <p>
-            Ajude-nos a manter o apartamento sempre agradável para os próximos hóspedes.
-            Cuide dos ambientes e comunique qualquer ocorrência durante sua estadia.
+        Ajude-nos a manter o apartamento sempre agradável para os próximos hóspedes.
         </p>
 
     </div>
@@ -253,7 +228,7 @@ body{
         <h2>📄 Regulamento Completo</h2>
 
         <p>
-            Consulte todas as regras e orientações oficiais do AP-96.
+        Consulte todas as regras oficiais do AP-96.
         </p>
 
         <a href="regra_ap96.pdf"
@@ -271,27 +246,18 @@ body{
 <nav class="bottom-nav">
 
     <a href="informativo.html">
-
         <div class="icone">🏠</div>
-
         <span>Início</span>
-
     </a>
 
     <a href="https://www.ap96.com.br/cadastro">
-
         <div class="icone">📝</div>
-
         <span>Cadastro</span>
-
     </a>
 
     <a href="contato.html">
-
         <div class="icone">📞</div>
-
         <span>Contato</span>
-
     </a>
 
 </nav>
