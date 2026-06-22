@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AP-96 | Guia do Hóspede</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+min-height:100vh;
+padding-bottom:90px;
+background:url('foto_sala.jpg') center center/cover no-repeat fixed;
+position:relative;
+}
+
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:linear-gradient(
+180deg,
+rgba(0,0,0,.45),
+rgba(0,0,0,.60)
+);
+backdrop-filter:blur(2px);
+}
+
+.container{
+position:relative;
+z-index:2;
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.logo{
+text-align:center;
+margin-top:10px;
+}
+
+.logo img{
+width:220px;
+max-width:80%;
+}
+
+.hero{
+text-align:center;
+color:white;
+margin-top:15px;
+margin-bottom:30px;
+}
+
+.hero h1{
+font-size:42px;
+margin-bottom:10px;
+color:#ffd166;
+text-shadow:2px 2px 10px rgba(0,0,0,.8);
+}
+
+.hero p{
+font-size:18px;
+line-height:1.7;
+text-shadow:2px 2px 5px rgba(0,0,0,.8);
+}
+
+.card{
+
+background:rgba(255,255,255,0.12);
+
+backdrop-filter:blur(14px);
+
+border:1px solid rgba(255,255,255,0.18);
+
+border-radius:28px;
+
+padding:25px;
+
+margin-bottom:20px;
+
+color:white;
+
+box-shadow:0 15px 30px rgba(0,0,0,.25);
+
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-3px);
+}
+
+.card h2{
+color:#ffd166;
+font-size:28px;
+margin-bottom:15px;
+}
+
+.card p{
+line-height:2;
+font-size:16px;
+}
+
+.destaque{
+
+background:rgba(255,209,102,.15);
+
+border:1px solid rgba(255,209,102,.35);
+
+box-shadow:0 0 30px rgba(255,209,102,.15);
+}
+
+.final{
+
+text-align:center;
+font-size:20px;
+font-weight:bold;
+
+padding:35px;
+}
+
+.bottom-nav{
+
+position:fixed;
+bottom:0;
+left:0;
+
+width:100%;
+
+background:rgba(255,255,255,0.132);
+
+backdrop-filter:blur(15px);
+
+display:flex;
+justify-content:space-around;
+
+padding:12px 0;
+
+z-index:9999;
+}
+
+.bottom-nav a{
+
+text-decoration:none;
+
+color:white;
+
+display:flex;
+flex-direction:column;
+
+align-items:center;
+
+font-size:13px;
+font-weight:bold;
+}
+
+.icone{
+font-size:24px;
+margin-bottom:3px;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:34px;
+}
+
+.card h2{
+font-size:24px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+<img src="logo.png" alt="AP96">
+</div>
+
+<section class="hero">
+
+<h1>🏠 Guia do Hóspede</h1>
+
+<p>
+Seu espaço de descanso, conforto e momentos inesquecíveis em Praia Grande.
+</p>
+
+</section>
+
+<div class="card">
+
+<h2>🍳 Cozinha Completa</h2>
+
+<p>
+✔ Geladeira<br>
+✔ Fogão<br>
+✔ Forno<br>
+✔ Micro-ondas<br>
+✔ Liquidificador<br>
+✔ Cafeteira<br>
+✔ Utensílios completos
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>🛋️ Sala de Estar</h2>
+
+<p>
+✔ Smart TV 50"<br>
+✔ Globoplay e aplicativos<br>
+✔ Sofá-cama<br>
+✔ Mesa para até 6 pessoas<br>
+✔ Ar-condicionado<br>
+✔ Ventiladores
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>🛏️ Quarto</h2>
+
+<p>
+✔ Cama de casal<br>
+✔ Cama de solteiro<br>
+✔ Colchões extras<br>
+✔ Guarda-roupa<br>
+✔ Tela de segurança
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>🚿 Banheiro</h2>
+
+<p>
+✔ Chuveiro com excelente pressão<br>
+✔ Espelho<br>
+✔ Ambiente funcional
+</p>
+
+</div>
+
+<div class="card destaque">
+
+<h2>🌅 Sacada Premium</h2>
+
+<p>
+✔ Vista privilegiada para o mar<br>
+✔ Duas cadeiras relaxantes<br>
+✔ Espaço perfeito para apreciar a paisagem<br>
+✔ Aproveite cada momento da sua estadia
+</p>
+
+</div>
+
+<div class="card final">
+
+❤️ Desejamos uma excelente estadia!<br><br>
+
+Aproveite cada momento no AP-96.
+
+</div>
+
+</div>
+
+<nav class="bottom-nav">
+
+<a href="informativo.html">
+<div class="icone">🏠</div>
+<span>Início</span>
+</a>
+
+<a href="https://www.ap96.com.br/cadastro">
+<div class="icone">📝</div>
+<span>Cadastro</span>
+</a>
+
+<a href="contato.html">
+<div class="icone">📞</div>
+<span>Contato</span>
+</a>
+
+</nav>
+
+</body>
+</html>
