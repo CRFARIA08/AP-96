@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AP-96 | Regras da Hospedagem</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+    padding-bottom:90px;
+}
+
+/* HERO */
+
+.hero{
+    position:relative;
+    height:420px;
+    background:url('foto_6.jpg') center center/cover no-repeat;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.55);
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    padding:20px;
+}
+
+.logo{
+    width:220px;
+    max-width:80%;
+    margin-bottom:15px;
+}
+
+.hero h1{
+    font-size:38px;
+    margin-bottom:10px;
+    text-shadow:2px 2px 5px rgba(0,0,0,.8);
+}
+
+.hero p{
+    font-size:18px;
+    text-shadow:2px 2px 5px rgba(0,0,0,.8);
+}
+
+/* CONTEÚDO */
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:rgba(15,23,42,.78);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:24px;
+    padding:25px;
+    margin-bottom:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.card h2{
+    color:#fbbf24;
+    margin-bottom:15px;
+}
+
+.card p{
+    line-height:1.8;
+}
+
+.check{
+    margin-bottom:12px;
+}
+
+/* BOTÃO PDF */
+
+.pdf{
+    text-align:center;
+}
+
+.btn-pdf{
+    display:inline-block;
+    margin-top:15px;
+    padding:15px 30px;
+    border-radius:50px;
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
+
+    background:linear-gradient(
+        135deg,
+        #c69825,
+        #f59e0b
+    );
+
+    transition:.3s;
+}
+
+.btn-pdf:hover{
+    transform:scale(1.05);
+}
+
+/* RODAPÉ APP */
+
+.bottom-nav{
+
+    position:fixed;
+    bottom:0;
+    left:0;
+
+    width:100%;
+
+    background:rgba(255,255,255,.92);
+
+    backdrop-filter:blur(12px);
+
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+
+    padding:12px 0;
+
+    z-index:9999;
+
+    box-shadow:0 -3px 15px rgba(0,0,0,.20);
+}
+
+.bottom-nav a{
+
+    text-decoration:none;
+    color:#0f172a;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+
+    font-size:13px;
+    font-weight:bold;
+}
+
+.icone{
+    font-size:24px;
+    margin-bottom:3px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .hero{
+        height:360px;
+    }
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .card{
+        padding:20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <img src="logo.png" class="logo">
+
+        <h1>🍷 Regras da Hospedagem</h1>
+
+        <p>
+            Algumas orientações ajudam a garantir
+            uma estadia tranquila e agradável para todos.
+        </p>
+
+    </div>
+
+</section>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>🏠 Regras Principais</h2>
+
+        <p class="check">✔ Máximo de 6 hóspedes.</p>
+
+        <p class="check">✔ Não é permitido receber visitantes.</p>
+
+        <p class="check">✔ Não fumar dentro do apartamento.</p>
+
+        <p class="check">✔ Respeitar o silêncio e os demais hóspedes.</p>
+
+        <p class="check">✔ Preservar móveis, utensílios e equipamentos.</p>
+
+    </div>
+
+    <div class="card">
+
+        <h2>🛏️ Conforto</h2>
+
+        <p>
+            Disponibilizamos travesseiros para maior conforto durante sua estadia.
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <h2>❤️ Cuidando do AP-96</h2>
+
+        <p>
+            Ajude-nos a manter o apartamento sempre agradável para os próximos hóspedes.
+            Cuide dos ambientes e comunique qualquer ocorrência durante sua estadia.
+        </p>
+
+    </div>
+
+    <div class="card pdf">
+
+        <h2>📄 Regulamento Completo</h2>
+
+        <p>
+            Consulte todas as regras e orientações oficiais do AP-96.
+        </p>
+
+        <a href="regra_ap96.pdf"
+           target="_blank"
+           class="btn-pdf">
+
+           ABRIR PDF COMPLETO
+
+        </a>
+
+    </div>
+
+</div>
+
+<nav class="bottom-nav">
+
+    <a href="informativo.html">
+
+        <div class="icone">🏠</div>
+
+        <span>Início</span>
+
+    </a>
+
+    <a href="https://www.ap96.com.br/cadastro">
+
+        <div class="icone">📝</div>
+
+        <span>Cadastro</span>
+
+    </a>
+
+    <a href="contato.html">
+
+        <div class="icone">📞</div>
+
+        <span>Contato</span>
+
+    </a>
+
+</nav>
+
+</body>
+</html>
