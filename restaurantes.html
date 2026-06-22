@@ -1,0 +1,255 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurantes e Lazer | AP-96</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:url('foto_2.jpg') center center/cover no-repeat fixed;
+min-height:100vh;
+color:white;
+padding-bottom:100px;
+position:relative;
+}
+
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.45);
+backdrop-filter:blur(2px);
+z-index:0;
+}
+
+.container{
+position:relative;
+z-index:1;
+max-width:1200px;
+margin:auto;
+padding:20px;
+}
+
+.logo{
+text-align:center;
+margin-top:10px;
+}
+
+.logo img{
+width:220px;
+max-width:80%;
+}
+
+.hero{
+text-align:center;
+padding:15px 0 30px;
+}
+
+.hero h1{
+font-size:42px;
+margin-bottom:10px;
+text-shadow:2px 2px 10px rgba(0,0,0,.8);
+}
+
+.hero p{
+font-size:18px;
+max-width:700px;
+margin:auto;
+line-height:1.6;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:20px;
+}
+
+.card{
+background:rgba(255,255,255,0.132);
+backdrop-filter:blur(14px);
+border:1px solid rgba(255,255,255,.18);
+border-radius:25px;
+padding:25px;
+box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.card h2{
+font-size:24px;
+margin-bottom:15px;
+color:#FFD166;
+}
+
+.card p{
+line-height:1.8;
+font-size:16px;
+margin-bottom:15px;
+}
+
+.botao{
+display:block;
+text-align:center;
+padding:14px;
+border-radius:14px;
+background:linear-gradient(135deg,#c69825,#f59e0b);
+color:white;
+font-weight:bold;
+text-decoration:none;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:rgba(255,255,255,0.132);
+backdrop-filter:blur(15px);
+display:flex;
+justify-content:space-around;
+padding:12px 0;
+z-index:999;
+}
+
+.bottom-nav a{
+text-decoration:none;
+color:white;
+display:flex;
+flex-direction:column;
+align-items:center;
+font-size:13px;
+font-weight:bold;
+}
+
+.icon{
+font-size:24px;
+margin-bottom:3px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+<img src="logo.png" alt="AP96">
+</div>
+
+<div class="hero">
+
+<h1>🍽️ Restaurantes e Lazer</h1>
+
+<p>
+Alguns locais próximos ao AP-96 para tornar sua estadia ainda mais agradável.
+</p>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h2>🌳 Parque Mirim</h2>
+<p>
+Próximo ao AP-96, o Parque Mirim possui áreas verdes, espaços para caminhada e lazer ao ar livre.
+</p>
+<a class="botao" href="https://maps.app.goo.gl/XN8LHCotnwEvJqmq7" target="_blank">
+📍 Ver Localização
+</a>
+</div>
+
+<div class="card">
+<h2>🍹 Brisa Bar Caiçara</h2>
+<p>
+Excelente opção para aproveitar a orla, com boa comida, bebidas e clima de praia.
+</p>
+<a class="botao" href="https://maps.app.goo.gl/yJPZpmRP2MB2uhp19" target="_blank">
+📍 Ver Localização
+</a>
+</div>
+
+<div class="card">
+<h2>🏖️ Beach Paradise Quiosque 11</h2>
+<p>
+Quiosque tradicional da orla, ideal para relaxar perto do mar e apreciar a vista.
+</p>
+<a class="botao" href="https://maps.app.goo.gl/uYpTN8knQDDbd8VQ8" target="_blank">
+📍 Ver Localização
+</a>
+</div>
+
+<div class="card">
+<h2>🛍️ Praça Nossa Senhora de Fátima</h2>
+<p>
+Tradicional ponto de encontro com feira, alimentação e lazer para toda a família.
+</p>
+<a class="botao" href="https://maps.app.goo.gl/hgX7ckiAEgZi8MTf9" target="_blank">
+📍 Ver Localização
+</a>
+</div>
+
+<div class="card">
+<h2>🛒 Shopping Litoral Plaza</h2>
+<p>
+O maior shopping da região, com lojas, restaurantes, cinema e atrações.
+</p>
+<a class="botao" href="https://maps.app.goo.gl/jmiTZKfpW7GwT9ZK9" target="_blank">
+📍 Ver Localização
+</a>
+</div>
+
+<div class="card">
+<h2>🥐 Padaria 2 Corações</h2>
+<p>
+Ótima opção para café da manhã, lanches, pães frescos e conveniência.
+</p>
+<a class="botao" href="https://maps.app.goo.gl/7HbKMqM5578LYUQq6" target="_blank">
+📍 Ver Localização
+</a>
+</div>
+
+<div class="card">
+<h2>🛒 Assaí Atacadista</h2>
+<p>
+Mercado completo para abastecer sua estadia com alimentos, bebidas, carnes e itens de conveniência.
+</p>
+<a class="botao" href="https://maps.app.goo.gl/PKFJujd5xLGm1H8X6" target="_blank">
+📍 Ver Localização
+</a>
+</div>
+
+</div>
+
+</div>
+
+<nav class="bottom-nav">
+
+<a href="informativo.html">
+<div class="icon">🏠</div>
+<span>Início</span>
+</a>
+
+<a href="https://www.ap96.com.br/cadastro">
+<div class="icon">📝</div>
+<span>Cadastro</span>
+</a>
+
+<a href="contato.html">
+<div class="icon">📞</div>
+<span>Contato</span>
+</a>
+
+</nav>
+
+</body>
+</html>
+```
