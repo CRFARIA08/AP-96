@@ -146,6 +146,48 @@ background:linear-gradient(
 transition:.3s;
 }
 
+.btn-copiar{
+
+margin-top:15px;
+
+padding:12px 25px;
+
+border:none;
+
+border-radius:50px;
+
+cursor:pointer;
+
+font-size:16px;
+
+font-weight:bold;
+
+color:white;
+
+background:linear-gradient(
+135deg,
+#2563eb,
+#3b82f6
+);
+
+transition:.3s;
+}
+
+.btn-copiar:hover{
+transform:scale(1.05);
+}
+
+#mensagemCopiada{
+
+margin-top:10px;
+
+font-size:14px;
+
+color:#90ee90;
+
+font-weight:bold;
+}
+
 .btn:hover{
 transform:scale(1.05);
 }
@@ -307,6 +349,21 @@ FALAR CONOSCO
 
 document.getElementById('wifiNome').textContent = WIFI_NOME;
 document.getElementById('wifiSenha').textContent = WIFI_SENHA;
+
+function copiarSenha(){
+
+navigator.clipboard.writeText(WIFI_SENHA);
+
+document.getElementById('mensagemCopiada').innerHTML =
+'✅ Senha copiada!';
+
+setTimeout(() => {
+
+document.getElementById('mensagemCopiada').innerHTML = '';
+
+},3000);
+
+}
 
 </script>
 
