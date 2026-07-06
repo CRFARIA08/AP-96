@@ -1,605 +1,519 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Pré-Check-in | AP-96</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Check-in Hóspedes | AP-96</title>
 
-    body {
-      background-color: #181851fd;
-      color: #1d1d1f;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 24px 16px;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 680px;
-    }
-
-    .logo-container {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .logo-container img {
-      height: 80px;
-      margin-bottom: 8px;
-    }
-
-    .logo-container h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #f1bb3c;
-      letter-spacing: -0.5px;
-    }
-
-    .card {
-      background: #ffffffd8;
-      border: 1px solid #e5e5ea;
-      border-radius: 24px;
-      padding: 32px 24px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-    }
-
-    .card p.intro {
-      font-size: 0.95rem;
-      color: #515154;
-      line-height: 1.6;
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    .card p.intro strong {
-      color: #1d1d1f;
-    }
-
-    .section {
-      margin-bottom: 28px;
-    }
-
-    .section h2 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #1d1d1f;
-      margin-bottom: 14px;
-      border-left: 3px solid #0071e3;
-      padding-left: 10px;
-      letter-spacing: -0.3px;
-    }
-
-    .subcard {
-      background: #fafafa;
-      border: 1px solid #e5e5ea;
-      border-radius: 16px;
-      padding: 18px;
-      margin-bottom: 14px;
-      transition: all 0.2s ease;
-    }
-
-    .subcard:hover {
-      border-color: #cbd5e1;
-    }
-
-    .subcard-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .subcard-header h3 {
-      font-size: 0.95rem;
-      color: #1d1d1f;
-      font-weight: 500;
-    }
-
-    .row {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    @media (min-width: 640px) {
-      .row {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .form-group {
-      margin-bottom: 14px;
-    }
-
-    .form-group.full-width {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #86868b;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 12px 14px;
-      background: #ffffff;
-      border: 1px solid #d2d2d7;
-      border-radius: 12px;
-      color: #1d1d1f;
-      font-size: 0.95rem;
-      outline: none;
-      transition: all 0.2s ease;
-      text-transform: uppercase;
-    }
-
-    input::placeholder {
-      text-transform: none;
-      color: #b0b0b5;
-    }
-
-    /* não aplica uppercase a datas e campos de controle */
-    input[type="date"], select {
-      text-transform: none;
-    }
-
-    input:focus, select:focus {
-      border-color: #0071e3;
-      box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
-    }
-
-    .error-msg {
-      color: #ff3b30; /* Vermelho iOS */
-      font-size: 0.8rem;
-      margin-top: 4px;
-      display: none;
-    }
-
-    .btn {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 12px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-primary {
-      background: #0071e3;
-      color: #ffffff;
-      box-shadow: 0 4px 10px rgba(0, 113, 227, 0.15);
-    }
-
-    .btn-primary:hover {
-      background: #0077ed;
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: #f5f5f7;
-      color: #1d1d1f;
-      border: 1px solid #d2d2d7;
-      margin-top: 6px;
-    }
-
-    .btn-secondary:hover {
-      background: #e8e8ed;
-    }
-
-    .btn-remove {
-      padding: 6px 12px;
-      background: rgba(255, 59, 48, 0.1);
-      border: 1px solid rgba(255, 59, 48, 0.2);
-      color: #ff3b30;
-      font-size: 0.8rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-remove:hover {
-      background: rgba(230, 222, 221, 0.2);
-    }
-
-    .consent-wrapper {
-      margin-top: 24px;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .consent-wrapper input[type="checkbox"] {
-      width: auto;
-      margin-top: 3px;
-      cursor: pointer;
-    }
-
-    .consent-wrapper label {
-      font-size: 0.85rem;
-      color: #515154;
-      text-transform: none;
-      letter-spacing: 0;
-      line-height: 1.4;
-      cursor: pointer;
-    }
-
-    .consent-wrapper label a {
-      color: #0071e3;
-      text-decoration: none;
-    }
-
-    .consent-wrapper label a:hover {
-      text-decoration: underline;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 24px;
-      font-size: 0.8rem;
-      color: #86868b;
-      line-height: 1.5;
-    }
-
-    .footer strong {
-      color: #ff3b30;
-    }
-  </style>
+<style>
+*{box-sizing:border-box}
+html,body{width:100%;overflow-x:hidden}
+body{
+  font-family:Arial, Helvetica, sans-serif;
+  background:#0f172a;
+  margin:0;
+  padding:0;
+}
+.container{
+  width:100%;
+  max-width:720px;
+  margin:0 auto;
+  padding:16px;
+}
+.logo{text-align:center;margin-bottom:16px}
+.logo img{width:min(140px,42vw);max-width:100%;height:auto}
+.card{
+  background:#e2e8f0;
+  padding:18px;
+  border-radius:14px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.30);
+}
+h1{
+  text-align:center;
+  font-size:22px;
+  line-height:1.25;
+  margin-bottom:10px;
+  color:#1e293b;
+}
+p{
+  font-size:14px;
+  line-height:1.5;
+  text-align:center;
+  color:#334155;
+  margin-bottom:20px;
+}
+.section{margin-top:20px}
+.section h2{
+  font-size:16px;
+  border-bottom:1px solid #94a3b8;
+  padding-bottom:6px;
+  margin-bottom:15px;
+  color:#1e293b;
+}
+.subcard{
+  background:#f8fafc;
+  border:1px solid #cbd5e1;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:14px;
+}
+.subcard h3{
+  margin:0 0 10px;
+  color:#0f172a;
+  font-size:15px;
+}
+.row{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  align-items:stretch;
+}
+.col{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+input{
+  width:100%;
+  padding:12px;
+  margin-bottom:8px;
+  border-radius:6px;
+  border:1px solid #94a3b8;
+  font-size:16px;
+  background:#fff;
+  color:#0f172a;
+  text-transform:uppercase;
+}
+input::placeholder{
+  text-transform:none;
+}
+.erroCPF{
+  color:red;
+  font-size:12px;
+  line-height:1.4;
+  margin-top:-4px;
+  margin-bottom:8px;
+}
+button{
+  width:100%;
+  padding:14px;
+  margin-top:15px;
+  border:none;
+  border-radius:10px;
+  background:#22c55e;
+  font-size:16px;
+  font-weight:bold;
+  color:white;
+  cursor:pointer;
+  transition:0.2s;
+}
+button:hover{background:#16a34a}
+.add{
+  background:#3b82f6;
+  margin-top:5px;
+}
+.add:hover{background:#2563eb}
+.remove-wrap{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:6px;
+}
+.remove{
+  width:auto;
+  min-width:92px;
+  padding:7px 12px;
+  margin-top:0;
+  border-radius:8px;
+  background:#ef4444;
+  font-size:12px;
+  line-height:1.2;
+}
+.remove:hover{background:#dc2626}
+.footer{
+  font-size:12px;
+  line-height:1.5;
+  margin-top:20px;
+  text-align:center;
+  color:#475569;
+}
+@media (min-width:640px){
+  .container{padding:20px}
+  .card{padding:25px}
+  .row{flex-direction:row}
+}
+</style>
 </head>
+
 <body>
-
-  <div class="container">
-    <div class="logo-container">
-      <img src="assets/logo_ap96.png" alt="AP-96 Logo" onerror="this.style.display='none'">
-      <h1>AP-96 PRAIA GRANDE</h1>
-    </div>
-
-    <div class="card">
-      <p class="intro">
-        Para liberação do acesso à portaria do edifício, é <strong>obrigatório</strong> o preenchimento dos dados de todos os ocupantes em até 24h após a confirmação da reserva.
-      </p>
-
-      <form id="checkinForm">
-        <!-- SEÇÃO: HOSPEDE PRINCIPAL -->
-        <div class="section">
-          <h2>Hóspede Principal</h2>
-          <div class="subcard">
-            <div class="form-group">
-              <label for="nome">Nome Completo</label>
-              <input type="text" id="nome" placeholder="Digite seu nome completo" required>
-            </div>
-            
-            <div class="row">
-              <div class="form-group">
-                <label for="celular">Celular / WhatsApp</label>
-                <input type="tel" id="celular" placeholder="(11) 99999-9999" required maxlength="15">
-              </div>
-              <div class="form-group">
-                <label for="cpf">CPF</label>
-                <input type="text" id="cpf" placeholder="000.000.000-00" required maxlength="14">
-                <div class="error-msg" id="cpf-error">CPF inválido</div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="rg">RG</label>
-              <input type="text" id="rg" placeholder="00.000.000-0" required maxlength="12">
-            </div>
-          </div>
-        </div>
-
-        <!-- SEÇÃO: ACOMPANHANTES -->
-        <div class="section">
-          <h2>Acompanhantes</h2>
-          <div id="acompanhantes-container"></div>
-          <button type="button" class="btn btn-secondary" id="btn-add-acomp">+ Adicionar Acompanhante</button>
-        </div>
-
-        <!-- SEÇÃO: VEÍCULO -->
-        <div class="section">
-          <h2>Veículo</h2>
-          <div class="subcard">
-            <div class="row">
-              <div class="form-group">
-                <label for="veiculo_tipo">Tipo</label>
-                <select id="veiculo_tipo">
-                  <option value="Sem veículo">Sem veículo</option>
-                  <option value="Carro">Carro</option>
-                  <option value="Moto">Moto</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="veiculo_marca">Marca / Modelo</label>
-                <input type="text" id="veiculo_marca" placeholder="Ex: Honda Civic">
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group">
-                <label for="placa">Placa</label>
-                <input type="text" id="placa" placeholder="ABC-1234" maxlength="8">
-              </div>
-              <div class="form-group">
-                <label for="cor">Cor</label>
-                <input type="text" id="cor" placeholder="Ex: Preto">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SEÇÃO: DATAS -->
-        <div class="section">
-          <h2>Período da Estadia</h2>
-          <div class="subcard">
-            <div class="row">
-              <div class="form-group">
-                <label for="checkin">Check-in</label>
-                <input type="date" id="checkin" required>
-              </div>
-              <div class="form-group">
-                <label for="checkout">Check-out</label>
-                <input type="date" id="checkout" required>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- LGPD CONSENT -->
-        <div class="consent-wrapper">
-          <input type="checkbox" id="lgpd_consent" required>
-          <label for="lgpd_consent">
-            Li e estou ciente com os termos da <a href="/politica-privacidade.html" target="_blank">Política de Privacidade</a> e autorizo o tratamento seguro dos meus dados pessoais e dos acompanhantes exclusivamente para fins de autorização de entrada na portaria do condomínio.
-          </label>
-        </div>
-
-        <button type="submit" class="btn btn-primary" id="btn-submit">Enviar Pré-Check-in</button>
-      </form>
-
-      <div class="footer">
-        Desejamos uma excelente hospedagem no AP-96!<br>
-        <strong>Atenção: Não é permitida a entrada de visitas no edifício.</strong>
-      </div>
-    </div>
+<div class="container">
+  <div class="logo">
+    <img src="logo.png" alt="AP-96">
   </div>
 
-  <script>
-    const MAX_ACOMPANHANTES = 6;
-    let acompanhantes = [];
+  <div class="card">
+    <h1>CADASTRO DE HÓSPEDES</h1>
+    <p>
+      Para a segurança do condomínio, o preenchimento dos dados de todos os ocupantes é obrigatório.<br>
 
-    // Formatação de máscaras
-    const inputCPF = document.getElementById("cpf");
-    const inputCelular = document.getElementById("celular");
-    const inputPlaca = document.getElementById("placa");
+      <strong style="color:#080808;">O cadastro deve ser concluído em até 24h após a confirmação da reserva, evitando possíveis cancelamentos por falta de informações.</strong><br>
+      Crianças abaixo de 8 anos: preencher apenas o nome e deixar CPF/RG em branco.
+    </p>
 
-    inputCPF.addEventListener("input", (e) => mascaraCPF(e.target));
-    inputCPF.addEventListener("blur", (e) => validarCampoCPF(e.target, document.getElementById("cpf-error")));
-    inputCelular.addEventListener("input", (e) => mascaraTelefone(e.target));
-    inputPlaca.addEventListener("input", (e) => mascaraPlaca(e.target));
-
-    function mascaraCPF(campo) {
-      campo.value = campo.value
-        .replace(/\D/g, '')
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-    }
-
-    function mascaraTelefone(campo) {
-      campo.value = campo.value
-        .replace(/\D/g, '')
-        .replace(/(\d{2})(\d)/, '($1) $2')
-        .replace(/(\d{5})(\d)/, '$1-$2')
-        .slice(0, 15);
-    }
-
-    function mascaraPlaca(campo) {
-      campo.value = campo.value
-        .toUpperCase()
-        .replace(/[^A-Z0-9]/g, '')
-        .replace(/([A-Z]{3})(\d)/, '$1-$2');
-    }
-
-    function validarCPF(cpf) {
-      cpf = cpf.replace(/[^\d]+/g, '');
-      if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
-      let soma = 0;
-      let resto;
-      for (let i = 1; i <= 9; i++) {
-        soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
-      }
-      resto = (soma * 10) % 11;
-      if (resto === 10 || resto === 11) resto = 0;
-      if (resto !== parseInt(cpf.substring(9, 10))) return false;
-      soma = 0;
-      for (let i = 1; i <= 10; i++) {
-        soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
-      }
-      resto = (soma * 10) % 11;
-      if (resto === 10 || resto === 11) resto = 0;
-      if (resto !== parseInt(cpf.substring(10, 11))) return false;
-      return true;
-    }
-
-    function validarCampoCPF(campo, elError) {
-      if (campo.value.trim() === "") {
-        elError.style.display = "none";
-        campo.style.borderColor = "";
-        return true;
-      }
-      if (!validarCPF(campo.value)) {
-        elError.style.display = "block";
-        campo.style.borderColor = "#f87171";
-        return false;
-      } else {
-        elError.style.display = "none";
-        campo.style.borderColor = "rgba(255, 255, 255, 0.1)";
-        return true;
-      }
-    }
-
-    // Acompanhantes dinâmicos
-    const containerAcomp = document.getElementById("acompanhantes-container");
-    const btnAddAcomp = document.getElementById("btn-add-acomp");
-
-    function renderAcompanhantes() {
-      containerAcomp.innerHTML = "";
-      acompanhantes.forEach((acomp, idx) => {
-        const idNum = idx + 1;
-        const subcard = document.createElement("div");
-        subcard.className = "subcard";
-        subcard.innerHTML = `
-          <div class="subcard-header">
-            <h3>Acompanhante ${idNum}</h3>
-            <button type="button" class="btn-remove" onclick="removeAcompanhante(${idx})">Remover</button>
+    <div class="section">
+      <h2>Hóspede principal</h2>
+      <div class="subcard">
+        <input id="nomeHospede" placeholder="Nome do hóspede principal">
+        <div class="row">
+          <div class="col">
+            <input id="celHospede" placeholder="Celular / WhatsApp" maxlength="16" inputmode="tel">
           </div>
-          <div class="form-group">
-            <label>Nome Completo</label>
-            <input type="text" class="acomp-nome" placeholder="Nome do acompanhante" value="${acomp.nome || ''}" required>
+          <div class="col">
+            <input
+              id="cpfHospede"
+              placeholder="CPF do hóspede principal"
+              maxlength="14"
+              oninput="mascaraCPF(this)"
+              onblur="verificarCPFPrincipal(this)"
+              inputmode="numeric">
+            <div class="erroCPF" id="erroCpfPrincipal"></div>
           </div>
-          <div class="row">
-            <div class="form-group">
-              <label>CPF</label>
-              <input type="text" class="acomp-cpf" placeholder="000.000.000-00" value="${acomp.cpf || ''}" maxlength="14">
-              <div class="error-msg acomp-cpf-error">CPF inválido</div>
-            </div>
-            <div class="form-group">
-              <label>RG</label>
-              <input type="text" class="acomp-rg" placeholder="00.000.000-0" value="${acomp.rg || ''}" maxlength="12">
-            </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <input
+              id="rgHospede"
+              placeholder="RG do hóspede principal"
+              maxlength="12"
+              oninput="mascaraRG(this)"
+              inputmode="numeric">
           </div>
-        `;
+        </div>
+      </div>
+    </div>
 
-        // Ativa máscaras para o novo acompanhante
-        const inputAcompCpf = subcard.querySelector(".acomp-cpf");
-        inputAcompCpf.addEventListener("input", (e) => mascaraCPF(e.target));
-        inputAcompCpf.addEventListener("blur", (e) => {
-          validarCampoCPF(e.target, subcard.querySelector(".acomp-cpf-error"));
-        });
+    <div class="section">
+      <h2>Acompanhantes</h2>
+      <div id="acompanhantes"></div>
+      <button class="add" onclick="addAcompanhante()">+ Adicionar acompanhante</button>
+    </div>
 
-        // Salvar valores digitados ao trocar de estado
-        subcard.querySelector(".acomp-nome").addEventListener("input", (e) => {
-          acompanhantes[idx].nome = e.target.value;
-        });
-        subcard.querySelector(".acomp-cpf").addEventListener("input", (e) => {
-          acompanhantes[idx].cpf = e.target.value;
-        });
-        subcard.querySelector(".acomp-rg").addEventListener("input", (e) => {
-          acompanhantes[idx].rg = e.target.value;
-        });
+    <div class="section">
+      <h2>Carro</h2>
+      <input id="marcaModelo" placeholder="Marca / Modelo do carro">
+      <div class="row">
+        <div class="col">
+          <input id="placa" placeholder="ABC-1234" maxlength="8">
+        </div>
+        <div class="col">
+          <input id="cor" placeholder="Cor">
+        </div>
+      </div>
+    </div>
 
-        containerAcomp.appendChild(subcard);
-      });
+    <div class="section">
+      <h2>Período da Estadia</h2>
+      <div class="row">
+        <div class="col">
+          <input type="date" id="checkin">
+        </div>
+        <div class="col">
+          <input type="date" id="checkout">
+        </div>
+      </div>
+    </div>
 
-      if (acompanhantes.length >= MAX_ACOMPANHANTES) {
-        btnAddAcomp.style.display = "none";
-      } else {
-        btnAddAcomp.style.display = "block";
-      }
+    <button id="botaoEnviar" onclick="enviar()">Enviar Cadastro</button>
+
+    <div class="footer">
+      As informações devem ser iguais às informadas na reserva.<br>
+      <strong style="color:#f30707;">Não é permitido receber visitas no apartamento.</strong>
+    </div>
+  </div>
+</div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxd-IH43mCezB3n2JG7TSRDLgT0Imrmb5ijPE63CxubOUkrVEd-sFffxVp-Icubz9-R/exec";
+const MAX_ACOMPANHANTES = 5;
+let totalAcompanhantes = 0;
+
+function gerarID(){
+  const hoje = new Date();
+  const data =
+    hoje.getFullYear() +
+    ("0" + (hoje.getMonth()+1)).slice(-2) +
+    ("0" + hoje.getDate()).slice(-2);
+  const random = Math.floor(Math.random()*9000)+1000;
+  return "AP96-" + data + "-" + random;
+}
+
+function gerarDataHora(){
+  const agora = new Date();
+  return agora.toLocaleString("pt-BR");
+}
+
+function upperValue(campo){
+  campo.value = campo.value.toUpperCase();
+}
+
+document.addEventListener("input", function(e){
+  if(e.target.matches("input") && !["cpfHospede","rgHospede","celHospede","placa"].includes(e.target.id) && !e.target.id.includes("acomp_cpf_") && !e.target.id.includes("acomp_rg_")){
+    upperValue(e.target);
+  }
+});
+
+function addAcompanhante(){
+  if(totalAcompanhantes >= MAX_ACOMPANHANTES){
+    alert("Máximo de 5 acompanhantes");
+    return;
+  }
+
+  totalAcompanhantes++;
+  const indice = totalAcompanhantes;
+
+  const div = document.createElement("div");
+  div.className = "subcard";
+  div.id = "acompanhanteCard" + indice;
+
+  div.innerHTML = `
+    <h3>Acompanhante ${indice}</h3>
+    <input placeholder="Nome acompanhante ${indice}" id="acomp_nome_${indice}">
+    <div class="row">
+      <div class="col">
+        <input
+          placeholder="CPF acompanhante ${indice}"
+          id="acomp_cpf_${indice}"
+          maxlength="14"
+          oninput="mascaraCPF(this)"
+          onblur="verificarCPFAcompanhante(this, ${indice})"
+          inputmode="numeric">
+        <div class="erroCPF" id="erroCpfAcomp${indice}"></div>
+      </div>
+      <div class="col">
+        <input
+          placeholder="RG acompanhante ${indice}"
+          id="acomp_rg_${indice}"
+          maxlength="12"
+          oninput="mascaraRG(this)"
+          inputmode="numeric">
+      </div>
+    </div>
+    <div class="remove-wrap"><button type="button" class="remove" onclick="removerAcompanhante(${indice})">Remover acompanhante</button></div>
+  `;
+
+  document.getElementById("acompanhantes").appendChild(div);
+}
+
+function removerAcompanhante(indice){
+  const card = document.getElementById("acompanhanteCard" + indice);
+  if(card) card.remove();
+}
+
+function mascaraCPF(campo){
+  campo.value = campo.value
+    .replace(/\D/g,'')
+    .replace(/(\d{3})(\d)/,'$1.$2')
+    .replace(/(\d{3})(\d)/,'$1.$2')
+    .replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+}
+
+function validarCPF(cpf){
+  cpf = cpf.replace(/[^\d]+/g,'');
+  if(cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+
+  let soma = 0;
+  let resto;
+
+  for(let i=1;i<=9;i++){
+    soma += parseInt(cpf.substring(i-1,i))*(11-i);
+  }
+
+  resto = (soma*10)%11;
+  if(resto===10 || resto===11) resto = 0;
+  if(resto !== parseInt(cpf.substring(9,10))) return false;
+
+  soma = 0;
+  for(let i=1;i<=10;i++){
+    soma += parseInt(cpf.substring(i-1,i))*(12-i);
+  }
+
+  resto = (soma*10)%11;
+  if(resto===10 || resto===11) resto = 0;
+  if(resto !== parseInt(cpf.substring(10,11))) return false;
+
+  return true;
+}
+
+function validarCampoCPF(campo, erroEl){
+  if(campo.value.trim() === ""){
+    erroEl.innerText = "";
+    campo.style.border = "1px solid #94a3b8";
+    return;
+  }
+
+  if(!validarCPF(campo.value)){
+    erroEl.innerText = "CPF inválido";
+    campo.style.border = "1px solid red";
+  }else{
+    erroEl.innerText = "";
+    campo.style.border = "1px solid green";
+  }
+}
+
+function verificarCPFPrincipal(campo){
+  validarCampoCPF(campo, document.getElementById("erroCpfPrincipal"));
+}
+
+function verificarCPFAcompanhante(campo, indice){
+  validarCampoCPF(campo, document.getElementById("erroCpfAcomp" + indice));
+}
+
+function mascaraRG(campo){
+  campo.value = campo.value
+    .replace(/\D/g,'')
+    .replace(/(\d{2})(\d)/,'$1.$2')
+    .replace(/(\d{3})(\d)/,'$1.$2')
+    .replace(/(\d{3})(\d{1})$/,'$1-$2');
+}
+
+function mascaraTelefone(campo){
+  campo.value = campo.value
+    .replace(/\D/g,'')
+    .replace(/(\d{2})(\d)/,'($1) $2')
+    .replace(/(\d{5})(\d)/,'$1-$2')
+    .slice(0,15);
+}
+
+function mascaraPlaca(campo){
+  campo.value = campo.value
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g,'')
+    .replace(/([A-Z]{3})(\d)/,'$1-$2');
+}
+
+document.getElementById("placa").addEventListener("input", function(){ mascaraPlaca(this); });
+document.getElementById("celHospede").addEventListener("input", function(){ mascaraTelefone(this); });
+
+function valor(id){
+  const el = document.getElementById(id);
+  return el ? el.value.trim().toUpperCase() : "";
+}
+
+function enviar(){
+  const nomeHospede = valor("nomeHospede");
+  const celHospede = document.getElementById("celHospede").value.trim();
+  const cpfHospede = document.getElementById("cpfHospede").value.trim();
+  const rgHospede = document.getElementById("rgHospede").value.trim();
+  const checkin = document.getElementById("checkin").value;
+  const checkout = document.getElementById("checkout").value;
+
+  if(nomeHospede === ""){
+    alert("Preencha o nome do hóspede principal");
+    document.getElementById("nomeHospede").focus();
+    return;
+  }
+
+  if(celHospede === ""){
+    alert("Preencha o celular do hóspede principal");
+    document.getElementById("celHospede").focus();
+    return;
+  }
+
+  if(checkin === ""){
+    alert("Preencha a data de check-in");
+    document.getElementById("checkin").focus();
+    return;
+  }
+
+  if(checkout === ""){
+    alert("Preencha a data de check-out");
+    document.getElementById("checkout").focus();
+    return;
+  }
+
+  if(checkout < checkin){
+    alert("A data de check-out não pode ser anterior ao check-in");
+    document.getElementById("checkout").focus();
+    return;
+  }
+
+  if(cpfHospede !== "" && !validarCPF(cpfHospede)){
+    alert("CPF do hóspede principal inválido");
+    document.getElementById("cpfHospede").focus();
+    return;
+  }
+
+  const botao = document.getElementById("botaoEnviar");
+  botao.innerText = "Enviando...";
+  botao.disabled = true;
+
+  const payload = {
+    id: gerarID(),
+    data: gerarDataHora(),
+    nomeHospede: nomeHospede,
+    cel: celHospede,
+    cpf: cpfHospede,
+    rg: rgHospede,
+    marcaModelo: valor("marcaModelo"),
+    placa: document.getElementById("placa").value.trim().toUpperCase(),
+    cor: valor("cor"),
+    checkin: checkin,
+    checkout: checkout,
+    status: "PENDENTE"
+  };
+
+  for(let i=1; i<=MAX_ACOMPANHANTES; i++){
+    const nome = valor("acomp_nome_" + i);
+    const cpf = document.getElementById("acomp_cpf_" + i)?.value.trim() || "";
+    const rg = document.getElementById("acomp_rg_" + i)?.value.trim() || "";
+
+    if(cpf !== "" && !validarCPF(cpf)){
+      alert("CPF inválido no acompanhante " + i);
+      const campoCpf = document.getElementById("acomp_cpf_" + i);
+      if(campoCpf) campoCpf.focus();
+      botao.innerText = "Enviar Cadastro";
+      botao.disabled = false;
+      return;
     }
 
-    window.removeAcompanhante = function(idx) {
-      acompanhantes.splice(idx, 1);
-      renderAcompanhantes();
-    };
+    payload["acompanhante" + i + "Nome"] = nome;
+    payload["acompanhante" + i + "Cpf"] = cpf;
+    payload["acompanhante" + i + "Rg"] = rg;
+  }
 
-    btnAddAcomp.addEventListener("click", () => {
-      if (acompanhantes.length < MAX_ACOMPANHANTES) {
-        acompanhantes.push({ nome: "", cpf: "", rg: "" });
-        renderAcompanhantes();
-      }
-    });
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    body: JSON.stringify(payload)
+  })
+  .then(res => res.json())
+  .then(() => {
+    alert("Cadastro enviado com sucesso!");
+    resetForm();
+    botao.innerText = "Enviar Cadastro";
+    botao.disabled = false;
+  })
+  .catch(() => {
+    alert("Erro ao enviar cadastro");
+    botao.innerText = "Enviar Cadastro";
+    botao.disabled = false;
+  });
+}
 
-    // Form submit
-    document.getElementById("checkinForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      // Validar CPF principal
-      if (!validarCampoCPF(inputCPF, document.getElementById("cpf-error"))) {
-        inputCPF.focus();
-        return;
-      }
-
-      // Validar CPFs dos acompanhantes
-      let acompErro = false;
-      const subcards = containerAcomp.querySelectorAll(".subcard");
-      subcards.forEach((subcard, idx) => {
-        const cpfField = subcard.querySelector(".acomp-cpf");
-        const errField = subcard.querySelector(".acomp-cpf-error");
-        if (cpfField.value.trim() !== "" && !validarCampoCPF(cpfField, errField)) {
-          if (!acompErro) cpfField.focus();
-          acompErro = true;
-        }
-      });
-
-      if (acompErro) return;
-
-      const btnSubmit = document.getElementById("btn-submit");
-      btnSubmit.innerText = "Enviando...";
-      btnSubmit.disabled = true;
-
-      const payload = {
-        nome: document.getElementById("nome").value.trim().toUpperCase(),
-        celular: inputCelular.value.trim(),
-        cpf: inputCPF.value.trim(),
-        rg: document.getElementById("rg").value.trim(),
-        veiculo_tipo: document.getElementById("veiculo_tipo").value,
-        veiculo_marca: document.getElementById("veiculo_marca").value.trim().toUpperCase(),
-        placa: inputPlaca.value.trim().toUpperCase(),
-        cor: document.getElementById("cor").value.trim().toUpperCase(),
-        checkin: document.getElementById("checkin").value,
-        checkout: document.getElementById("checkout").value,
-        acompanhantes: acompanhantes.map(ac => ({
-          nome: ac.nome.trim().toUpperCase(),
-          cpf: ac.cpf.trim(),
-          rg: ac.rg.trim()
-        })).filter(ac => ac.nome !== "")
-      };
-
-      try {
-        const resp = await fetch("/api/precheckin", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-
-        const data = await resp.json();
-        if (data.ok) {
-          alert("Pré-check-in enviado com sucesso! Seus dados já estão salvos e liberados para a portaria na data da hospedagem.");
-          document.getElementById("checkinForm").reset();
-          acompanhantes = [];
-          renderAcompanhantes();
-        } else {
-          throw new Error();
-        }
-      } catch (err) {
-        console.error(err);
-        alert("Ocorreu um erro ao enviar o pré-check-in. Por favor, tente novamente.");
-      } finally {
-        btnSubmit.innerText = "Enviar Pré-Check-in";
-        btnSubmit.disabled = false;
-      }
-    });
-
-  </script>
+function resetForm(){
+  document.getElementById("nomeHospede").value = "";
+  document.getElementById("celHospede").value = "";
+  document.getElementById("cpfHospede").value = "";
+  document.getElementById("rgHospede").value = "";
+  document.getElementById("marcaModelo").value = "";
+  document.getElementById("placa").value = "";
+  document.getElementById("cor").value = "";
+  document.getElementById("checkin").value = "";
+  document.getElementById("checkout").value = "";
+  document.getElementById("erroCpfPrincipal").innerText = "";
+  document.getElementById("acompanhantes").innerHTML = "";
+  totalAcompanhantes = 0;
+}
+</script>
 </body>
 </html>
