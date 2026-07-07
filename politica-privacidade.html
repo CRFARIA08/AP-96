@@ -13,7 +13,7 @@
       font-family: 'Inter', sans-serif;
     }
     body {
-      background-color: #7e7e7e; /* Cinza médio combinando com o fundo do cadastro */
+      background: linear-gradient(135deg, #0b132b 0%, #16223f 100%);
       color: #1d1d1f;
       display: flex;
       justify-content: center;
@@ -23,26 +23,27 @@
     .container {
       max-width: 700px;
       background: #ffffff;
-      border: 1px solid #e5e5ea;
+      border: 1px solid #e2e8f0;
       border-radius: 24px;
       padding: 40px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
     h1 {
       font-size: 2rem;
       font-weight: 700;
       margin-bottom: 20px;
-      color: #1d1d1f;
-      border-bottom: 1px solid #e5e5ea;
+      color: #0f172a;
+      border-bottom: 1px solid #e2e8f0;
       padding-bottom: 12px;
     }
     h2 {
       font-size: 1.25rem;
       margin: 24px 0 12px;
-      color: #1d1d1f;
+      color: #0f172a;
+      font-weight: 700;
     }
     p, li {
-      color: #515154;
+      color: #475569;
       font-size: 0.95rem;
       margin-bottom: 12px;
     }
@@ -54,17 +55,18 @@
       display: inline-block;
       margin-top: 30px;
       padding: 12px 24px;
-      background: #0071e3;
+      background: linear-gradient(135deg, #0071e3 0%, #005bb7 100%);
       color: #ffffff;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
       border-radius: 12px;
-      transition: all 0.2s;
-      box-shadow: 0 4px 10px rgba(0, 113, 227, 0.15);
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(0, 113, 227, 0.3);
     }
     .btn-back:hover {
-      background: #0077ed;
-      transform: translateY(-1px);
+      background: linear-gradient(135deg, #0077ed 0%, #0062c3 100%);
+      transform: translateY(-1.5px);
+      box-shadow: 0 6px 20px rgba(0, 113, 227, 0.4);
     }
   </style>
 </head>
@@ -99,7 +101,24 @@
     <h2>5. Seus direitos</h2>
     <p>Você pode, a qualquer momento, solicitar a confirmação da existência de tratamento, o acesso aos seus dados ou a sua correção por meio de contato direto com o proprietário/anfitrião.</p>
 
-    <a href="javascript:history.back()" class="btn-back">Voltar ao Check-in</a>
+    <a href="cadastro.html" id="btn-back" class="btn-back">Voltar ao Check-in</a>
   </div>
+
+  <script>
+    document.getElementById('btn-back').addEventListener('click', function(e) {
+      e.preventDefault();
+      // Se houver histórico anterior no mesmo site, volta uma página
+      if (document.referrer && window.history.length > 1) {
+        window.history.back();
+      } else {
+        // Tenta fechar a aba caso tenha sido aberta com target="_blank"
+        window.close();
+        // Fallback rápido: se a aba não puder ser fechada por regras de segurança do navegador, redireciona
+        setTimeout(function() {
+          window.location.href = "cadastro.html";
+        }, 100);
+      }
+    });
+  </script>
 </body>
 </html>
